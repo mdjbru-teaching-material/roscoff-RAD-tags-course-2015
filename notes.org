@@ -3,8 +3,9 @@
 ** Problematic
 - High coverage
 - Genome reduction
+- Non-model species
 
-** Presentation of the RAD-tag approach
+** Presentation of the RAD-tag approach (history)
 - Protocol
 - Single or double digest
 - Single end or paired ends
