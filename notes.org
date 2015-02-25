@@ -1,3 +1,10 @@
+#+Title: Draft notes
+#+Summary: draftNotes
+#+URL: draft-notes.html
+#+Save_as: draft-notes.html
+#+Sortorder: 030
+#+Slug: draftNotes
+
 * Course about RAD-tag sequencing - Roscoff 2015
 
 ** Problematic
@@ -30,36 +37,3 @@
 - Predicting the number of fragmnts based on published genome sequence and
   restriction sites with python scripts
 
-* Bibliography
-
-Important difference between methods based on restriction site polymorphism
-(like Miller 2007 Genome Research) and methods that use restriction sites as a
-way to decrease genomic complexity before seauencing.
-
-** Miller 2007 Genome Research
-*** Abstract
-- Eric A. Johnson's group at the University of Oregon
-- Definition of RAD tags: "Restriction site associated DNA (RAD) tags are a
-  genome-wide representation of every site of a particular restriction enzyme
-  by short DNA tags"
-- Here, looking for polymorphism that disrupt restriction sites (like RFLP,
-  AFLP) but for many more loci than the previous methods.
-- Not sequencing but use of a micro-array platform
-- "RAD markers [...] allow high-throughput, high-resolution genotyping in both
-  model and nonmodel systems"
-*** Interest of RAD tags
-- Genetic mapping (recombination mapping, association mapping) needs
-  "high-throughput, cost-effective methods to identify and genotype
-  polymorphisms"
-- Previous methods:
-  + allele-specific oligonucleotide microarrays (thousands of SNPs scored per
-    hybridization)
-  + direct hybridization of labelled genomic DNA to short oligonucleotide
-    arrays
-  + single feature polymorphisms (SFP) can be discovered and typed in a similar
-    way
-- Those methods need costly preliminary steps (sequencing, oligonucleotide
-  synthesis) and are not easily feasible for non-model organisms
-*** Principle
-- Very good illustration in Figure 1
-*** TODO finish reading

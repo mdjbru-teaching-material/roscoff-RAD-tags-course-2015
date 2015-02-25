@@ -1,0 +1,27 @@
+help:
+	@echo 'Makefile for the Roscoff RAD tags course 2015 website                  '
+	@echo '                                                                       '
+	@echo 'Usage:                                                                 '
+	@echo '   make updatePages                 update pages from org files        '
+	@echo '   make publish                     generate using production settings '
+	@echo '   make serve                       serve site at http://localhost:8000'
+	@echo '   make stopserver                  stop local server                  '
+	@echo '   make github                      upload the web site via gh-pages   '
+
+updatePages:
+	python org2md.py bibliography-notes.org notes.org schedule.org
+	mv bibliography-notes.md notes.md schedule.md pelican_website/content/pages/
+
+publish:
+	make updatePages
+	cd pelican_website; make publish
+
+serve:
+	cd pelican_website; make serve
+
+stopserver:
+	cd pelican_website; make stopserver
+
+github:
+	make updatePages
+	cd pelican_website; make github
