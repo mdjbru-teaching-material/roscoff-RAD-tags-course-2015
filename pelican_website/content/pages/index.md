@@ -19,7 +19,8 @@ along the genome can be adjusted by carefully choosing the restriction enzyme.
 The local organizers of the course are Thomas Broquet and Didier Jollivet. The
 course will be taught by Matthieu Bruneaux and Gildas Le Corguillé.
 
-All the materials are available from a GitHub repository.
+All the materials are available from
+[GitHub](https://github.com/mdjbru-teaching-material/roscoff-RAD-tags-course-2015).
 
 # Contact
 

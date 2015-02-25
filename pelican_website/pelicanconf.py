@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Matthieu Bruneaux'
 SITENAME = u'Roscoff course 2015 - RAD tags'
-SITEURL = 'http://mdjbru-teaching-material.github.io/roscoff_course_2015'
+SITEURL = 'http://mdjbru-teaching-material.github.io/roscoff-RAD-tags-course-2015'
 
 PATH = 'content'
 

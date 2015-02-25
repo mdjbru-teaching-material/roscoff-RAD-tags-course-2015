@@ -10,7 +10,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-SITEURL = 'http://mdjbru-teaching-material.github.io/roscoff_course_2015'
+SITEURL = 'http://mdjbru-teaching-material.github.io/roscoff-RAD-tags-course-2015'
 RELATIVE_URLS = True
 
 #FEED_ALL_ATOM = 'feeds/all.atom.xml'
