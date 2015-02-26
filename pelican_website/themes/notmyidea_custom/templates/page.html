@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block title %}{{ page.title }}{% endblock %}
 {% block content %}
+{% if page.toc %}
+<nav class="toc">
+  {{ page.toc }}
+</nav>
+{% endif %}
 <section id="content" class="body">
     <!-- <h1 class="entry-title">{{ page.title }}</h1> -->
     {% import 'translations.html' as translations with context %}

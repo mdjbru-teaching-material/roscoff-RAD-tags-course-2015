@@ -43,3 +43,6 @@ LOAD_CONTENT_CACHE = False
 
 # Paths
 STATIC_PATHS=["images"]
+
+# http://pirsquared.org/blog/pelican-transition.html#enabling-table-of-contents-for-posts
+#MD_EXTENSIONS =  [ 'toc', 'codehilite','extra']

@@ -47,3 +47,10 @@ Teaching objectives
 -   Predicting the number of fragmnts based on published genome sequence
     and restriction sites with python scripts
 
+-   Important people
+-   Miller Michael R.
+-   Johnson Eric A.
+-   Cresko William A.
+-   Baird Nathan A.
+
+

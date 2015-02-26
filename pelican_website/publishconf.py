@@ -13,12 +13,11 @@ from pelicanconf import *
 SITEURL = 'http://mdjbru-teaching-material.github.io/roscoff-RAD-tags-course-2015'
 RELATIVE_URLS = True
 
-#FEED_ALL_ATOM = 'feeds/all.atom.xml'
-#CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
-
 DELETE_OUTPUT_DIRECTORY = True
 
-# Following items are often useful when publishing
-
-#DISQUS_SITENAME = ""
-#GOOGLE_ANALYTICS = ""
+# Org reader
+#PLUGIN_PATHS = ["./org_reader"]
+#PLUGINS = ["org_reader"]
+#ORG_READER_EMACS_LOCATION = "/usr/bin/emacs"
+#PLUGIN_PATHS = ["./extract_toc"]
+#PLUGINS = ["extract_toc"]
