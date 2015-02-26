@@ -4,7 +4,7 @@
 #+Save_as: index.html
 #+Sortorder: 010
 #+Slug: home
-#+OPTIONS: toc:nil
+#+OPTIONS: toc:nil num:nil html-postamble:nil
 
 *Restriction site associated DNA markers* (RAD tags) are used in association
 with high-throughput sequencing methods for *genotyping in both model and
