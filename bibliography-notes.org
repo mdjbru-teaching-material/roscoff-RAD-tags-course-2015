@@ -1,5 +1,5 @@
 #+Title: Bibliography notes
-#+Summary: bibliographyNotes
+#+HTML_HEADER: <META NAME="Summary" CONTENT="bibliographyNotes">
 #+URL: bibliography-notes.html
 #+Save_as: bibliography-notes.html
 #+Sortorder: 020

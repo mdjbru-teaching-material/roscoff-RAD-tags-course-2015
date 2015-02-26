@@ -9,8 +9,10 @@ help:
 	@echo '   make github                      upload github and the web site           '
 
 updatePages:
-	python org2md.py bibliography-notes.org notes.org schedule.org
-	mv bibliography-notes.md notes.md schedule.md pelican_website/content/pages/
+#	python org2md.py bibliography-notes.org notes.org schedule.org
+#	mv bibliography-notes.md notes.md schedule.md pelican_website/content/pages/
+	python org2html.py index.org bibliography-notes.org notes.org schedule.org
+	mv *.html pelican_website/content/pages/
 
 publish:
 	make updatePages
