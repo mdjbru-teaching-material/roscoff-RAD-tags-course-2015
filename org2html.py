@@ -54,9 +54,9 @@ def getHtmlBody(inputFile) :
         content = BeautifulSoup(fi.read())
         b = content.body
         b.h1.decompose()
-        o = b.prettify()
-        o = o.replace("<body>\n <div id=\"content\">\n", "<body>\n")
-        o = o.replace(" </div>\n</body>\n", "</body>\n")
+        o = unicode(b)
+        o = o.replace("<body>\n<div id=\"content\">", "<body>\n")
+        o = o.replace("</div>\n</body>", "</body>")
         return(o)
 
 ### ** formatMetaTags(metadata)
