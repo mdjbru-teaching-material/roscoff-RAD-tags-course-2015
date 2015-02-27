@@ -4,7 +4,7 @@
 #+Save_as: schedule.html
 #+Sortorder: 015
 #+Slug: schedule
-#+OPTIONS: toc:nil num:nil
+#+OPTIONS: toc:nil num:nil html-postamble:nil
 
 The practicals will take place on 10th, 11th and 12th of March at the [[http://www.sb-roscoff.fr/][Station
 Biologique de Roscoff]], in the computer room (IGM).

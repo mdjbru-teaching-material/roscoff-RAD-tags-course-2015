@@ -4,6 +4,7 @@
 #+Save_as: bibliography-notes.html
 #+Sortorder: 020
 #+Slug: bibliographyNotes
+#+OPTIONS: num:nil html-postamble:nil
 
 The idea of using restriction site associated DNA (RAD) markers on a large
 scale was first introduced in a paper by [[http://genome.cshlp.org/content/17/2/240.long][Miller et al. (2007)]] from Eric
@@ -13,12 +14,13 @@ There are important differences between methods based on *restriction site
 polymorphism* (like [[http://genome.cshlp.org/content/17/2/240.long][Miller et al. 2007]]) and methods that use restriction sites
 as a way to *decrease genomic complexity* before sequencing.
 
-Below are bibliography notes related to the use of RAD tags.
+Below are bibliography notes related to the use of RAD tags - (*) denotes
+papers of particular interest.
 
-* *Miller et al. (2007) - Genome Research* ([[http://genome.cshlp.org/content/17/2/240.long][link]])
+* Miller et al. (2007) - Genome Research (*)
 
-*Rapid and cost-effective polymorphism identification and genotyping using
-restriction site associated DNA (RAD) markers*
+*[[http://genome.cshlp.org/content/17/2/240.long][Rapid and cost-effective polymorphism identification and genotyping using
+restriction site associated DNA (RAD) markers]]*
 
 - Summary
   + Eric A. Johnson's group at the University of Oregon
@@ -55,28 +57,28 @@ restriction site associated DNA (RAD) markers*
   + Easy to produce microarray type of genotyping resource
   + Bulk genotyping is possible
   + If markers location is determined, genetic mapping is possible
-# Comment to force pandoc to initiate a new section
-* *Miller et al. (2007) - Genome Biology* ([[http://genomebiology.com/content/8/6/R105][link]])
 
-*RAD marker microarrays enable rapid mapping of zebrafish mutations*
+* Miller et al. (2007) - Genome Biology (*)
+
+*[[http://genomebiology.com/content/8/6/R105][RAD marker microarrays enable rapid mapping of zebrafish mutations]]*
 
 - Developed a RAD marker microarray resource for the zebrafish
 - Bulk segregant approach to map mutations
 - Assay for individual RAD markers in pooled populations
 
-** TODO Read in more details
+**** TODO Read in more details
 
-* Lewis et al. (2007) - Genetics ([[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2034621/][link]])
+* Lewis et al. (2007) - Genetics
 
-*High-Density Detection of Restriction-Site-Associated DNA Markers for Rapid
-Mapping of Mutated Loci in Neurospora*
+*[[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2034621/][High-Density Detection of Restriction-Site-Associated DNA Markers for Rapid
+Mapping of Mutated Loci in Neurospora]]*
 
 - Micro-array based RAD markers in /Neurospora crassa/
 
 
-* *Baird et al. (2008) - PLoS ONE* ([[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0003376][link]])
+* Baird et al. (2008) - PLoS ONE (*)
 
-*Rapid SNP Discovery and Genetic Mapping Using Sequenced RAD Markers*
+*[[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0003376][Rapid SNP Discovery and Genetic Mapping Using Sequenced RAD Markers]]*
 
 - RAD tags associated with Illumina sequencing for SNP discovery
 - SNP identified by sequenced polymorphism and disrupted restriction sites
@@ -84,10 +86,10 @@ Mapping of Mutated Loci in Neurospora*
 - Samples can be multiplexed by barcoding
 - Useful with or without a reference genome
 
-* *Hohenlohe et al. (2010) - PLoS Genetics* ([[http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1000862][link]])
+* Hohenlohe et al. (2010) - PLoS Genetics (*)
 
-*Population Genomics of Parallel Adaptation in Threespine Stickleback using
-Sequenced RAD Tags*
+*[[http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1000862][Population Genomics of Parallel Adaptation in Threespine Stickleback using
+Sequenced RAD Tags]]*
 
 A major paper about sequenced RAD tags.
 
@@ -105,10 +107,10 @@ A major paper about sequenced RAD tags.
   - Barcoded sample
   - Kernel smoothing and permutation testing
 
-* *Hohenlohe et al. (2011) - Molecular Ecology Resources* ([[http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02967.x/abstract][link]])
+* Hohenlohe et al. (2011) - Molecular Ecology Resources (*)
 
-*Next-generation RAD sequencing identifies thousands of SNPs for assessing
- hybridization between rainbow and westslope cutthroat trout*
+*[[http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02967.x/abstract][Next-generation RAD sequencing identifies thousands of SNPs for assessing
+ hybridization between rainbow and westslope cutthroat trout]]*
 
 - Nonmodel organism (no genome available)
 - Salmonid fish, several whole-genome duplication
@@ -117,9 +119,9 @@ A major paper about sequenced RAD tags.
 - Use 24 barcode-labelled individuals
 - Use Stacks for analysis (genotyping)
 
-* Etter et al. (2011) - PLoS ONE ([[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018561][link]])
+* Etter et al. (2011) - PLoS ONE
 
-*Local De Novo Assembly of RAD Paired-End Contigs Using Short Sequencing Reads*
+*[[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018561][Local De Novo Assembly of RAD Paired-End Contigs Using Short Sequencing Reads]]*
 
 - Use paired-end sequencing of RAD fragments to build contigs on the side which
   is cut by random shearing
@@ -127,4 +129,3 @@ A major paper about sequenced RAD tags.
 - Produce overlapping contigs of several hundred nucleotides in /E. coli/ and
   threespine stickleback
 - A circularization step can allow a local assembly of up to 5 kb
-
