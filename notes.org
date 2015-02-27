@@ -23,7 +23,6 @@
 - Population genetics
 - Functional genomics
 
-#
 * Practicals
 
 ** Teaching objectives
@@ -45,6 +44,10 @@
   evolution)
 - Hohenlohe 2011: short reads for rainbow trout and westslope cutthroat trout
   (SNP identification for hybridization diagnostic)
+
+** Connection to ABiMS
+- [[http://abims.sb-roscoff.fr/resources/cluster/howto][Cluster HowTo]]
+- [[http://application.sb-roscoff.fr/ganglia/][Cluster load monitoring]]
 
 
 * Important people and groups
