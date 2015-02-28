@@ -17,12 +17,48 @@
 - Protocol
 - Single or double digest
 - Single end or paired ends
-
+- Advantage over SNP-chip: no prior knowledge of the genome is needed, less
+  costly to put in place for non-model species
+- As explained in Peterson 2012, SNP-chip or similar, once designed, can only
+  test for the variability which was known at design time and cannot detect
+  rare alleles or population-specific variants, even though those can be of
+  high interest in population genetics studies
+- Peterson 2012 introduces the double-digest method for reduced representation
+  but increased coverage
 ** Use of RAD tags
 - SNP discovery
 - Population genetics
 - Functional genomics
-
+- Phylogeography (Emerson 2011, discussed also in Puritz 2012)
+- Phylogeny (Rubin 2012)
+** Issues
+- Variation of coverage between libraries (e.g. Pfender 2011, Bruneaux 2013)
+- The second read on paired reads is not at a constant location - ddRAD enables
+  to have stacks from both sides
+- Pooled population samples: how many individuals to pool? How deep to
+  sequence? Find the paper I sent to Anti where there was ann excel sheet with
+  formulas to calculate the power of different sequencing designs
+- Example of Bruneaux 2013 with low coverage: don't try to do too many
+  populations! Focus on simple design to get good coverage.
+** Technical points
+- If reference genome, no need for assembly, raw reads can be mapped back to
+  the genome (Hohenlohe 2012)
+- Likelihood methods can be used to determine the probability of each genotype
+  at each nucleotide position (e.g. Hohenlohe 2012 but also others I think)
+- Paired-ends: use depends on whether it is RAD or ddRAD. With RAD, 2nd read
+  can be used for contigs. With ddRAD, 2nd read also provides stacks. The
+  paired information provides data about genomic distance (because of the
+  size-selection step in the sample preparation, cf. the observed size
+  distribution for the fragments observed for the 9spine
+** Pipeline
+- Cleaning
+- Demultiplex and remove adapters
+- Detailed pipeline for ddRAD in Peterson 2012, with very interesting choices
+** Presentation
+- Introduce the 9spine system, gigantism, different behaviour, plate morphs,
+  short reference to threespine also, marine vs freshwater (specify Baltic Sea
+  salinity is low)
+- Talk about the sample preparation (by Anti, cf. his ppt presentation)
 * Practicals
 
 ** Teaching objectives
