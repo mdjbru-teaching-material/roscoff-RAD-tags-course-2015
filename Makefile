@@ -8,11 +8,8 @@ help:
 	@echo '   make stopserver                  stop local server                        '
 	@echo '   make github                      upload github and the web site           '
 
-updatePages:
-#	python org2md.py bibliography-notes.org notes.org schedule.org
-#	mv bibliography-notes.md notes.md schedule.md pelican_website/content/pages/
-	python org2html.py index.org bibliography-notes.org notes.org schedule.org
-	mv *.html pelican_website/content/pages/
+updatePages: pelican_website/content/pages/bibliography-notes.html pelican_website/content/pages/index.html \
+  pelican_website/content/pages/notes.html pelican_website/content/pages/schedule.html
 
 publish:
 	make updatePages
@@ -29,3 +26,18 @@ github:
 	make updatePages
 	cd pelican_website; make github
 
+pelican_website/content/pages/bibliography-notes.html: bibliography-notes.org
+	python org2html.py bibliography-notes.org
+	mv bibliography-notes.org pelican_website/content/pages/
+
+pelican_website/content/pages/index.html: index.org
+	python org2html.py index.org
+	mv index.org pelican_website/content/pages/
+
+pelican_website/content/pages/notes.html: notes.org
+	python org2html.py notes.org
+	mv notes.org pelican_website/content/pages/
+
+pelican_website/content/pages/schedule.html: schedule.org
+	python org2html.py schedule.org
+	mv schedule.org pelican_website/content/pages/
