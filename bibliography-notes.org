@@ -6,20 +6,11 @@
 #+Slug: bibliographyNotes
 #+OPTIONS: num:nil html-postamble:nil
 
-The idea of using restriction site associated DNA (RAD) markers on a large
-scale was first introduced in a paper by [[http://genome.cshlp.org/content/17/2/240.long][Miller (2007)]] from Eric
-A. Johnson's group.
+Below are bibliography notes related to the use of RAD tags - *(§)*, *(§§)* and
+*(§§§)* denotes papers of particular interest, and *(Rev)* denotes
+reviews. Please note that this bibliography is not exhaustive!
 
-There are important differences between methods based on *restriction site
-polymorphism* (like [[http://genome.cshlp.org/content/17/2/240.long][Miller 2007]]) and methods that use restriction sites as a
-way to *decrease genomic complexity* before sequencing (RAD-seq). While
-restriction site polymorphism was historically (in 2007!) used first, mainly
-the RAD-seq method and its derivative are used at present.
-
-Below are bibliography notes related to the use of RAD tags - (+), (++) and
-(+++) denotes papers of particular interest, and (Rev) denotes reviews.
-
-* Miller (2007) - Genome Research (+++)
+* Miller (2007) - Genome Research *(§§§)*
 
 *[[http://genome.cshlp.org/content/17/2/240.long][Rapid and cost-effective polymorphism identification and genotyping using
 restriction site associated DNA (RAD) markers]]*
@@ -60,7 +51,7 @@ restriction site associated DNA (RAD) markers]]*
   + Bulk genotyping is possible
   + If markers location is determined, genetic mapping is possible
 
-* Miller (2007) - Genome Biology (+)
+* Miller (2007) - Genome Biology *(§)*
 
 *[[http://genomebiology.com/content/8/6/R105][RAD marker microarrays enable rapid mapping of zebrafish mutations]]*
 
@@ -75,7 +66,7 @@ Mapping of Mutated Loci in Neurospora]]*
 
 - Micro-array based RAD markers in /Neurospora crassa/
 
-* Baird (2008) - PLoS One (++)
+* Baird (2008) - PLoS One *(§§)*
 
 *[[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0003376][Rapid SNP Discovery and Genetic Mapping Using Sequenced RAD Markers]]*
 
@@ -85,7 +76,7 @@ Mapping of Mutated Loci in Neurospora]]*
 - Samples can be multiplexed by barcoding
 - Useful with or without a reference genome
 
-* Hohenlohe (2010) - PLoS Genetics (+++)
+* Hohenlohe (2010) - PLoS Genetics *(§§§)*
 
 *[[http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1000862][Population Genomics of Parallel Adaptation in Threespine Stickleback using
 Sequenced RAD Tags]]*
@@ -106,7 +97,7 @@ A major paper about sequenced RAD tags.
   - Barcoded sample
   - Kernel smoothing and permutation testing
 
-* Hohenlohe (2011) - Molecular Ecology Resources (+)
+* Hohenlohe (2011) - Molecular Ecology Resources *(§)*
 
 *[[http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02967.x/abstract][Next-generation RAD sequencing identifies thousands of SNPs for assessing
  hybridization between rainbow and westslope cutthroat trout]]*
@@ -118,14 +109,14 @@ A major paper about sequenced RAD tags.
 - Use 24 barcode-labelled individuals
 - Use Stacks for analysis (genotyping)
 
-* Emerson (2011) - PNAS (++)
+* Emerson (2011) - PNAS *(§§)*
 
 *[[http://www.pnas.org/content/107/37/16196.abstract][Resolving postglacial phylogeography using high-throughput sequencing]]*
 
 - Fine-scale phylogenetic relationships between recently diverged (from a
   refugium after the recession of the Laurentide ice sheet 22000-19000 BP)
   populations of pitcher plant mosquito
-- Discussed also in [[TODO_ADD_LINK][Puritz 2012]] ("Next-Generation Phylogeography: A Targeted
+- Discussed also in [[http://journals.plos.org/plosone/article?id%3D10.1371/journal.pone.0034241][Puritz 2012]] ("Next-Generation Phylogeography: A Targeted
   Approach for Multilocus Sequencing of Non-Model Organisms") in which they use
   454 sequencing:
   #+BEGIN_QUOTE
@@ -158,24 +149,24 @@ A major paper about sequenced RAD tags.
   threespine stickleback
 - A circularization step can allow a local assembly of up to 5 kb
 
-* Etter (2011) - Methods in Molecular Biology (Rev)
+* Etter (2011) - Methods in Molecular Biology *(Rev)*
 
-*[[TODO_ADD_LiNK][SNP Discovery and Genotyping for Evolutionary Genetics Using RAD Sequencing]]*
+*[[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3658458/][SNP Discovery and Genotyping for Evolutionary Genetics Using RAD Sequencing]]*
 
 - Review chapter about RAD genotyping (RAD with Illumina sequencing) or
   *RAD-seq*
 
-* Davey (2011) - Briefings in Functional Genomics (Rev)
+* Davey (2011) - Briefings in Functional Genomics *(Rev)*
 
-*[[TODO_ADD_LINK][RADSeq: next-generation population genetics]]*
+*[[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3080771/][RADSeq: next-generation population genetics]]*
 
 - Review about RAD-seq and its use for population genomics
 - Interest for non-model organisms, wild populations and ecological population
   genomics
 
-* Davey (2011) - Nature Reviews Genetics (Rev) (+)
+* Davey (2011) - Nature Reviews Genetics *(Rev)* *(§)*
 
-*[[TODO_ADD_LINK][Genome-wide genetic marker discovery and genotyping using
+*[[http://www.nature.com/nrg/journal/v12/n7/full/nrg3012.html][Genome-wide genetic marker discovery and genotyping using
 next-generation sequencing]]*
 
 - Review about NGS methods that use restriction enzyme digestion to reduce the
@@ -187,9 +178,8 @@ next-generation sequencing]]*
 
 * O'Rourke (2011) - Genetics
 
-*[[TODO_ADD_LINK][Rapid Mapping and Identification of Mutations in /Caenorhabditis elegans/ by
-Restriction Site-Associated DNA Mapping and Genomic Interval Pull-Down
-Sequencing]]*
+*[[http://www.ncbi.nlm.nih.gov/pubmed/21900274][Rapid Mapping and Identification of Mutations in /Caenorhabditis elegans/ by
+Restriction Site-Associated DNA Mapping and Genomic Interval Pull-Down Sequencing]]*
 
 - Forward genetic screens in /C. elegans/ (association between phenotypes and
   mutated genes)
@@ -197,9 +187,9 @@ Sequencing]]*
 - Use genomic interval pull-down sequencing (GIPS) to capture and sequence
   large portions of a mutant genome (ca. Mb)
 
-* Pfender (2011) - Theor. Appl. Genet. (+)
+* Pfender (2011) - Theor. Appl. Genet. *(§)*
 
-*[[TODO_ADD_LINK][Mapping with RAD (restriction-site associated DNA) markers to rapidly identify
+*[[http://www.ncbi.nlm.nih.gov/pubmed/21344184][Mapping with RAD (restriction-site associated DNA) markers to rapidly identify
 QTL for stem rust resistance in /Lolium perenne/]]*
 
 - Use RAD-seq to produce maps and identify QTL (in association with simple
@@ -209,14 +199,14 @@ QTL for stem rust resistance in /Lolium perenne/]]*
 
 * Chong (2011) - Bioinformatics
 
-*[[TODO_ADD_LINK][Rainbow: an integrated tool for efficient clustering and
+*[[http://bioinformatics.oxfordjournals.org/content/28/21/2732.full][Rainbow: an integrated tool for efficient clustering and
 assembling RAD-seq reads]]*
 
 - Tools to assemble RAD reads
 
-* Flight (2012) - Integrative and Comparative Biology (+)
+* Flight (2012) - Integrative and Comparative Biology *(§)*
 
-*[[TODO_ADD_LINK][Genetic Variation in the Acorn Barnacle from Allozymes
+*[[http://www.ncbi.nlm.nih.gov/pubmed/22767487][Genetic Variation in the Acorn Barnacle from Allozymes
 to Population Genomics]]*
 
 - Use allozymes, microsatellites, mtDNA and RADseq
@@ -226,9 +216,9 @@ to Population Genomics]]*
 - Fst outlier analysis (using unbiased estimates and empirical distribution,
   with the 1% tail of the distribution being the outliers)
 
-* Hohenlohe (2012) - Phil. Trans. R. Soc. B (++)
+* Hohenlohe (2012) - Phil. Trans. R. Soc. B *(§§)*
 
-*[[TODO_ADD_LINK][Extensive linkage disequilibrium and parallel adaptive divergence across
+*[[http://www.ncbi.nlm.nih.gov/pubmed/22201169][Extensive linkage disequilibrium and parallel adaptive divergence across
 threespine stickleback genomes]]*
 
 - Study patterns of local and long-distance linkage desequilibrium (LD) across
@@ -241,9 +231,9 @@ threespine stickleback genomes]]*
 - Align raw reads to reference genome with Bowtie
 - Use likelihood methods to infer the genotype at each nucleotide
 
-* Houston (2012) - BMC Genomics (+)
+* Houston (2012) - BMC Genomics *(§)*
 
-*[[TODO_ADD_LINK][Characterisation of QTL-linked and genome-wide restriction site-associated DNA
+*[[http://www.biomedcentral.com/1471-2164/13/244][Characterisation of QTL-linked and genome-wide restriction site-associated DNA
 (RAD) markers in farmed Atlantic salmon]]*
 
 - RAD-seq on two Atlantic salmon families
@@ -255,9 +245,9 @@ threespine stickleback genomes]]*
 - 50 SNPs linked to QTL and a subset used for high-throughput genotyping across
   large commercial populations of disease-challenged fry
 
-* Peterson (2012) - PLoS One (+++)
+* Peterson (2012) - PLoS One *(§§§)*
 
-*[[TODO_ADD_LINK][Double Digest RADseq: An Inexpensive Method for /De Novo/ SNP Discovery and
+*[[http://journals.plos.org/plosone/article?id%3D10.1371/journal.pone.0037135][Double Digest RADseq: An Inexpensive Method for /De Novo/ SNP Discovery and
 Genotyping in Model and Non-Model Species]]*
 
 - Introduce the double-digest method
@@ -266,9 +256,9 @@ Genotyping in Model and Non-Model Species]]*
 - Also compare the observed size distribution with /in silico/ digestion and
   statistical models of size selection
 
-* Rubin (2012) - PLoS One (++)
+* Rubin (2012) - PLoS One *(§§)*
 
-*[[TODO_ADD_LINK][Inferring Phylogenies from RAD Sequence Data]]*
+*[[http://journals.plos.org/plosone/article?id%3D10.1371/journal.pone.0033394][Inferring Phylogenies from RAD Sequence Data]]*
 
 - Simulate RAD-seq data collection for interspecific phylogeny reconstruction
   in /Drosophila/, mammals and yeast

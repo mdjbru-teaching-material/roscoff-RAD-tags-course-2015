@@ -25,6 +25,17 @@
   high interest in population genetics studies
 - Peterson 2012 introduces the double-digest method for reduced representation
   but increased coverage
+
+The idea of using restriction site associated DNA (RAD) markers on a large
+scale was first introduced in a paper by [[http://genome.cshlp.org/content/17/2/240.long][Miller (2007)]] from Eric
+A. Johnson's group.
+
+There are important differences between methods based on *restriction site
+polymorphism* (like [[http://genome.cshlp.org/content/17/2/240.long][Miller 2007]]) and methods that use restriction sites as a
+way to *decrease genomic complexity* before sequencing (RAD-seq). While
+restriction site polymorphism was historically (in 2007!) used first, mainly
+the RAD-seq method and its derivative are used at present.
+
 ** Use of RAD tags
 - SNP discovery
 - Population genetics

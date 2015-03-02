@@ -28,16 +28,16 @@ github:
 
 pelican_website/content/pages/bibliography-notes.html: bibliography-notes.org
 	python org2html.py bibliography-notes.org
-	mv bibliography-notes.org pelican_website/content/pages/
+	mv bibliography-notes.html pelican_website/content/pages/
 
 pelican_website/content/pages/index.html: index.org
 	python org2html.py index.org
-	mv index.org pelican_website/content/pages/
+	mv index.html pelican_website/content/pages/
 
 pelican_website/content/pages/notes.html: notes.org
 	python org2html.py notes.org
-	mv notes.org pelican_website/content/pages/
+	mv notes.html pelican_website/content/pages/
 
 pelican_website/content/pages/schedule.html: schedule.org
 	python org2html.py schedule.org
-	mv schedule.org pelican_website/content/pages/
+	mv schedule.html pelican_website/content/pages/
