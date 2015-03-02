@@ -267,3 +267,158 @@ Genotyping in Model and Non-Model Species]]*
 - RAD-seq seems promising for phylogenies in younger clades (e.g. 60 My vs 100
   My) in which enough orthologous restriction sites are retained across species
 
+* Bruneaux, Johnston (2012) - Molecular Ecology *(§)*
+
+*[[http://www.ncbi.nlm.nih.gov/pubmed/22943747][Molecular evolutionary and population genomic analysis of the nine-spined
+stickleback using a modified restriction-site-associated DNA tag approach]]*
+
+- Double digest RAD-seq on pooled samples of ninespine sticklebacks
+- Mapping back to the related threespine stickleback genome
+- Issues with low coverage per population, resulting in data being pooled per
+  ecotype
+- Kernel smoothing of differentiation values along the genome
+- Permutation testing and gene ontology enrichment test
+
+* Miller (2012) - Molecular Ecology
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2011.05305.x/abstract][A conserved haplotype controls parallel adaptation in geographically distant
+salmonid populations]]*
+
+** TODO read
+
+* Bourgeois (2013) - Molecular Ecology Resources
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12137/pdf][Mass production of SNP markers in a nonmodel passerine bird through RAD
+sequencing and contig mapping to the zebra finch genome]]*
+
+- RAD-seq with Illumina HiSeq2000 on nonmodel passerine bird (paired ends)
+- 6 pools of 18-25 individuals on one lane
+- 600000 contigs, of which 386000 mapped back to zebra finch genome
+- 80000 SNPs mapped
+
+* Gautier (2013) - Molecular Ecology *(§§§)*
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12360/abstract][Estimation of population allele frequencies from next-generation sequencing
+data: pool-versus individual-based genotyping]]*
+
+- Mathematical analysis showing that next-generation sequencing methods applied
+  on DNA pools from diploid individuals give at least the same accuracy as
+  individual-based analyses for SNPs
+- Remains true when unequal contributions of each individual to the final pool
+- Introduce effective pool size and Bayesian model to estimate it
+- Application provided to assess the accuracy of allele frequency estimates
+- Illustration with theoretical examples and real data sets
+- "[NGS of DNA pools] allows comparison of genome-wide patterns of genetic
+  variation for large numbers of individuals in multiple populations"
+
+* DeFaveri (2013) - Molecular Ecology Resources *(§§)*
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12071/full][Characterizing genic and nongenic molecular markers: comparison of
+ microsatellites and SNPs]]*
+
+- Compares patterns of genetic diversity and divergence on various geographical
+  scales for SNP vs microsatellites and genic vs non-genic regions
+- Marker type and location affec estimates of diversity and divergence
+- Between-lineage divergence higher with SNP but within-lineage divergence
+  similar for both marker types
+- Broad-scale population structure resolved by both markers, but only
+  microsatellites can delimit fine-scale population-structuring
+
+* Hecht (2013) - Molecular Ecology *(§§)*
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12082/abstract][Genome-wide association reveals genetic basis for the propensity to migrate in
+ wild populations of rainbow and steelhead trout]]*
+
+- RAD-seq in two wild populations of migratory steelhead and resident rainbow
+  trout
+- genome-wide association study using 189 individuals, uniquely barcoded and
+  distributed in five libraries, single reads, 100 bp
+- 504 SNP markers associated with propensity to migrate both within and between
+  populations
+
+* Catchen (2013) - Molecular Ecology *(§)*
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12330/abstract][The population structure and recent colonization history of Oregon threespine
+ stickleback determined using restriction-site associated DNA-sequencing]]*
+
+- Study with populations which predate the last glacial maximum
+- Use the STRUCTURE program and reconstruct phylogeographic history
+- Results support the a break between coastal and inland populations,
+  introgressive hybridization in coastal populations and a recent expansion in
+  central Oregon
+- "Our results exhibit the power of next-generation sequencing genomic
+  approaches such as RAD-seq to identify both historical population structure
+  and recent colonization history"
+
+* Hale (2013) - Genes Genomes Genetics *(§)*
+
+*[[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3737167/][Evaluating Adaptive Divergence Between Migratory and Nonmigratory Ecotypes of
+ a Salmonid Fish, /Oncorhynchus mykiss/]]*
+
+- Association population genomics and association approaches enables to reveal
+  the genetic basis of variable phenotypic traits, including in nonmodel
+  species, if population structure does not overlap with the phenotypic
+  differences (cf. Susan and Tutku paper about sea-wintering in Atlantic
+  salmon)
+- RAD-seq on rainbow trout to study the divergence between migratory and
+  non-migratory ecotypes
+- Can map some SNP markers using previous linkage maps that used RAD tags
+- Some SNPs fall into regions which contain QTL for migratory-related traits
+- Also use annotation of genome regions linked to the significant SNPs
+
+* Catchen STACKS (2013) - Molecular Ecology *(§§§)*
+
+*[[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3936987/][Stacks: an analysis tool set for population genomics]]*
+
+- STACKS package: genotype-by-sequencing, SNP-by-SNP analysis, sliding window
+  across a genome
+
+* Orsini (2013) - Molecular Ecolgy *(Rev)* *(§)*
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12177/abstract][Evolutionary Ecological Genomics]]*
+
+Review about evolutionary ecological genomics, initiated at the ESEB
+meeting 2011. It mentions RAD among other methods.
+
+* Hess (2013) - Molecular Ecology *(§§)*
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12150/abstract][Population genomics of Pacific lamprey: adaptive variation in a highly
+ dispersive species]]*
+
+- No strict homing behaviour but genetic heterogeneity and morphological and
+  behavioural diversity
+- RAD-seq from 518 individuals (7 libraries of 96 individually barcoded
+  samples)
+- 4439 SNPs, 162 potentially adaptive as detected by outlier tests (formed four
+  groups of linked loci)
+- MATSAM software to associate them with various traits or geography
+- some SNPs aligned with gene region using the genome browser available for sea
+  lamprey
+- Introduction: present the issues with Fst and population structure, refer to
+  Bierne 2011, Le Corre and Kremer 2012, Excoffier and Lischer 2010, Narum and
+  Hess 2011.
+- "Genomic scans using highly dispersive species may be one way to overcome
+  this challenge, because minimal population structure provides a less noisy
+  neutral back- ground of genetic divergence upon which adaptive markers can be
+  readily distinguished as outliers (Pe′rez- Figueroa et al. 2010)."
+
+* Davey (2013) - Molecular Ecology *(§)*
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12084/full][Special features of RAD Sequencing data: implications for genotyping]]*
+
+- RAD-seq associated with sequencing-by-synthesis method: stochastic count
+  data, requires sensitive analysis to develop and genotype markers accurately
+- Exist several sources of bias not addressed by current genotyping tools
+  (fragment bias, restriction site heterozygosity and PCR GC cnotent bias)
+- Study the effect of those biases on current analysis tools
+- Biases must be taken into account, but most RAD loci can be accurately
+  genotyped by existing tools
+
+* McCormack (2013) - Molecular Phylogenetics and Evolution *(Rev)* *(§)*
+
+*[[http://www.sciencedirect.com/science/article/pii/S1055790311005203][Applications of next-generation sequencing to phylogeography and
+ phylogenetics]]*
+
+- Discuss methods of genome complexity reduction for phylogeography and phylogenetics
+- Discuss which tools to use and how to analyze this kind of data
+

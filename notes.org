@@ -42,6 +42,8 @@ the RAD-seq method and its derivative are used at present.
 - Functional genomics
 - Phylogeography (Emerson 2011, discussed also in Puritz 2012)
 - Phylogeny (Rubin 2012)
+- historical population structure and recent colonization history (useful for
+  hydrothermal ecosystems?) (Catchen 2013 Mol Ecol)
 ** Issues
 - Variation of coverage between libraries (e.g. Pfender 2011, Bruneaux 2013)
 - The second read on paired reads is not at a constant location - ddRAD enables
@@ -51,6 +53,11 @@ the RAD-seq method and its derivative are used at present.
   formulas to calculate the power of different sequencing designs
 - Example of Bruneaux 2013 with low coverage: don't try to do too many
   populations! Focus on simple design to get good coverage.
+- DeFaveri 2013 paper: SNPs not as good as microsatellites for fine-scale
+  structure, can it be balanced by very large number of SNPs?
+- Information content per SNP is lower that per microsats, but large numbers
+  can probably tip the balance towards high number of SNPs? Look for papers
+  about that? Shannon information theory?
 ** Technical points
 - If reference genome, no need for assembly, raw reads can be mapped back to
   the genome (Hohenlohe 2012)
@@ -61,6 +68,19 @@ the RAD-seq method and its derivative are used at present.
   paired information provides data about genomic distance (because of the
   size-selection step in the sample preparation, cf. the observed size
   distribution for the fragments observed for the 9spine
+- Gautier 2013 paper about allele frequency estimate accuracy (pool vs
+  individual), application to calculate accuracy
+- Davey 2013: issues with RAD genotyping
+- Use of black boxes (e.g. stacks): pros and cons
+  - pros: the people who made the software knew what they do, enable to perform
+    rigorous statistical analyses, ...
+  - cons: less control/understanding from the user, if bad choice of parameters
+    can be not applicable to one's dataset
+  - the user should understand what is done!
+  - in the end, we always rely on a black box but at a different level
+    (e.g. STACKS, blast, R, python, linux kernel, ...)
+  - find a balance: if we trust the writers of the black box, we must also be
+    confident that we use it properly
 ** Pipeline
 - Cleaning
 - Demultiplex and remove adapters
@@ -70,6 +90,11 @@ the RAD-seq method and its derivative are used at present.
   short reference to threespine also, marine vs freshwater (specify Baltic Sea
   salinity is low)
 - Talk about the sample preparation (by Anti, cf. his ppt presentation)
+** Intregated studies
+- Bruneaux 2013
+- Hess 2013 (sea lamprey)
+- Others...
+
 * Practicals
 
 ** Teaching objectives
@@ -91,11 +116,11 @@ the RAD-seq method and its derivative are used at present.
   evolution)
 - Hohenlohe 2011: short reads for rainbow trout and westslope cutthroat trout
   (SNP identification for hybridization diagnostic)
+- Hess 2013: sea lamprey
 
 ** Connection to ABiMS
 - [[http://abims.sb-roscoff.fr/resources/cluster/howto][Cluster HowTo]]
 - [[http://application.sb-roscoff.fr/ganglia/][Cluster load monitoring]]
-
 
 * Important people and groups
 

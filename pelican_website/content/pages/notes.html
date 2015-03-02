@@ -23,6 +23,7 @@
 <li><a href="#sec-1-5">1.5. Technical points</a></li>
 <li><a href="#sec-1-6">1.6. Pipeline</a></li>
 <li><a href="#sec-1-7">1.7. Presentation</a></li>
+<li><a href="#sec-1-8">1.8. Intregated studies</a></li>
 </ul>
 </li>
 <li><a href="#sec-2">2. Practicals</a>
@@ -80,6 +81,18 @@ high interest in population genetics studies
 but increased coverage
 </li>
 </ul>
+<p>
+The idea of using restriction site associated DNA (RAD) markers on a large
+scale was first introduced in a paper by <a href="http://genome.cshlp.org/content/17/2/240.long">Miller (2007)</a> from Eric
+A. Johnson's group.
+</p>
+<p>
+There are important differences between methods based on <b>restriction site
+polymorphism</b> (like <a href="http://genome.cshlp.org/content/17/2/240.long">Miller 2007</a>) and methods that use restriction sites as a
+way to <b>decrease genomic complexity</b> before sequencing (RAD-seq). While
+restriction site polymorphism was historically (in 2007!) used first, mainly
+the RAD-seq method and its derivative are used at present.
+</p>
 </div>
 </div>
 <div class="outline-3" id="outline-container-sec-1-3">
@@ -95,6 +108,9 @@ but increased coverage
 <li>Phylogeography (Emerson 2011, discussed also in Puritz 2012)
 </li>
 <li>Phylogeny (Rubin 2012)
+</li>
+<li>historical population structure and recent colonization history (useful for
+hydrothermal ecosystems?) (Catchen 2013 Mol Ecol)
 </li>
 </ul>
 </div>
@@ -115,6 +131,13 @@ formulas to calculate the power of different sequencing designs
 <li>Example of Bruneaux 2013 with low coverage: don't try to do too many
 populations! Focus on simple design to get good coverage.
 </li>
+<li>DeFaveri 2013 paper: SNPs not as good as microsatellites for fine-scale
+structure, can it be balanced by very large number of SNPs?
+</li>
+<li>Information content per SNP is lower that per microsats, but large numbers
+can probably tip the balance towards high number of SNPs? Look for papers
+about that? Shannon information theory?
+</li>
 </ul>
 </div>
 </div>
@@ -133,6 +156,29 @@ can be used for contigs. With ddRAD, 2nd read also provides stacks. The
 paired information provides data about genomic distance (because of the
 size-selection step in the sample preparation, cf. the observed size
 distribution for the fragments observed for the 9spine
+</li>
+<li>Gautier 2013 paper about allele frequency estimate accuracy (pool vs
+individual), application to calculate accuracy
+</li>
+<li>Davey 2013: issues with RAD genotyping
+</li>
+<li>Use of black boxes (e.g. stacks): pros and cons
+<ul class="org-ul">
+<li>pros: the people who made the software knew what they do, enable to perform
+rigorous statistical analyses, …
+</li>
+<li>cons: less control/understanding from the user, if bad choice of parameters
+can be not applicable to one's dataset
+</li>
+<li>the user should understand what is done!
+</li>
+<li>in the end, we always rely on a black box but at a different level
+(e.g. STACKS, blast, R, python, linux kernel, …)
+</li>
+<li>find a balance: if we trust the writers of the black box, we must also be
+confident that we use it properly
+</li>
+</ul>
 </li>
 </ul>
 </div>
@@ -159,6 +205,19 @@ short reference to threespine also, marine vs freshwater (specify Baltic Sea
 salinity is low)
 </li>
 <li>Talk about the sample preparation (by Anti, cf. his ppt presentation)
+</li>
+</ul>
+</div>
+</div>
+<div class="outline-3" id="outline-container-sec-1-8">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> Intregated studies</h3>
+<div class="outline-text-3" id="text-1-8">
+<ul class="org-ul">
+<li>Bruneaux 2013
+</li>
+<li>Hess 2013 (sea lamprey)
+</li>
+<li>Others…
 </li>
 </ul>
 </div>
@@ -204,6 +263,8 @@ evolution)
 </li>
 <li>Hohenlohe 2011: short reads for rainbow trout and westslope cutthroat trout
 (SNP identification for hybridization diagnostic)
+</li>
+<li>Hess 2013: sea lamprey
 </li>
 </ul>
 </div>
