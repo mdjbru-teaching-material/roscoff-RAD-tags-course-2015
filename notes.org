@@ -81,6 +81,13 @@ the RAD-seq method and its derivative are used at present.
     (e.g. STACKS, blast, R, python, linux kernel, ...)
   - find a balance: if we trust the writers of the black box, we must also be
     confident that we use it properly
+- Genotype calling: likelihood-based and Bayesian approaches, quick review in
+  Andrews 2014 "Recent novel approaches for population genomics data analysis"
+- Puritz 2014 (reply to Andrews): pros and cons of several RAD protocols,
+  useful to choose a protocol for a given question
+- Pukk 2015: RAD study doesn't have to be super fancy to give interesting
+  results, e.g. with ion torrent and not very high coverage robust diagnostic
+  SNPs between populations can still be detected
 ** Pipeline
 - Cleaning
 - Demultiplex and remove adapters
@@ -96,6 +103,9 @@ the RAD-seq method and its derivative are used at present.
 - Others...
 
 * Practicals
+
+Pipelines include STACKS and dDocent
+https://ddocent.wordpress.com/ddocent-pipeline-user-guide/.
 
 ** Teaching objectives
 - Sequence quality check: trimming, quality control
@@ -149,4 +159,6 @@ data analysis. The groups are:
 
 - Hohenlohe 2010, "Using population genomics to detect selection in natural
   populations: key concepts and methodological considerations" ([[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3016716/][link]]).
-  An interesting review about population genomics.
+- Ellengren 2014, "Genome sequencing and population genomics in non-model
+  organisms" ([[http://www.sciencedirect.com/science/article/pii/S0169534713002310][link]])
+

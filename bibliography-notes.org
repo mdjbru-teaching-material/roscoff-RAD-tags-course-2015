@@ -66,7 +66,7 @@ Mapping of Mutated Loci in Neurospora]]*
 
 - Micro-array based RAD markers in /Neurospora crassa/
 
-* Baird (2008) - PLoS One *(§§)*
+* Baird (2008) - PLoS One *(§§§)*
 
 *[[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0003376][Rapid SNP Discovery and Genetic Mapping Using Sequenced RAD Markers]]*
 
@@ -204,6 +204,22 @@ assembling RAD-seq reads]]*
 
 - Tools to assemble RAD reads
 
+* Chutimanitsakun (2011) - BMC Genomics
+
+*[[http://www.biomedcentral.com/1471-2164/12/4][Construction and application for QTL analysis of a Restriction Site Associated
+DNA (RAD) linkage map in barley]]*
+
+- Use RAD protocol to identify markers, build a linkage map and identify QTL
+- Low number of RAD markers (530) but obtain results comparable with high
+  density EST-based SNP map
+
+* Rowe (2011) - Molecular Ecology *(Rev)*
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2011.05197.x/abstract][RAD in the realm of next-generation sequencing technologies]]*
+
+- Review of RAD as a form of genotyping-by-sequencing
+- Applications in genetic mapping, QTL, phylogeography, population genomics
+
 * Flight (2012) - Integrative and Comparative Biology *(§)*
 
 *[[http://www.ncbi.nlm.nih.gov/pubmed/22767487][Genetic Variation in the Acorn Barnacle from Allozymes
@@ -284,7 +300,10 @@ stickleback using a modified restriction-site-associated DNA tag approach]]*
 *[[http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2011.05305.x/abstract][A conserved haplotype controls parallel adaptation in geographically distant
 salmonid populations]]*
 
-** TODO read
+- Laboratory crosses and NGS to study the genetic architecture of parallel
+  adaptation of rapid development rates in two salmon populations
+- Find parallel genetic mechanism and conservation of haplotype
+- Use custom Perl scripts to process the data and Novoalign for alignment
 
 * Bourgeois (2013) - Molecular Ecology Resources
 
@@ -421,4 +440,137 @@ meeting 2011. It mentions RAD among other methods.
 
 - Discuss methods of genome complexity reduction for phylogeography and phylogenetics
 - Discuss which tools to use and how to analyze this kind of data
+
+* Nevado (2014) - Molecular Ecology *(§)*
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12693/abstract][Resequencing studies of nonmodel organisms using closely related reference
+ genomes: optimal experimental designs and bioinformatics approaches for population genomics]]*
+
+- Guidelines for estimating variability and neutrality tests from NGS data on
+  nonmodel species
+- Compare performances of genotype calling, genotype-haplotype calling and
+  direct estimation
+- In the end, "[s]tudies without species-specific reference genome should thus
+  aim for low read depth and avoid genotype calling whenever individual
+  genotypes are not essential. Otherwise, aiming for moderate to high depth at
+  the expense of number of individuals, and using genotype–haplotype calling,
+  is recommended."
+
+* Hemmer-Hansen (2014) - Biological Bulletin *(Rev)*
+
+*[[http://www.biolbull.org/content/227/2/117.long][Population Genomics of Marine Fishes: Next-Generation Prospects and Challenges
+]]*
+
+- Review about the methods and challenges for population genomics in fishes
+
+* Schweyen (2014) - Biological Bulletin *(§)*
+
+*[[http://www.biolbull.org/content/227/2/146.long][Detection and Removal of PCR Duplicates in Population Genomic ddRAD Studies by
+ Addition of a Degenerate Base Region (DBR) in Sequencing Adapters ]]*
+
+- Present the issue of PCR duplicates in the ddRAD protocol (in paired-ends but
+  single digest, the PCR duplicates can be detected with the 2nd read)
+- Propose an approach with a degenerate base region in the sequencing adapter
+  to identify and remove the PCR duplicates
+- In a test, 34% of a ddRAD library were PCR duplicates distributed over 20% of
+  the loci
+- Disproportionate amount of PCR duplicates in 5% of the loci
+- Not a problem for general parameter inference, but outlier loci detetion
+  could be improved by ddRAD
+
+* Stuart (2014) - Science *(§)*
+
+*[[http://www.sciencemag.org/content/346/6208/463.abstract][Rapid evolution of a native species following invasion by a congener]]*
+
+- Detailed section in Methods (supplementary material) about the RAD-seq part
+- 6 nt barcodes to multiplex 192 individuals per lane (total 384 individuals),
+  single-end sequencing Illumina HiSeq
+- Demulitplex the reads, filter barcode and correct restriction site with
+  STACKS
+- Align reads against a reference genome with Bowtie2 (discard reads which map
+  to more than one location)
+- Diploid genotypes called using a maximum likelihood approach (Catchen 2013
+  Stacks, Hohenlohe 2010 parallel evolution sticklebacks)
+- Neighbor-joining phylogenetic network with SplitsTree4
+- Pairwise Fst between populations 
+
+* Puritz (2014) - PeerJ *(§§)*
+
+*[[https://peerj.com/articles/431/][/dDocent/: a RADseq, variant-calling pipeline designed for population genomics
+of non-model organisms]]*
+
+- Pipeline for variant calling using paired-end RAD-seq data
+- Relies on existing software (one version on FreeBayes, one on GATK)
+
+* Andrews and Puritz paper and responses (2014) - Molecular Ecology *(Rev)* *(§§§)*
+
+A set of three articles about the different RAD approaches in Molecular
+Ecology:
+- Andrews' original paper, *[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12686/abstract][Recent novel approaches for population genomics
+  data analysis]]*
+  + Review about NGS and population genomics
+  + Section about RAD-seq (in which they mention the issue with PCR duplicates)
+  + Interesting section about genotype calling
+  + "Luikart quoted Steve O’Brien (St.  Petersburg State University) who
+    recently said that >90% of the cost of WGS is the bioinformatics,
+    emphasizing the need for scripting and programming skills."
+- Puritz's response, *[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12965/abstract][Demystifying the RAD fad]]*
+  + Disagree with the view that the original RAD protocol (Miller 2007,
+    Baird 2008) minimize the impact of PCR duplicates compared to other RAD
+    methods
+  + Present additional biases in RAD-seq that should be considered when
+    choosing a protocol
+  + Review pros and cons of the different RAD protocols
+- Andrews' reply, *[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12964/abstract][Trade-offs and utility of alternative RADseq methods: Reply
+  to Puritz /et al./]]*
+  + Agree with Puritz that researchers must understand thoroughly the different
+    RAD protocols and analysis before choosing one
+  + Address some key points they find unclear or potentially misleading in
+    their evaluation of techniques
+
+* Heliconius Genome Consortium (2012) - Nature *(§)*
+
+*[[http://www.nature.com/nature/journal/v487/n7405/full/nature11041.html][Butterfly genome reveals promiscuous exchange of mimicry adaptations among
+ species]]*
+
+- Study hybridization and introgression in butterfly
+- RAD tags sequencing for linkage mapping to assign and order genome
+  sequences onto the chromosomes
+- RAD resequencing to build a robust phylogenetic tree
+
+* Keller (2013) - Molecular Ecology
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12083/abstract][Population genomic signatures of divergent adaptation, gene flow and hybrid
+ speciation in the rapid radiation of Lake Victoria cichlid fishes]]*
+
+** TODO read
+
+* Parchman (2013) - Molecular Ecology
+
+*[[http://onlinelibrary.wiley.com/doi/10.1111/mec.12201/abstract][The genomic consequences of adaptive divergence and reproductive isolation
+ between species of manakins]]*
+
+** TODO read
+
+* Heffelfinger (2014) - BMC Genomics *(Rev)* *(§)*
+
+*[[http://www.biomedcentral.com/1471-2164/15/979][Flexible and scalable genotyping-by-sequencing strategies for population
+ studies]]*
+
+- Review methods of genome complexity reduction by restriction enzymes to
+  perform genotyping-by-sequencing
+- Modify the protocol by using blunt-end enzymes so that Illumina adaptors can
+  be used directly, dual barcoding system for multiplexing and bead-based
+  library preparation for in-solution size selection without the need for
+  columns and gels
+- "the sequenced portion of the genome was adaptable by selecting enzymes based
+  on motif length, complexity, and methylation sensitivity"
+
+* Wu (2010) - BMC Genomics
+
+*[[http://www.biomedcentral.com/1471-2164/11/469][SNP discovery by high-throughput sequencing in soybean]]*
+
+- Pooled DNA fragment reduced representation library
+- Solexa short read sequencing to identify SNPs
+
 
