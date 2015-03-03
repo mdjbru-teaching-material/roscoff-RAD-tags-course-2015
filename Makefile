@@ -7,6 +7,14 @@ help:
 	@echo '   make serve                       serve site at http://localhost:8000      '
 	@echo '   make stopserver                  stop local server                        '
 	@echo '   make github                      upload github and the web site           '
+	@echo '   make presentation                make the pdf presentation                '
+
+presentation: presentation.pdf
+
+presentation.pdf: presentation.org
+	# http://stackoverflow.com/questions/22072773/batch-export-of-org-mode-files-from-the-command-line
+	emacs presentation.org --batch -f org-beamer-export-to-pdf --kill
+	rm -f presentation.tex~
 
 updatePages: pelican_website/content/pages/bibliography-notes.html pelican_website/content/pages/index.html \
   pelican_website/content/pages/notes.html pelican_website/content/pages/schedule.html

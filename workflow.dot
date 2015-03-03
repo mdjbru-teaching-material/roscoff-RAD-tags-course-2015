@@ -1,0 +1,30 @@
+digraph G {
+
+/* Graph attributes */
+rankdir=TB; /* graph from top to bottom */
+
+/* All nodes */
+node[shape = box, style = filled];
+
+/* Data nodes */
+node[fillcolor = "#eeeeaa", penwidth = 1];
+
+individuals[label = "Individuals"];
+indDNA[label = "Individual DNA"];
+digestedDNA[label = "Digested DNA"];
+poolDNA[label = "Pooled DNA"];
+
+/* Action nodes */
+node[fillcolor = "#888888", style = filled];
+
+extractDNA[label = "DNA extraction"];
+digestDNA[label = "Digest DNA"];
+
+
+/* Edges */
+
+individuals -> extractDNA -> indDNA;
+indDNA -> digestDNA -> digestedDNA;
+
+
+}

@@ -1,0 +1,112 @@
+#+Title: RAD-seq in Roscoff
+#+Author: Matthieu Bruneaux
+#+Date: 2015-03-10
+
+* General introduction to the workshop
+
+** Mini-workshop about ddRAD - plan
+
+*** Introduction about RAD-seq                                    :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- RAD? RAD-seq? ddRAD?
+- Applications
+- Workflow
+
+*** Practicals                                                    :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- One complete project, from raw reads to final results
+- Cherry-picking of some analysis steps
+- Open questions
+
+*** Objectives                                                    :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Overview of RAD-seq
+- Arouse curiosity
+- Give useful pointers
+
+** Disclaimer
+
+*** Warning!                                                      :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Not a population geneticist, not a bioinformatician
+- Evolutionary biologist who dropped into a RAD-seq project when he was
+  post-doc
+- Some things are probably wrong!
+
+* Introduction: RAD-seq and population genomics
+
+** What are RAD markers?
+Miller et al. 2007
+restriction site polymorphism
+
+** RAD-seq
+
+** Single read vs. paired ends
+Examples, applications
+
+** ddRAD
+Examples, applications
+(population genomics, mapping, QTL, phylogeography, ...)
+or put those appplications in more general context?
+nonmodel species, marker discovery
+anything that needs lots of markers in lots of individuals or pools
+
+** Other flavours
+
+** Typical analysis
+Depends on the question and objectives!
+Experimental/sampling design
+DNA extraction, library preps
+Barcoding? pooling?
+Sequencing (service?)
+Reads cleaning
+demultiplexing
+assembly or alignment (mapping if reference available)
+genotype calling
+RAD stops here (i.e. lots of markers and allele frequencies for different populations or genotypes for individuals)
+Downstream analysis:
+- genome scan
+- Fst, Gst, outlier detection
+- Phylogeography
+- Parallel evolution
+- and many other things...
+
+* Practicals
+
+** General workflow scheme
+
+** One complete project
+
+** Tour of other tools and specific analyses
+To illustrate some specific points (e.g. likelihood or bayesian based genotyping
+or allele frequency estimates or Fst calculations, ...)
+
+* Org config                                                       :noexport:
+
+#+OPTIONS: H:2 toc:nil
+#+STARTUP: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [big]
+#+LaTeX_HEADER: \usepackage{lmodern}
+#+LaTeX_HEADER: \usetheme{Boadilla}
+#+latex_header: \usecolortheme{whale}
+#+LaTeX_HEADER: \setbeamertemplate{footline}{}
+#+LaTeX_HEADER: \setbeamertemplate{navigation symbols}{}
+#+LaTeX_HEADER: \setbeamertemplate{itemize items}[default]
+#+LaTeX_HEADER: \setbeamertemplate{enumerate items}[circle]
+#+LaTeX_HEADER: \setbeamertemplate{alert}{\textbf}
+# http://tex.stackexchange.com/questions/171705/changing-your-bullet-points-in-beamer-block-maybe-boadilla
+# http://tex.stackexchange.com/questions/68347/different-styles-of-bullets-of-enumerate
+# http://tex.stackexchange.com/questions/66995/modify-footer-of-slides
+# http://askubuntu.com/questions/98664/how-can-i-get-smooth-fonts-in-lyx
+# http://orgmode.org/worg/exporters/beamer/tutorial.html
+# http://orgmode.org/manual/Beamer-export.html
+# https://lists.gnu.org/archive/html/emacs-orgmode/2008-07/msg00163.html

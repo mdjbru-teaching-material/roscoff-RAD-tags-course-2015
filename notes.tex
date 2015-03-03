@@ -1,0 +1,230 @@
+% Created 2015-03-03 Tue 17:50
+\documentclass[presentation]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usetheme{default}
+\author{matthieu bruneaux}
+\date{\today}
+\title{Draft notes}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.3.50.1 (Org mode 8.2.3a)}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+
+\begin{frame}[label=sec-1]{Course about RAD-tag sequencing - Roscoff 2015}
+\begin{block}{Problematic}
+\begin{itemize}
+\item High coverage
+\item Genome reduction
+\item Non-model species
+\end{itemize}
+\end{block}
+\begin{block}{Presentation of the RAD-tag approach (history)}
+\begin{itemize}
+\item Protocol
+\item Single or double digest
+\item Single end or paired ends
+\item Advantage over SNP-chip: no prior knowledge of the genome is needed, less
+costly to put in place for non-model species
+\item As explained in Peterson 2012, SNP-chip or similar, once designed, can only
+test for the variability which was known at design time and cannot detect
+rare alleles or population-specific variants, even though those can be of
+high interest in population genetics studies
+\item Peterson 2012 introduces the double-digest method for reduced representation
+but increased coverage
+\end{itemize}
+
+The idea of using restriction site associated DNA (RAD) markers on a large
+scale was first introduced in a paper by \href{http://genome.cshlp.org/content/17/2/240.long}{Miller (2007)} from Eric
+A. Johnson's group.
+
+There are important differences between methods based on \alert{restriction site
+polymorphism} (like \href{http://genome.cshlp.org/content/17/2/240.long}{Miller 2007}) and methods that use restriction sites as a
+way to \alert{decrease genomic complexity} before sequencing (RAD-seq). While
+restriction site polymorphism was historically (in 2007!) used first, mainly
+the RAD-seq method and its derivative are used at present.
+\end{block}
+\begin{block}{Use of RAD tags}
+\begin{itemize}
+\item SNP discovery
+\item Population genetics
+\item Functional genomics
+\item Phylogeography (Emerson 2011, discussed also in Puritz 2012)
+\item Phylogeny (Rubin 2012)
+\item historical population structure and recent colonization history (useful for
+hydrothermal ecosystems?) (Catchen 2013 Mol Ecol)
+\end{itemize}
+\end{block}
+
+\begin{block}{Issues}
+\begin{itemize}
+\item Variation of coverage between libraries (e.g. Pfender 2011, Bruneaux 2013)
+\item The second read on paired reads is not at a constant location - ddRAD enables
+to have stacks from both sides
+\item Pooled population samples: how many individuals to pool? How deep to
+sequence? Find the paper I sent to Anti where there was ann excel sheet with
+formulas to calculate the power of different sequencing designs
+\item Example of Bruneaux 2013 with low coverage: don't try to do too many
+populations! Focus on simple design to get good coverage.
+\item DeFaveri 2013 paper: SNPs not as good as microsatellites for fine-scale
+structure, can it be balanced by very large number of SNPs?
+\item Information content per SNP is lower that per microsats, but large numbers
+can probably tip the balance towards high number of SNPs? Look for papers
+about that? Shannon information theory?
+\end{itemize}
+\end{block}
+
+\begin{block}{Technical points}
+\begin{itemize}
+\item If reference genome, no need for assembly, raw reads can be mapped back to
+the genome (Hohenlohe 2012)
+\item Likelihood methods can be used to determine the probability of each genotype
+at each nucleotide position (e.g. Hohenlohe 2012 but also others I think)
+\item Paired-ends: use depends on whether it is RAD or ddRAD. With RAD, 2nd read
+can be used for contigs. With ddRAD, 2nd read also provides stacks. The
+paired information provides data about genomic distance (because of the
+size-selection step in the sample preparation, cf. the observed size
+distribution for the fragments observed for the 9spine
+\item Gautier 2013 paper about allele frequency estimate accuracy (pool vs
+individual), application to calculate accuracy
+\item Davey 2013: issues with RAD genotyping
+\item Use of black boxes (e.g. stacks): pros and cons
+\begin{itemize}
+\item pros: the people who made the software knew what they do, enable to perform
+rigorous statistical analyses, \ldots{}
+\item cons: less control/understanding from the user, if bad choice of parameters
+can be not applicable to one's dataset
+\item the user should understand what is done!
+\item in the end, we always rely on a black box but at a different level
+(e.g. STACKS, blast, R, python, linux kernel, \ldots{})
+\item find a balance: if we trust the writers of the black box, we must also be
+confident that we use it properly
+\end{itemize}
+\item Genotype calling: likelihood-based and Bayesian approaches, quick review in
+Andrews 2014 "Recent novel approaches for population genomics data analysis"
+\item Puritz 2014 (reply to Andrews): pros and cons of several RAD protocols,
+useful to choose a protocol for a given question
+\item Pukk 2015: RAD study doesn't have to be super fancy to give interesting
+results, e.g. with ion torrent and not very high coverage robust diagnostic
+SNPs between populations can still be detected
+\end{itemize}
+\end{block}
+
+\begin{block}{Pipeline}
+\begin{itemize}
+\item Cleaning
+\item Demultiplex and remove adapters
+\item Detailed pipeline for ddRAD in Peterson 2012, with very interesting choices
+\end{itemize}
+\end{block}
+
+\begin{block}{Presentation}
+\begin{itemize}
+\item Introduce the 9spine system, gigantism, different behaviour, plate morphs,
+short reference to threespine also, marine vs freshwater (specify Baltic Sea
+salinity is low)
+\item Talk about the sample preparation (by Anti, cf. his ppt presentation)
+\end{itemize}
+\end{block}
+
+\begin{block}{Intregated studies}
+\begin{itemize}
+\item Bruneaux 2013
+\item Hess 2013 (sea lamprey)
+\item Others\ldots{}
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label=sec-2]{Practicals}
+Pipelines include STACKS and dDocent
+\url{https://ddocent.wordpress.com/ddocent-pipeline-user-guide/}.
+
+\begin{block}{Teaching objectives}
+\begin{itemize}
+\item Sequence quality check: trimming, quality control
+\item Stack building (STACKS or other tools, with or without paired-ends
+information)
+\item SNP calling and genotyping (VCFtools)
+\item Allele frequency estimates (individuals or pools?)
+\item Population genetics: comparison of microsats and SNPs trees (cf. Anti)
+\item Population genomics: localisation, genome profiling and Gst calculation,
+kernel smoothing
+\item Functional analysis (outside the scope of RAD-tags \emph{sensus stricto})
+\item Predicting the number of fragmnts based on published genome sequence and
+restriction sites with python scripts
+\end{itemize}
+\end{block}
+\begin{block}{Available data}
+\begin{itemize}
+\item Baird 2008: short reads for three-spines and \emph{Neurospora crassa}
+\item Hohenlohe 2010: short reads for three-spines (population genomics of parallel
+evolution)
+\item Hohenlohe 2011: short reads for rainbow trout and westslope cutthroat trout
+(SNP identification for hybridization diagnostic)
+\item Hess 2013: sea lamprey
+\end{itemize}
+\end{block}
+\begin{block}{Connection to ABiMS}
+\begin{itemize}
+\item \href{http://abims.sb-roscoff.fr/resources/cluster/howto}{Cluster HowTo}
+\item \href{http://application.sb-roscoff.fr/ganglia/}{Cluster load monitoring}
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label=sec-3]{Important people and groups}
+\begin{block}{Three central groups}
+To the best of my knowledge, there are three groups which are involved in the
+origin of the RAD tags method and which have produced a lot of the initial
+papers. They are also producing a lot of the software that can be used for RAD
+data analysis. The groups are:
+\begin{itemize}
+\item Eric A. Johnson's group (Institute of Molecular Biology, U. Oregon): \href{http://molbio.uoregon.edu/johnson/}{link}
+\item William A. Cresko's group (Institute of Ecology and Evolution, U. Oregon):
+\href{http://creskolab.uoregon.edu/}{link}. The Cresko lab is responsible for the \href{http://creskolab.uoregon.edu/stacks/}{Stacks} pipeline that can be used
+to analyse RAD data.
+\item Paul A. Hohenlohe (Depts of Biological Science and Statistics, U. Idaho):
+\href{http://webpages.uidaho.edu/hohenlohe/index.html}{link}. They also have some software and their news page has some interesting
+information about what's going on with RAD.
+\end{itemize}
+\end{block}
+\begin{block}{People}
+\begin{itemize}
+\item Miller Michael R.
+\item Johnson Eric A.
+\item Cresko William A.
+\item Baird Nathan A.
+\item Catchen Julian M.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label=sec-4]{Other interesting papers}
+\begin{itemize}
+\item Hohenlohe 2010, "Using population genomics to detect selection in natural
+populations: key concepts and methodological considerations" (\href{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3016716/}{link}).
+\item Ellengren 2014, "Genome sequencing and population genomics in non-model
+organisms" (\href{http://www.sciencedirect.com/science/article/pii/S0169534713002310}{link})
+\end{itemize}
+\end{frame}
+% Emacs 24.3.50.1 (Org mode 8.2.3a)
+\end{document}
