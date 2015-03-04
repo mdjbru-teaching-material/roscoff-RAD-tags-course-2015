@@ -90,7 +90,20 @@ a:hover, a:active {
 	text-decoration: none;
 	text-shadow: 1px 1px 1px #333;
 }
-	
+
+#contentinfo a:link, #contentinfo a:visited {
+	 color: #a3b0a4;
+	 padding: 0 1px;
+	 text-decoration: underline;
+}
+
+#contentinfo a:hover, #contentinfo a:active {
+	 background-color: #a3b0a4;
+	 color: #fff;
+	 text-decoration: none;
+	 text-shadow: 1px 1px 1px #333;
+}
+
 /* Paragraphs */
 div.line-block,
 p { margin-top: 1em;
