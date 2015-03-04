@@ -5,7 +5,8 @@ Roscoff (Brittany, France) in March 2015.
 
 To obtain information about the different `make` options:
 
-    make
+    make        # or
+    make help
 
 You can access the associated website at
 http://mdjbru-teaching-material.github.io/roscoff-RAD-tags-course-2015/.
