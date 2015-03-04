@@ -36,8 +36,11 @@ h2 {font-size: 1.25em;
     background: #007065;
     color: #ffffff;}
 h3 {font-size: 1.2em;
-    color: #007065;}	
-h4 {font-size: 1.1em}	
+    background: #63a7a0;
+    color: #ffffff;}	
+h4 {font-size: 1.1em;
+    background: #cbe0de;
+    color: #555555;}	
 h5 {font-size: 1.05em}	
 h6 {font-size: 1em}	
 
@@ -202,6 +205,20 @@ img.right, figure.right {float: right; margin: 0 0 2em 2em;}
 img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 
 h2 {
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+h3 {
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+h4 {
     border-radius: 5px;
     padding: 5px;
     padding-left: 20px;
