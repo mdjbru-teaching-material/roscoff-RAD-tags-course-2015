@@ -12,6 +12,7 @@ help:
 	@echo '   make publish                     generate pages using production settings '
 	@echo '   make serve                       serve site at http://localhost:8000      '
 	@echo '   make stopserver                  stop local server                        '
+	@echo '   make clean                       remove the pages in pelican folder       '
 	@echo '   make github                      upload github and the web site           '
 	@echo '   make presentation                make the pdf presentation                '
 
@@ -27,12 +28,17 @@ updatePages: $(PELICAN_PAGES_DIR)/bibliography-notes.html \
   $(PELICAN_PAGES_DIR)/index.html \
   $(PELICAN_PAGES_DIR)/notes.html \
   $(PELICAN_PAGES_DIR)/materials.html \
+  $(PELICAN_PAGES_DIR)/practicals.html \
   $(PELICAN_RESOURCES_DIR)/pre-assessment.txt \
   $(PELICAN_RESOURCES_DIR)/presentation.pdf
 
 publish:
 	make updatePages
 	cd pelican_website; make publish
+
+clean:
+	rm -f $(PELICAN_PAGES_DIR)/*
+	rm -f $(PELICAN_RESOURCES_DIR)/*
 
 serve:
 	cd pelican_website; make serve
@@ -45,22 +51,28 @@ github:
 	make updatePages
 	cd pelican_website; make github
 
-pelican_website/content/pages/bibliography-notes.html: bibliography-notes.org
+$(PELICAN_PAGES_DIR)/bibliography-notes.html: bibliography-notes.org
 	$(ORG2HTML_CMD) bibliography-notes.org
 	mv bibliography-notes.html $(PELICAN_PAGES_DIR)
 
-pelican_website/content/pages/index.html: index.org
+$(PELICAN_PAGES_DIR)/index.html: index.org
 	$(ORG2HTML_CMD) index.org
 	mv index.html $(PELICAN_PAGES_DIR)
 
-pelican_website/content/pages/notes.html: notes.org
+$(PELICAN_PAGES_DIR)/notes.html: notes.org
 	$(ORG2HTML_CMD) notes.org
 	mv notes.html $(PELICAN_PAGES_DIR)
 
-pelican_website/content/pages/materials.html: materials.org
+$(PELICAN_PAGES_DIR)/materials.html: materials.org
 	$(ORG2HTML_CMD) materials.org
 	mv materials.html $(PELICAN_PAGES_DIR)
 
-pelican_website/content/resources/pre-assessment.txt: preassessment-form.org
+$(PELICAN_PAGES_DIR)/practicals.html: practicals.org
+	$(ORG2HTML_CMD) practicals.org
+	mv practicals.html $(PELICAN_PAGES_DIR)
 
-pelican_website/content/resources/presentation.pdf: presentation.pdf
+$(PELICAN_RESOURCES_DIR)/pre-assessment.txt: pre-assessment.org
+	emacs pre-assessment.org --batch -f org-ascii-export-to-ascii --kill
+	mv pre-assessment.txt $(PELICAN_RESOURCES_DIR)
+
+$(PELICAN_RESOURCES_DIR)/presentation.pdf: presentation.pdf

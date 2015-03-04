@@ -1,0 +1,135 @@
+#+Title: Practicals
+#+Summary: Practicals
+#+URL: practicals.html
+#+Save_as: practicals.html
+#+Sortorder: 015
+#+Slug: practicals
+#+Status: hidden
+#+OPTIONS: toc:2 num:nil html-postamble:nil
+
+* Introduction
+
+The practicals will comprise two different parts:
+- a detailed analysis, from raw reads to final results, of a dataset from a
+  paper published in 2013: [[onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract]["Molecular evolutionary and population genomic analysis of the nine-spined 
+stickleback using a modified restriction-site-associated DNA tag approach"]]. 
+The raw dataset is available
+  from the Dryad data archive, doi: [[http://dx.doi.org/10.5061/dryad.44sf1][10.5061/dryad.44sf1]]. We will try to
+  reproduce the results from the paper, criticize the different steps and maybe
+  try different approaches as we go.
+- after the general view of a RAD-seq workflow from the previous analysis, a
+  more specific look more specifically at some steps of the analysis, using
+  other published datasets. This might entail, for example, genotype calling
+  using a maximum likelihood approach.
+
+* A complete workflow: reanalysis of the ninespine stickleback RAD-seq data
+
+** Model
+
+The study in [[onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract][Bruneaux et al. (2013)]] focus on several freshwater and marine
+populations of ninespine stickleback from Fenno-Scandia. Those populations are
+relatively recent since this region was recolonized after the last glacial
+maximum (ca. 11000 years BP). They differ in several morphological, behavioural
+and physiological traits.
+
+In general, fish from the freshwater ponds where ninespine is the only fish
+species are larger, bolder and more aggressive than their marine counterparts,
+and also harbour reduced body armour. This is thought to be due to differences
+in intra and interspecific competition, and lab crosses have shown that the
+traits are at least partially genetically determined.
+
+The aim of the study was to look for the genetic basis of differentiation
+between the different habitat types, and investigate if signals of parallel
+evolution could be found. For this species, no reference genome is
+available. However, the genome of the (relatively) closely related threespine
+stickleback is available and annotated in Ensembl.
+
+** Approach
+
+Twenty individuals from each population were sampled and their DNA was
+extracted. The DNA was digested by two restriction enzymes equal amounts of DNA
+per individual and size-selected, and RAD fragments were then pooled into
+population-specific pools. Those pools were barcoded (one barcode per
+population) and sent for sequencing in an Illumina GAII system, using
+paired-end sequencing.
+
+Your work starts as the raw reads are sent back to you from the sequencing
+service.
+
+** Raw read processing
+
+*** Quality control
+
+*** Barcode and restriction-site checking
+
+Similar to demultiplexing, even though the multiplexing is not really high
+here.
+
+A few diagnostic plots to see how to see how the data look like. For example,
+the number of reads varies between populations. Discussion about issues, the
+barcode effects, how to fix that, and similar potential issues within the pools
+(how some individuals can have more reads than others, mutations that break the
+restriction site).
+** Assembly and mapping back
+*** Assembly into contigs
+
+We choose to go for a de novo assembly. Several tools were tested, in the end
+we went for an older tool, CAP3. Discuss the reasons with Susie?
+
+An alternative approach would have been to map the reads back to the reference
+genome. However, when mapping back we have to be quite stringent and allow only
+for example one or two mismatch, and one unique good quality mapping
+location. With the reference genome of a different species, this can be
+problematic and the mapping back might be less efficient that creating
+consensus contigs or stacks.
+
+*** Removal of repeat sequences
+
+*** Mapping back to the threespine genome
+
+Efficiency of mapping back? Distribution by chromosome? Something about sexual
+chromosomes? Comparison of mapping back to coding and non-coding regions?
+
+** Genotyping and allele frequency estimates
+
+*** Variant calling and filtering
+
+*** Diagnostic plots and reality check
+
+How many SNPs do we have? What is the coverage per populations? Do we have to
+pool some populations?
+
+** Downstream analysis
+
+*** Prediction of mutation effect
+
+Synonymous / non-synonymous mutations? Distribution along the genome?
+
+*** Calculation of Gst
+
+Disclaimer: there are ways to do it much more rigorously! Using the quality
+score information all the way to genotype calling and allele frequency
+estimations, using likelihood or Bayesian methods.
+
+*** Genome scans
+
+Kernel smoothing, permutation testing.
+
+This is possible only when location is known. Can be real or in cM, but we have
+to understand what we do!
+
+Permutation testing to look for aggregations of high or low values.
+
+*** Gene Ontology annotation and enrichment test
+
+In the paper, done with Cytoscape and Bingo but probably doable with R.
+
+GUI are nice, but it is also advisable to have command line tools and pipelines
+for easy reproduction of results and to be able to rerun the analysis with
+updated data.
+
+** Conclusion
+
+* Cherry-picking the analysis steps
+
+
