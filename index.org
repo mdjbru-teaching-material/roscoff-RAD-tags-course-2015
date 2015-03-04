@@ -6,14 +6,15 @@
 #+Slug: home
 #+OPTIONS: toc:nil num:nil html-postamble:nil
 
-*Restriction site associated DNA markers* (RAD tags) are used in association
-with high-throughput sequencing methods for *genotyping in both model and
-non-model organisms*.
+*Restriction site associated DNA markers* (RAD markers or RAD tags) are used in
+association with high-throughput sequencing methods for *genotyping in both
+model and non-model organisms*.
 
 RAD tags are produced by using *restriction enzymes* to cut an organism DNA and
-to perform a *genome complexity reduction*: only fragments associated with
-restriction sites are sequenced. The distribution of sequenced fragments along
-the genome can be adjusted by carefully choosing the restriction enzyme.
+to perform a *genome complexity reduction*. In a RAD-seq experiment, only those
+fragments associated with restriction sites are sequenced. The distribution of
+sequenced fragments along the genome can be adjusted by carefully choosing the
+restriction enzymes.
 
 * RAD tag course in Roscoff, March 2015
 
@@ -22,7 +23,11 @@ course will be taught by Matthieu Bruneaux and Gildas Le Corguillé.
 
 All the materials are available from [[https://github.com/mdjbru-teaching-material/roscoff-RAD-tags-course-2015][GitHub]].
 
+* Before the course
+
+Please fill the pre-assessment form that can be found [[file:/resources/pre-assessment.txt][here]] and send it back to
+Matthieu Bruneaux ([[mailto:matthieu.d.bruneaux@jyu.fi][matthieu.d.bruneaux@jyu.fi]]).
+
 * Contact
 
-Comments, questions and suggestions can be sent to 
-<a href="mailto:matthieu.d.bruneaux@jyu.fi">Matthieu Bruneaux</a>.
+Comments, questions and suggestions can be sent to [[mailto:matthieu.d.bruneaux@jyu.fi][Matthieu Bruneaux]].

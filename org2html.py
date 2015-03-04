@@ -18,6 +18,7 @@ from bs4 import BeautifulSoup
 ### * Parameters
 
 META_NOT_EXPORTED = ["OPTIONS"]
+ROOT_URL = ""
 
 ### * Functions
 
@@ -84,6 +85,15 @@ def formatHtmlPage(metadata, body) :
     o += "</html>\n"
     return(o)
 
+### ** convertLinksToFiles(body, rootUrl)
+
+def convertLinksToFiles(body,rootUrl) :
+    p = "href=\"file://"
+    n = "href=\"" + rootUrl.rstrip("/")
+    o = body.replace(p, n)
+    return(o)
+
+
 ### * Run
 
 for inputFile in sys.argv[1:] :
@@ -96,6 +106,7 @@ for inputFile in sys.argv[1:] :
     emacsConvert(inputFile)
     body = getHtmlBody(outputFile)
     p = formatHtmlPage(metadata, body)
+    p = convertLinksToFiles(p, ROOT_URL)
     with codecs.open(outputFile, encoding = "utf-8", mode = "w") as fo :
         fo.write(unicode(p))
     os.remove(inputFile + ".no-metadata.org")
