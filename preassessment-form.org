@@ -62,7 +62,7 @@ http://software-carpentry.org/workshops/assess/pre-learner.html)
     able to determine which variants are synonymous and which are
     non-synonymous at the amino-acid level?
 
-* (Bio)informatics skills
+* Informatics skills
     
 1. What best describes how often you currently program?
    - I have never programmed.

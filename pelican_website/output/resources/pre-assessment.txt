@@ -71,8 +71,8 @@ on a material from Software Carpentry. The original can be found at:
       are non-synonymous at the amino-acid level?
 
 
-3 (Bio)informatics skills
-=========================
+3 Informatics skills
+====================
 
   1. What best describes how often you currently program?
      - I have never programmed.
