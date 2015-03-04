@@ -25,7 +25,7 @@ All the materials are available from [[https://github.com/mdjbru-teaching-materi
 
 * Before the course
 
-Please fill the pre-assessment form that can be found [[file:/resources/pre-assessment.txt][here]] and send it back to
+Please fill the pre-assessment form that can be found [[file:resources/pre-assessment.txt][here]] and send it back to
 Matthieu Bruneaux ([[mailto:matthieu.d.bruneaux@jyu.fi][matthieu.d.bruneaux@jyu.fi]]).
 
 * Contact
