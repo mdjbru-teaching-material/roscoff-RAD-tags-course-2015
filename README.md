@@ -3,7 +3,8 @@
 This is the repository of a course about RAD tags which will take place in
 Roscoff (Brittany, France) in March 2015.
 
-Information about the different 'make' 
+Information about the different 'make' options can be obtained by typing:
+    make
 
 You can access the associated website at
 http://mdjbru-teaching-material.github.io/roscoff-RAD-tags-course-2015/.
