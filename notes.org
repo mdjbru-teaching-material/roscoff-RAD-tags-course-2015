@@ -4,6 +4,7 @@
 #+Save_as: draft-notes.html
 #+Sortorder: 030
 #+Slug: draftNotes
+#+Status: hidden
 #+OPTIONS: html-postamble:nil
 
 * Course about RAD-tag sequencing - Roscoff 2015

@@ -34,18 +34,18 @@ github:
 	make updatePages
 	cd pelican_website; make github
 
-pelican_website/content/pages/bibliography-notes.html: bibliography-notes.org
+pelican_website/content/pages/bibliography-notes.html: bibliography-notes.org org2html.py
 	python org2html.py bibliography-notes.org
 	mv bibliography-notes.html pelican_website/content/pages/
 
-pelican_website/content/pages/index.html: index.org
+pelican_website/content/pages/index.html: index.org org2html.py
 	python org2html.py index.org
 	mv index.html pelican_website/content/pages/
 
-pelican_website/content/pages/notes.html: notes.org
+pelican_website/content/pages/notes.html: notes.org org2html.py
 	python org2html.py notes.org
 	mv notes.html pelican_website/content/pages/
 
-pelican_website/content/pages/schedule.html: schedule.org
+pelican_website/content/pages/schedule.html: schedule.org org2html.py
 	python org2html.py schedule.org
 	mv schedule.html pelican_website/content/pages/

@@ -4,7 +4,7 @@
 
 * General introduction to the workshop
 
-** Mini-workshop about ddRAD - plan
+** Mini-workshop about ddRAD
 
 *** Introduction about RAD-seq                                    :B_block:
 :PROPERTIES:
@@ -30,9 +30,9 @@
 - Arouse curiosity
 - Give useful pointers
 
-** Disclaimer
+** Disclaimer about the speaker
 
-*** Warning!                                                      :B_block:
+***                                                                 :B_block:
 :PROPERTIES:
 :BEAMER_env: block
 :END:
