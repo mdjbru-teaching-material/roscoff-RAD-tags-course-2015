@@ -1,0 +1,120 @@
+(This pre-assessment form for the Roscoff RAD tags course 2015 is based
+on a material from Software Carpentry. The original can be found at:
+[http://software-carpentry.org/workshops/assess/pre-learner.html])
+
+
+1 General information
+=====================
+
+  1. Name
+
+  2. Email address
+
+  3. What is your career stage?
+     - Undergraduate
+     - Graduate
+     - Post-doc
+     - Faculty
+     - Industry
+     - Support staff
+     - Other:
+
+  4. In three sentences or less, please describe your current field of
+     work or research question.
+
+  5. In three sentences or less, please describe what you expect to
+     learn from this course.
+
+
+2 Prior experience with high-throughput sequencing
+==================================================
+
+  1. Have you been involved in a high-throughput sequencing project
+     before, or are you currently involved in one?
+
+  2. If you have replied "Yes" to the previous question, please answer
+     the following questions:
+     - What was/is the project question (in one sentence)?
+     - What type of high-throughput sequencing method was/is used?
+     - What was/is your role in the project (experimental design,
+       sequence data analysis, downstream analysis, ...)?
+
+  3. Do you know what the FASTQ format is?
+
+  4. Do you know what is a PHRED quality score?
+
+  5. Given a set of raw reads in FASTQ format, would you be able to
+     perform simple quality control and sequence trimming? If yes, which
+     tool(s) would you use?
+
+  6. Given a set of clean reads, would you be able to perform a de novo
+     assembly into contigs? If yes, which tool(s) would you use?
+
+  7. Given a reference sequence (e.g. genome) and clean reads, would you
+     be able to map back the reads to the reference? If yes, which
+     tool(s) would you use?
+
+  8. Given an alignment of reads from different individuals, would you
+     be able to identify sequence variants? If yes, which tool(s) would
+     you use?
+
+  9. Given an alignment of reads from different individuals, would you
+     be able to determine individual genotypes? If yes, which tool(s)
+     would you use?
+
+  10. Given an alignment of reads from different individuals, would you
+      be able to determine allele frequencies? If yes, which tool(s)
+      would you use?
+
+  11. Given a coding sequence and a list of identified variants, would
+      you be able to determine which variants are synonymous and which
+      are non-synonymous at the amino-acid level?
+
+
+3 (Bio)informatics skills
+=========================
+
+  1. What best describes how often you currently program?
+     - I have never programmed.
+     - I program less than one a year.
+     - I program once a year.
+     - I program several times a year.
+     - I program once a month.
+     - I program once a week or more.
+
+  2. With which programming languages could you write a program from
+     scratch that reads a column of numbers from a text file and
+     calculates mean and standard deviation of that data?
+     - I do not use any programming languages.
+     - C
+     - C++
+     - Perl
+     - MATLAB
+     - Python
+     - R
+     - Java
+     - Other(s):
+
+  3. What best describes the complexity of your programming? (Choose all
+     that apply.)
+     - I have never programmed.
+     - I write scripts that are a few lines long to analyze data.
+     - I write programs that are a page or two long for my own use.
+     - I write programs that are many pages long for my own use and for
+       others to use.
+     - I am primarily a programmer.
+
+  4. How familiar do you think you are with the command line?
+     - I am not familiar at all with the command line.
+     - I am familiar only with the name "command line".
+     - I am familiar with the command line but have never used it.
+     - I am familiar with the command line because I have or am using
+       it.
+
+  5. Would you know how to connect to the ABiMS server from your desktop
+     computer?
+
+  6. Would you know how to upload and download data to/from the ABiMS
+     server?
+
+  7. Would you know how to submit a job on the ABiMS cluster?
