@@ -1,8 +1,14 @@
+# Help from
+# http://stackoverflow.com/questions/22072773/batch-export-of-org-mode-files-from-the-command-line
+# https://www.gnu.org/software/make/manual/html_node/Wildcard-Function.html#Wildcard-Function
+
 ORG2HTML_CMD=python python-scripts/org2html.py
 ORG2MD_CMD=python python-scripts/org2md.py
 
 PELICAN_PAGES_DIR=pelican_website/content/pages
 PELICAN_RESOURCES_DIR=pelican_website/content/resources
+
+ORG_FILES=$(wildcard *.org)
 
 help:
 	@echo 'Makefile for the Roscoff RAD tags course 2015 website                        '
