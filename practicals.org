@@ -5,7 +5,7 @@
 #+Sortorder: 015
 #+Slug: practicals
 #+Status: hidden
-#+OPTIONS: toc:2 num:nil html-postamble:nil
+#+OPTIONS: toc:2 num:t html-postamble:nil
 
 * Introduction
 
@@ -130,6 +130,6 @@ updated data.
 
 ** Conclusion
 
-* Cherry-picking the analysis steps
+* Cherry-picking some analysis steps
 
 
