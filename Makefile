@@ -1,14 +1,17 @@
 # Help from
 # http://stackoverflow.com/questions/22072773/batch-export-of-org-mode-files-from-the-command-line
 # https://www.gnu.org/software/make/manual/html_node/Wildcard-Function.html#Wildcard-Function
+# http://unix.stackexchange.com/questions/87605/is-there-a-way-to-make-mv-fail-silently
 
 ORG2HTML_CMD=python python-scripts/org2html.py
 ORG2MD_CMD=python python-scripts/org2md.py
 
 PELICAN_PAGES_DIR=pelican_website/content/pages
+PELICAN_ARTICLES_DIR=pelican_website/content/articles
 PELICAN_RESOURCES_DIR=pelican_website/content/resources
 
-ORG_FILES=$(wildcard *.org)
+ORG_PAGES_FILES=$(wildcard page-*.org)
+ORG_ARTICLES_FILES=$(wildcard article-*.org)
 
 help:
 	@echo 'Makefile for the Roscoff RAD tags course 2015 website                        '
@@ -30,10 +33,10 @@ $(PELICAN_RESOURCES_DIR)/presentation.pdf: presentation.org
 	cp presentation.pdf $(PELICAN_RESOURCES_DIR)
 	rm -f presentation.tex presentation.tex~
 
-updatePages: $(PELICAN_PAGES_DIR)/bibliography-notes.html \
-  $(PELICAN_PAGES_DIR)/index.html \
-  $(PELICAN_PAGES_DIR)/notes.html \
-  $(PELICAN_PAGES_DIR)/practicals.html \
+updatePages: $(PELICAN_PAGES_DIR)/page-bibliography-notes.html \
+  $(PELICAN_PAGES_DIR)/page-index.html \
+  $(PELICAN_PAGES_DIR)/page-notes.html \
+  $(PELICAN_PAGES_DIR)/page-practicals.html \
   $(PELICAN_RESOURCES_DIR)/pre-assessment.txt \
   presentation
 
@@ -56,24 +59,16 @@ github:
 	make updatePages
 	cd pelican_website; make github
 
-$(PELICAN_PAGES_DIR)/bibliography-notes.html: bibliography-notes.org
-	$(ORG2HTML_CMD) bibliography-notes.org
-	mv bibliography-notes.html $(PELICAN_PAGES_DIR)
+$(PELICAN_PAGES_DIR)/page-%.html: page-%.org
+	$(ORG2HTML_CMD) $<
+	mv $(notdir $@) $(PELICAN_PAGES_DIR)
 
-$(PELICAN_PAGES_DIR)/index.html: index.org
-	$(ORG2HTML_CMD) index.org
-	mv index.html $(PELICAN_PAGES_DIR)
-
-$(PELICAN_PAGES_DIR)/notes.html: notes.org
-	$(ORG2HTML_CMD) notes.org
-	mv notes.html $(PELICAN_PAGES_DIR)
-
-$(PELICAN_PAGES_DIR)/practicals.html: practicals.org
-	$(ORG2HTML_CMD) practicals.org
-	mv practicals.html $(PELICAN_PAGES_DIR)
+$(PELICAN_ARTICLES_PAGES)/article-%.html: article-%.org
+	$(ORG2HTML_CMD) $<
+	mv $(notdir $@) $(PELICAN_ARTICLES_DIR)
 
 $(PELICAN_RESOURCES_DIR)/pre-assessment.txt: pre-assessment.org
-	emacs pre-assessment.org --batch -f org-ascii-export-to-ascii --kill
+	emacs $< --batch -f org-ascii-export-to-ascii --kill
 	mv pre-assessment.txt $(PELICAN_RESOURCES_DIR)
 
 $(PELICAN_RESOURCES_DIR)/presentation.pdf: presentation.pdf
