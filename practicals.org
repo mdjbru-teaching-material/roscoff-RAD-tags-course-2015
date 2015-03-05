@@ -4,7 +4,6 @@
 #+Save_as: practicals.html
 #+Sortorder: 015
 #+Slug: practicals
-#+Status: hidden
 #+OPTIONS: toc:2 num:t html-postamble:nil
 
 * Introduction

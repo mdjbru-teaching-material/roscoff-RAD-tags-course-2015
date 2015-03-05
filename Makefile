@@ -22,29 +22,28 @@ help:
 	@echo '   make github                      upload github and the web site           '
 	@echo '   make presentation                make the pdf presentation                '
 
-presentation: presentation.pdf
+presentation: $(PELICAN_RESOURCES_DIR)/presentation.pdf
 
-presentation.pdf: presentation.org
+$(PELICAN_RESOURCES_DIR)/presentation.pdf: presentation.org
 	# http://stackoverflow.com/questions/22072773/batch-export-of-org-mode-files-from-the-command-line
 	emacs presentation.org --batch -f org-beamer-export-to-pdf --kill
-	cp presentation.pdf pelican_website/content/resources
+	cp presentation.pdf $(PELICAN_RESOURCES_DIR)
 	rm -f presentation.tex presentation.tex~
 
 updatePages: $(PELICAN_PAGES_DIR)/bibliography-notes.html \
   $(PELICAN_PAGES_DIR)/index.html \
   $(PELICAN_PAGES_DIR)/notes.html \
-  $(PELICAN_PAGES_DIR)/materials.html \
   $(PELICAN_PAGES_DIR)/practicals.html \
   $(PELICAN_RESOURCES_DIR)/pre-assessment.txt \
-  $(PELICAN_RESOURCES_DIR)/presentation.pdf
+  presentation
 
-publish:
-	make updatePages
+publish: updatePages
 	cd pelican_website; make publish
 
 clean:
-	rm -f $(PELICAN_PAGES_DIR)/*
-	rm -f $(PELICAN_RESOURCES_DIR)/*
+	rm -f $(PELICAN_PAGES_DIR)/*.html
+	rm -f $(PELICAN_RESOURCES_DIR)/presentation.pdf
+	rm -f $(PELICAN_RESOURCES_DIR)/pre-assessment.txt
 
 serve:
 	cd pelican_website; make serve
@@ -68,10 +67,6 @@ $(PELICAN_PAGES_DIR)/index.html: index.org
 $(PELICAN_PAGES_DIR)/notes.html: notes.org
 	$(ORG2HTML_CMD) notes.org
 	mv notes.html $(PELICAN_PAGES_DIR)
-
-$(PELICAN_PAGES_DIR)/materials.html: materials.org
-	$(ORG2HTML_CMD) materials.org
-	mv materials.html $(PELICAN_PAGES_DIR)
 
 $(PELICAN_PAGES_DIR)/practicals.html: practicals.org
 	$(ORG2HTML_CMD) practicals.org
