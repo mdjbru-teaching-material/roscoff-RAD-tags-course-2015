@@ -143,6 +143,11 @@ a:hover, a:active {
 			 padding: 5px;
 		     }
 
+table {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 #contentinfo a:link, #contentinfo a:visited {
 	 color: #a3b0a4;
 	 padding: 0 1px;
