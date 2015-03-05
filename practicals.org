@@ -11,9 +11,9 @@
 
 The practicals will comprise two different parts:
 - a detailed analysis, from raw reads to final results, of a dataset from a
-  paper published in 2013: [[onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract]["Molecular evolutionary and population genomic analysis of the nine-spined 
-stickleback using a modified restriction-site-associated DNA tag approach"]]. 
-The raw dataset is available
+  paper published in 2013: [[http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract][Molecular evolutionary and population genomic analysis of the 
+  nine-spined stickleback using a modified restriction-site-associated DNA tag approach]]. 
+  The raw dataset is available
   from the Dryad data archive, doi: [[http://dx.doi.org/10.5061/dryad.44sf1][10.5061/dryad.44sf1]]. We will try to
   reproduce the results from the paper, criticize the different steps and maybe
   try different approaches as we go.
@@ -26,11 +26,14 @@ The raw dataset is available
 
 ** Model
 
-The study in [[onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract][Bruneaux et al. (2013)]] focus on several freshwater and marine
+The study in [[http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract][Bruneaux et al. (2013)]] focus on several freshwater and marine
 populations of ninespine stickleback from Fenno-Scandia. Those populations are
 relatively recent since this region was recolonized after the last glacial
 maximum (ca. 11000 years BP). They differ in several morphological, behavioural
 and physiological traits.
+
+#+CAPTION: Sampling locations for ninespine stickleback (from [[http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract][Bruneaux et al. (2013)]])
+[[file:resources/bruneaux-2013_9spine-map_high.png][file:resources/bruneaux-2013_9spine-map_low.png]]
 
 In general, fish from the freshwater ponds where ninespine is the only fish
 species are larger, bolder and more aggressive than their marine counterparts,
