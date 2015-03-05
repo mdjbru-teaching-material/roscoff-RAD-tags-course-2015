@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 
 ### * Parameters
 
-META_NOT_EXPORTED = ["OPTIONS", "CAPTION", "NAME"]
+META_NOT_EXPORTED = ["OPTIONS", "CAPTION", "NAME", "ATTR_HTML"]
 ROOT_URL = "http://mdjbru-teaching-material.github.io/roscoff-RAD-tags-course-2015"
 
 ### * Functions

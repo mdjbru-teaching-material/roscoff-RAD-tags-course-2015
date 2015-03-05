@@ -94,12 +94,30 @@ a:hover, a:active {
 	text-shadow: 1px 1px 1px #333;
 }
 
-.figure p {
+.figure, table {
+    margin: auto;
+    width: 600px;
     text-align: center;
+    padding: 5px;
+    background: #eeeeee;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
 }
 
-.figure-number {
+.figure-number, .table-number {
     font-weight: bold;
+}
+
+.figure {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.figure p {
+    margin: auto;
+    width: 550px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .figure a {
@@ -107,8 +125,14 @@ a:hover, a:active {
     text-align: center;
 }
 
+.figure a:hover, .figure a:active {
+		     color: #209585;
+		     text-decoration: underline;
+		     text-shadow: none;
+		 }
+
 .figure a:link img, .figure a:visited img {
-			border: 1px solid white;
+			border: 1px solid #eeeeee;
 			border-radius: 5px;
 			padding: 5px;
 		    }
@@ -201,10 +225,10 @@ div.note {
 }
 
 /* Tables */
-table {margin: .5em auto 1.5em auto; width: 98%;}
+/*table {margin: .5em auto 1.5em auto; width: 98%;}*/
 	
 	/* Thead */
-	thead th {padding: .5em .4em; text-align: left;}
+	thead th {padding: .5em .4em; text-align: center;}
 	thead td {}
 
 	/* Tbody */
