@@ -133,6 +133,24 @@ https://ddocent.wordpress.com/ddocent-pipeline-user-guide/.
 - [[http://abims.sb-roscoff.fr/resources/cluster/howto][Cluster HowTo]]
 - [[http://application.sb-roscoff.fr/ganglia/][Cluster load monitoring]]
 
+** Softwares needed
+
+| Name                  | From | Download Data    | Source file           | On ABiMS                                                   | Role                      |
+|-----------------------+------+------------------+-----------------------+------------------------------------------------------------+---------------------------|
+| CAP3                  | [[http://seq.cs.iastate.edu/cap3.html][link]] | [2015-03-05 Thu] | cap3.linux.x86_64.tar | manual install (older version already installed)           | (raw) reads assembly      |
+| STACKS                | [[http://creskolab.uoregon.edu/stacks/][link]] | [2015-03-05 Thu] | stacks-1.27.tar.gz    | manual install                                             | Complete RAD pipeline     |
+| SciRoKo               | [[http://kofler.or.at/bioinformatics/SciRoKo/Download.html][link]] | -                | -                     | no (but we don't want, as it needs Mono)                   | Detect repeats            |
+| Sputnik               | -    | -                | -                     | already installed                                          | Detect repeats            |
+| Blast                 | -    | -                | -                     | already installed                                          | Mapping                   |
+| fastq_quality_trimmer | -    | -                | -                     | already installed (but is it the same as the Galaxy tool?) | Quality trimming of reads |
+| Maq v0.7.1            | -    | -                | -                     | already installed                                          | Variant calling           |
+  
+** Search for microsatellites
+
+Kofler 2007 ([[http://bioinformatics.oxfordjournals.org/content/23/13/1683.full#T1][paper]]) - SciRoKo software But SciRoKo needs Mono to run on Linux.
+Some alternatives are TRF (but its license prohibits de-compilation or
+modification) and modified Sputnik II.
+
 * Important people and groups
 
 ** Three central groups
