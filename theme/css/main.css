@@ -94,6 +94,35 @@ a:hover, a:active {
 	text-shadow: 1px 1px 1px #333;
 }
 
+.figure p {
+    text-align: center;
+}
+
+.figure-number {
+    font-weight: bold;
+}
+
+.figure a {
+    background: none;
+    text-align: center;
+}
+
+.figure a:hover, .figure a:active {
+   color: #007065;
+}
+
+.figure a:link img, .figure a:visited img {
+			border: 1px solid white;
+			border-radius: 5px;
+			padding: 5px;
+		    }
+
+.figure a:hover img, .figure a:active img{
+			 border: 1px dashed #007065;
+			 border-radius: 5px;
+			 padding: 5px;
+		     }
+
 #contentinfo a:link, #contentinfo a:visited {
 	 color: #a3b0a4;
 	 padding: 0 1px;
