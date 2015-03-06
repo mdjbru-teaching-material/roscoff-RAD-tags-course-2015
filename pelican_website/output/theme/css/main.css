@@ -221,11 +221,17 @@ dt {font-weight: bold;}
 dd {margin-left: 1.5em;}
 
 pre {
+    width: 90%;
     padding: 7px;
     padding-left: 15px;
     margin: 10px;
     overflow: auto;
     border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+pre.example {
+    color: #5F7F5F;
 }
 
 pre, code {
@@ -234,7 +240,7 @@ pre, code {
 }
 
 .todo {
-    color: red;
+    color: #dd2626;
     font-weight: bold;
     padding-left: 10px;
     padding-right: 10px;

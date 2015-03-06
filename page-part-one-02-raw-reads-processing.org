@@ -9,7 +9,7 @@
 
 @@html:<div class="navLink">@@[[file:part-one-01-introduction.html][Previous: Introduction]]@@html:</div>@@
 
-*** TODO add wikipedia links for FASTA, FASTQ and phred score
+** TODO add wikipedia links for FASTA, FASTQ and phred score
 
 ** FASTA and FASTQ format
 
@@ -22,8 +22,7 @@ In the FASTA format, each record has two elements:
 - the line starting with =>= contains the record name
 - the next line contain the nucleotide sequence
 
-#+CAPTION: Example of FASTA record
-#+BEGIN_SRC
+#+BEGIN_SRC verb
 >myLittleSeq
 AATTCCCACAGAATCCCTCGANGGACTGCAAGGCAGCAGCCCATTGCCTAAAAAGGAAGAGTGCACACAGA
 #+END_SRC
@@ -36,8 +35,7 @@ In the FASTQ format, each record has four elements:
 - the next line contains the quality score for each position (one character per
   position)
 
-#+CAPTION: Example of FASTQ record
-#+BEGIN_SRC
+#+BEGIN_SRC verb
 @myLittleSeq
 AATTCCCACAGAATCCCTCGANGGACTGCAAGGCAGCAGCCCATTGCCTAAAAAGGAAGAGTGCACACAGA
 +myLittleSeq
@@ -53,10 +51,11 @@ quality score used by Illumina is the Phred score.
 
 To write
 
-** TODO Have a look at the raw reads files
+** Raw reads files
+*** TODO Have a look at the raw reads files
 
 The raw reads are separated into several files:
-#+BEGIN_SRC
+#+BEGIN_SRC verb
 s_1_1_sequence.fastq
 s_1_2_sequence.fastq
 s_2_1_sequence.fastq
@@ -78,7 +77,7 @@ For example, =s_1_1_sequence.fastq= and =s_1_2_sequence.fastq= are the
 sequences from lane 1, forward and reverse reads, respectively.
 
 Get a look at the file by typing:
-#+BEGIN_SRC 
+#+BEGIN_SRC bash
 head s_1_1_sequence.fastq
 #+END_SRC
 #+BEGIN_EXAMPLE
@@ -96,13 +95,13 @@ AATTCTCTATGGCAACCAATGNACAAATAGTACTAACAGCTTAAAATGTTGGGACACAGTTAAGTGCTCAGCTA
 The =head= command displays the first 10 lines of a file. Can you recognize
 which lines contain record names? Record sequences? Quality scores?
 
-** TODO Count the number of reverse reads for each population
+** Count the number of reverse reads for each population
 
 Each population pool was barcoded on one side of the RAD fragment, which
 corresponds to the *reverse* reads here. The barcodes were three letter long,
 and were linked to the restriction site of ENZ1. This means that the reverse
 reads must start by one of those eight sequences:
-#+BEGIN_SRC
+#+BEGIN_SRC verb
 | Pop | Lane | Barcode | Rev start |
 |-----+------+---------+-----------|
 | BYN |    1 | CAC     | CACTCC    |
@@ -123,7 +122,7 @@ only one population in each of lanes 2 and 6.
 Let's start with something simple and look at lane 2. There is only one
 population, HKI, so all the reverse reads in =s_2_2_sequence.fastq= should
 start with =TCTTCC=.
-#+BEGIN_SRC 
+#+BEGIN_SRC bash
 head s_2_2_sequence.fastq
 #+END_SRC
 #+BEGIN_EXAMPLE
@@ -147,7 +146,7 @@ sequences starting with the correct pattern. Hopefully the numbers match...
 
 To count the total number of sequences in the file, we can count its lines with
 the command =wc -l= and then divide by four since each record has four lines:
-#+BEGIN_SRC
+#+BEGIN_SRC bash
 wc -l s_2_2_sequence.fastq
 #+END_SRC
 #+BEGIN_EXAMPLE
@@ -163,7 +162,7 @@ tells =grep= that the string should match at the beginning of a line only, not
 in the middle of it. The output of =grep= is then sent to =wc -l= with a pipe
 =|= so that =wc= will tell us how many matching lines =grep= returned. A pipe
 sends the output of the first command as an input to the second command.
-#+BEGIN_SRC
+#+BEGIN_SRC bash
 grep "^TCTTCC" s_2_2_sequence.fastq | wc -l
 #+END_SRC
 #+BEGIN_EXAMPLE
@@ -177,14 +176,14 @@ can it fail in some cases?
 The BYN population shared lane 1 with the RYT population. Reverse reads from
 both populations are in =s_1_2_sequence.fastq=. To count the number of reads
 for BYN, we can again use =grep= and the appropriate pattern:
-#+BEGIN_SRC 
+#+BEGIN_SRC bash
 grep "^CACTCC" s_1_2_sequence.fastq | wc -l
 #+END_SRC
 #+BEGIN_EXAMPLE
 187008
 #+END_EXAMPLE
 And we can do the same for RYT:
-#+BEGIN_SRC 
+#+BEGIN_SRC bash
 grep "^CTTTCC" s_1_2_sequence.fastq | wc -l
 #+END_SRC
 #+BEGIN_EXAMPLE
@@ -192,7 +191,7 @@ grep "^CTTTCC" s_1_2_sequence.fastq | wc -l
 #+END_EXAMPLE
 Finally, we can check that everything makes sense by counting the total number
 of reads in =s_1_2_sequence.fastq=:
-#+BEGIN_SRC 
+#+BEGIN_SRC bash
 wc -l s_1_2_sequence.fastq
 #+END_SRC
 #+BEGIN_SRC 
@@ -206,7 +205,138 @@ You can now obtain the number of reverse reads for all the populations. Compare
 the number of reads between populations. Is the coverage homogeneous? Can you
 explain what you observe?
 
-** Barcode and restriction-site checking
+** Barcode and restriction-site checking and demultiplexing
+
+In our case, the reads are already quite clean since there is no reads starting
+with an unexpected pattern. However, it is possible to have reads that do have
+mistakes at the beginning of the sequence, and that should be discarded because
+they cannot be assigned to a population for example.
+
+In practice, there are methods to correct the barcode for one base mismatch
+when the barcodes used for different populations are sufficiently different to
+start with (see for example the STACKS pipeline).
+
+*** Detect errors in the barcode and restriction site while demultiplexing
+
+Here, we'll just see how to detect those mistakes while demultiplexing,
+i.e. while sorting the reads from one file into one file per population. The
+file =s_5_2_sequence.fastq=, which contains the reverse reads for two
+populations, was transformed to a low quality file,
+=s_5_2_sequence.lowQual.fastq= in which some nucleotide were randomly changed
+(the Phred scores themselves were not touched).
+
+Reads in =s_5_2_sequence.fastq= should start with either =CACTCC= (SKA
+population) or =TCTTCC= (LEV population). Let's filter the reads from the
+modified file, =s_5_2_sequence.lowQual.fastq= to separate files for each
+population, and to a third file for reads that do not match the expected
+patterns.
+
+*** TODO Extract the reverse reads from SKA
+
+We use =grep= again. Since we want to extract full records, not only the
+nucleotide sequences that matches the pattern, we use =-B 1= (extract one line
+before the match) and =-A 2= (extract two lines after the matching line). We
+send =grep= output to a file by using the redirection operator =>=.
+
+In addition, =grep= will add a =--= line between groups of contiguous
+matches. We do not want to keep it in our output file, so we filter that out
+with a reverse =grep=: a =grep= call with the =-v= option which asks =grep= to
+output only the lines that do *not* match the pattern.
+
+#+BEGIN_SRC bash
+grep -B 1 -A 2 "^CACTCC" s_5_2_sequence.lowQual.fastq > SKA-rev.to-clean.fastq
+grep -v "^\-" SKA-rev.to-clean.fastq > SKA-rev.final.fastq
+#+END_SRC
+
+We could do all in one go, without the intermediate =SKA-rev.to-clean.fastq=
+file which contains the =--= lines, by using a pipe between the two =grep=
+calls:
+#+BEGIN_SRC bash
+grep -B 1 -A 2 "^CACTCC" s_5_2_sequence.lowQual.fastq | grep -v "^\-" > SKA-rev.fastq
+#+END_SRC
+
+Now we can count the number of sequence in =SKA-rev.fastq=:
+#+BEGIN_SRC bash
+grep "^@" SKA-rev.fastq | wc -l
+#+END_SRC
+#+BEGIN_EXAMPLE
+81235
+#+END_EXAMPLE
+
+*** TODO Extract the reverse reads from LEV
+
+Let's do the same for the LEV population:
+#+BEGIN_SRC bash
+grep -B 1 -A 2 "^TCTTCC" s_5_2_sequence.lowQual.fastq | grep -v "^\-" > LEV-rev.fastq
+grep "^@" LEV-rev.fastq | wc -l
+#+END_SRC
+#+BEGIN_EXAMPLE
+374311
+#+END_EXAMPLE
+
+And the total number of initial sequences was:
+#+BEGIN_SRC bash
+grep "^@" s_5_2_sequence.lowQual.fastq | wc -l
+#+END_SRC
+#+BEGIN_EXAMPLE
+457644
+#+END_EXAMPLE
+
+Were there any reads which were not sent to the SKA nor to the LEV file? How
+many was this? Can you imagine a way to get those reads to examine their
+sequence?
+
+*** TODO Get the reads names for each population
+
+To do things in a more rigorous way, we can actually create one list of reads
+names for each population. Those lists will help us to sort the reads later on.
+
+As an example, let's get all the names of the reverse reads for BYN. We can do
+it in two steps: first we extract the full records of the reverse reads
+starting with =CACTCC= (BYN specific pattern), and then we extract only the
+lines containing the reads names. Let's =grep= again!
+
+#+BEGIN_SRC bash
+grep -B 1 -A 2 "^CACTCC" s_1_2_sequence.fastq | grep "^@" > BYN.rev.names
+#+END_SRC
+
+Prepare a list of reverse reads names for each population, using the
+=s_2_5_sequence.lowQual.fastq= instead of the =s_2_5_sequence.fastq=.
+
+*** TODO Get the reads with unexpected pattern in =s_2_5_sequence.fastq=
+
+Now you should have a list of the reverse reads for SKA and LEV:
+#+BEGIN_SRC bash
+grep -B 1 -A 2 "^CACTCC" s_5_2_sequence.lowQual.fastq | grep "^@" > SKA.rev.names
+grep -B 1 -A 2 "^TCTTCC" s_5_2_sequence.lowQual.fastq | grep "^@" > LEV.rev.names
+#+END_SRC
+
+We can also prepare the list of all reads in the initial file:
+#+BEGIN_SRC bash
+grep "^@" s_5_2_sequence.lowQual.fastq > all.names
+#+END_SRC
+
+Now, by using inverted =grep= and by giving a file (with the =-f= option)
+containing the patterns to match to =grep=, we can get the names which were not
+assigned to SKA nor to LEV. We also use the =-F= option to tell =grep= the
+pattern are fix, not regular expressions, to make it faster:
+#+BEGIN_SRC bash
+grep -F -v -f SKA.rev.names all.names > names.not.in.SKA
+grep -F -v -f LEV.rev.names names.not.in.SKA > names.not.in.SKA.nor.LEV
+#+END_SRC
+
+Great! Now we can use this list of non-matching names to get their actual
+sequences and see what were the problems:
+#+BEGIN_SRC 
+grep -F -A 1 -f names.not.in.SKA.nor.LEV s_5_2_sequence.lowQual.fastq > bad.seqs
+#+END_SRC
+
+If we look at =bad.seqs= with =less= for example (=less bad.seqs=), we can see
+that there is one mismatch in the first 6 nucleotides.
+
+*** TODO Complete demultiplexing
+
+** Demultiplexing and sequence sorting
 
 Similar to demultiplexing, even though the multiplexing is not really high
 here.

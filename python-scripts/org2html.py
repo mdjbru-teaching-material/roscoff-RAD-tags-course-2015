@@ -19,6 +19,7 @@ from bs4 import BeautifulSoup
 
 META_NOT_EXPORTED = ["OPTIONS", "CAPTION", "NAME", "ATTR_HTML"]
 ROOT_URL = "http://mdjbru-teaching-material.github.io/roscoff-RAD-tags-course-2015"
+TODO_REPLACEMENT = "TODO"
 
 ### * Functions
 
@@ -93,6 +94,13 @@ def convertLinksToFiles(body,rootUrl) :
     o = body.replace(p, n)
     return(o)
 
+### ** convertTODO(body, todo_replacement)
+
+def convertTODO(body, todo_replacement) :
+    p = "<span class=\"todo TODO\">TODO</span>"
+    n = "<span class=\"todo TODO\">" + todo_replacement +  "</span>"
+    o = body.replace(p, n)
+    return(o)
 
 ### * Run
 
@@ -107,6 +115,7 @@ for inputFile in sys.argv[1:] :
     body = getHtmlBody(outputFile)
     p = formatHtmlPage(metadata, body)
     p = convertLinksToFiles(p, ROOT_URL)
+    p = convertTODO(p, TODO_REPLACEMENT)
     with codecs.open(outputFile, encoding = "utf-8", mode = "w") as fo :
         fo.write(unicode(p))
     os.remove(inputFile + ".no-metadata.org")
