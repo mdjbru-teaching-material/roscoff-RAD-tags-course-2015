@@ -334,12 +334,14 @@ grep -F -A 1 -f names.not.in.SKA.nor.LEV s_5_2_sequence.lowQual.fastq > bad.seqs
 If we look at =bad.seqs= with =less= for example (=less bad.seqs=), we can see
 that there is one mismatch in the first 6 nucleotides.
 
-*** TODO Complete demultiplexing
+** Complete demultiplexing
 
-** Demultiplexing and sequence sorting
+*** TODO Demultiplex the forward and reverse reads
 
 Similar to demultiplexing, even though the multiplexing is not really high
 here.
+
+*** TODO Diagnostic plots with R
 
 A few diagnostic plots to see how to see how the data look like. For example,
 the number of reads varies between populations. Discussion about issues, the
