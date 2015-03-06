@@ -1,0 +1,19 @@
+#+Title: Mapping back to reference genome - Complete workflow
+#+Summary: Mapping bacl to reference genome
+#+URL: part-one-07-mapping-back-3sp-genome.html
+#+Save_as: part-one-07-mapping-back-3sp-genome.html
+#+Status: hidden
+#+OPTIONS: toc:nil num:nil html-postamble:nil
+
+* Mapping back the consensus sequences to the threespine genome
+
+@@html:<div class="navLink">@@[[file:part-one-06-phylogeographic-tree.html][Previous: Phylogeographic tree]]@@html:</div>@@
+
+Plot, proportion coding, non-coding, number per chromosome
+
+** Mapping back to the threespine genome
+
+Efficiency of mapping back? Distribution by chromosome? Something about sexual
+chromosomes? Comparison of mapping back to coding and non-coding regions?
+
+@@html:<div class="navLink">@@[[file:part-one-08-prediction-SNP-effect.html][Next: Prediction of SNP effects]]@@html:</div>@@

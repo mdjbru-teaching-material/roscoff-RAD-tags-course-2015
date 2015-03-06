@@ -10,309 +10,70 @@
 <body>
 
 
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#sec-1">1. Introduction</a></li>
-<li><a href="#sec-2">2. A complete workflow: reanalysis of the ninespine stickleback RAD-seq data</a>
-<ul>
-<li><a href="#sec-2-1">2.1. Model</a></li>
-<li><a href="#sec-2-2">2.2. Approach</a></li>
-<li><a href="#sec-2-3">2.3. Raw read processing</a></li>
-<li><a href="#sec-2-4">2.4. Assembly and mapping back</a></li>
-<li><a href="#sec-2-5">2.5. Genotyping and allele frequency estimates</a></li>
-<li><a href="#sec-2-6">2.6. Downstream analysis</a></li>
-<li><a href="#sec-2-7">2.7. Conclusion</a></li>
-</ul>
-</li>
-<li><a href="#sec-3">3. Cherry-picking some analysis steps</a></li>
-</ul>
-</div>
-</div>
 <div class="outline-2" id="outline-container-sec-1">
-<h2 id="sec-1"><span class="section-number-2">1</span> Introduction</h2>
+<h2 id="sec-1">Plan</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-The practicals will comprise two different parts:
+The practicals are done in two parts:
 </p>
 <ul class="org-ul">
-<li>a detailed analysis, from raw reads to final results, of a dataset from a
+<li>A <b>detailed analysis</b>, from raw reads to final results, of a dataset from a
 paper published in 2013: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract">Molecular evolutionary and population genomic analysis of the 
 nine-spined stickleback using a modified restriction-site-associated DNA tag approach</a>. 
-The raw dataset is available
-from the Dryad data archive, doi: <a href="http://dx.doi.org/10.5061/dryad.44sf1">10.5061/dryad.44sf1</a>. We will try to
-reproduce the results from the paper, criticize the different steps and maybe
-try different approaches as we go.
+The raw dataset is available from the Dryad data archive, doi:
+<a href="http://dx.doi.org/10.5061/dryad.44sf1">10.5061/dryad.44sf1</a>. We will try to <b>reproduce</b> the results from the paper,
+<b>criticize</b> the different steps and maybe <b>try different approaches</b> as we
+go.
+
+<p>
+After this part, you should have a general view of a RAD-seq workflow.
+</p>
 </li>
-<li>after the general view of a RAD-seq workflow from the previous analysis, a
-more specific look more specifically at some steps of the analysis, using
-other published datasets. This might entail, for example, genotype calling
-using a maximum likelihood approach.
+<li>A <b>more specific look</b> at some precise steps of the analysis, using other
+published datasets. This might entail, for example, genotype calling using a
+maximum likelihood approach.
 </li>
 </ul>
 </div>
 </div>
 <div class="outline-2" id="outline-container-sec-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> A complete workflow: reanalysis of the ninespine stickleback RAD-seq data</h2>
+<h2 id="sec-2">Detailed instructions</h2>
 <div class="outline-text-2" id="text-2">
-</div><div class="outline-3" id="outline-container-sec-2-1">
-<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Model</h3>
-<div class="outline-text-3" id="text-2-1">
 <p>
-The study in <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract">Bruneaux et al. (2013)</a> focus on several freshwater and marine
-populations of ninespine stickleback from Fenno-Scandia. Those populations are
-relatively recent since this region was recolonized after the last glacial
-maximum (ca. 11000 years BP). They differ in several morphological, behavioural
-and physiological traits.
+Please follow the links to proceed to the detailed instructions:
 </p>
-<div class="figure">
-<p><a href="resources/bruneaux-2013_9spine-map_high.png"><img alt="bruneaux-2013_9spine-map_low.png" src="resources/bruneaux-2013_9spine-map_low.png"/></a>
-</p>
-<p><span class="figure-number">Figure 1:</span> Sampling locations for ninespine stickleback (from <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract">Bruneaux et al. (2013)</a>). Marine, pond and lake populations are marked as filled squares, filled circles and open circles, respectively.</p>
+<ul class="org-ul">
+<li><b><a href="part-one-01-introduction.html">Part one: a complete analysis, from raw reads to results</a></b>
+<ul class="org-ul">
+<li><a href="part-one-01-introduction.html">Introduction</a>
+</li>
+<li><a href="part-one-02-raw-reads-processing.html">Raw reads processing</a>
+</li>
+<li><a href="part-one-03-de-novo-assembly.html"><i>De novo</i> assembly</a>
+</li>
+<li><a href="part-one-04-variant-calling-genotyping.html">Variant calling and genotyping</a>
+</li>
+<li><a href="part-one-05-downstream-analysis.html">Downstream analysis</a>
+<ul class="org-ul">
+<li><a href="part-one-06-phylogeographic-tree.html">Phylogeographic tree</a>
+</li>
+<li><a href="part-one-07-mapping-back-3sp-genome.html">Mapping back to the threespine genome</a>
+</li>
+<li><a href="part-one-08-prediction-SNP-effect.html">Prediction of SNP effects in coding regions</a>
+</li>
+<li><a href="part-one-09-genome-scan.html">Genome scan for G<sub>st</sub></a>
+</li>
+<li><a href="part-one-10-GO-enrichment-tests.html">Gene ontology (GO) enrichment tests</a>
+</li>
+</ul>
+</li>
+<li><a href="part-one-11-conclusion.html">Conclusion</a>
+</li>
+</ul>
+</li>
+<li><b><a href="part-two-01-introduction.html">Part two: going further for some analytical steps</a></b>
+</li>
+</ul>
 </div>
-<p>
-In general, fish from the freshwater ponds where ninespine is the only fish
-species are larger, bolder and more aggressive than their marine counterparts,
-and also harbour reduced body armour. This is thought to be due to differences
-in intra and interspecific competition, and lab crosses have shown that the
-traits are at least partially genetically determined.
-</p>
-<div class="figure">
-<p><a href="resources/EGRU-website_ninespine-gigantism-high.jpg"><img alt="EGRU-website_ninespine-gigantism-low.jpg" src="resources/EGRU-website_ninespine-gigantism-low.jpg"/></a>
-</p>
-<p><span class="figure-number">Figure 2:</span> Gigantism in ninespine stickleback (from the <a href="http://www.helsinki.fi/biosci/egru/publications/species/ninespined.html">Ecological Genetics Research Unit</a> website). Some pond populations (top) harbour giant size compared to marine populations (bottom).</p>
-</div>
-<p>
-The aim of the study was to look for the genetic basis of differentiation
-between the different habitat types, and investigate if signals of parallel
-evolution could be found. For this species, no reference genome is
-available. However, the genome of the (relatively) closely related threespine
-stickleback is available and annotated in Ensembl.
-</p>
-</div>
-</div>
-<div class="outline-3" id="outline-container-sec-2-2">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Approach</h3>
-<div class="outline-text-3" id="text-2-2">
-<p>
-Twenty individuals from each population were sampled and their DNA was
-extracted. The DNA was digested by two restriction enzymes and size-selected,
-and equal amounts of RAD fragments per individuals were then pooled into
-population-specific pools. Those pools were barcoded (one barcode per
-population) and sent for sequencing in an Illumina GAII system, using
-paired-end sequencing.
-</p>
-<table border="2" cellpadding="6" cellspacing="0" frame="hsides" rules="groups">
-<caption align="above"><span class="table-number">Table 1:</span> Sampling location information and barcodes</caption>
-<colgroup>
-<col class="left"></col>
-<col class="left"></col>
-<col class="left"></col>
-<col class="left"></col>
-<col class="left"></col>
-</colgroup>
-<thead>
-<tr>
-<th class="left" scope="col">Population</th>
-<th class="left" scope="col">Location</th>
-<th class="left" scope="col">Habitat</th>
-<th class="left" scope="col">Drainage</th>
-<th class="left" scope="col">Lane and barcode</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="left">ABB</td>
-<td class="left">Abbortjärn</td>
-<td class="left">Pond</td>
-<td class="left">Baltic Sea</td>
-<td class="left"><code>3_TTG</code></td>
-</tr>
-<tr>
-<td class="left">BYN</td>
-<td class="left">Bynastjärnen</td>
-<td class="left">Pond</td>
-<td class="left">Baltic Sea</td>
-<td class="left"><code>1_CAC</code></td>
-</tr>
-<tr>
-<td class="left">PYÖ</td>
-<td class="left">Pyöreälampi</td>
-<td class="left">Pond</td>
-<td class="left">White Sea</td>
-<td class="left"><code>3_CTT</code></td>
-</tr>
-<tr>
-<td class="left">RYT</td>
-<td class="left">Rytilampi</td>
-<td class="left">Pond</td>
-<td class="left">White Sea</td>
-<td class="left"><code>1_CTT</code></td>
-</tr>
-<tr>
-<td class="left">POR</td>
-<td class="left">Iso-Porontima</td>
-<td class="left">Lake</td>
-<td class="left">White Sea</td>
-<td class="left"><code>6_TTG</code></td>
-</tr>
-<tr>
-<td class="left">SKA</td>
-<td class="left">Västre-Skavträsket</td>
-<td class="left">Lake</td>
-<td class="left">Baltic Sea</td>
-<td class="left"><code>5_CAC</code></td>
-</tr>
-<tr>
-<td class="left">HKI</td>
-<td class="left">Helsinki</td>
-<td class="left">Marine</td>
-<td class="left">Baltic Sea</td>
-<td class="left"><code>2_TCT</code></td>
-</tr>
-<tr>
-<td class="left">LEV</td>
-<td class="left">Levin Navolok Bay</td>
-<td class="left">Marine</td>
-<td class="left">White Sea</td>
-<td class="left"><code>5_TCT</code></td>
-</tr>
-</tbody>
-</table>
-<p>
-Your work starts as the raw reads are sent back to you from the sequencing
-service.
-</p>
-</div>
-</div>
-<div class="outline-3" id="outline-container-sec-2-3">
-<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Raw read processing</h3>
-<div class="outline-text-3" id="text-2-3">
-</div><div class="outline-4" id="outline-container-sec-2-3-1">
-<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> Quality control</h4>
-</div>
-<div class="outline-4" id="outline-container-sec-2-3-2">
-<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> Barcode and restriction-site checking</h4>
-<div class="outline-text-4" id="text-2-3-2">
-<p>
-Similar to demultiplexing, even though the multiplexing is not really high
-here.
-</p>
-<p>
-A few diagnostic plots to see how to see how the data look like. For example,
-the number of reads varies between populations. Discussion about issues, the
-barcode effects, how to fix that, and similar potential issues within the pools
-(how some individuals can have more reads than others, mutations that break the
-restriction site).
-</p>
-</div>
-</div>
-</div>
-<div class="outline-3" id="outline-container-sec-2-4">
-<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Assembly and mapping back</h3>
-<div class="outline-text-3" id="text-2-4">
-</div><div class="outline-4" id="outline-container-sec-2-4-1">
-<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> Assembly into contigs</h4>
-<div class="outline-text-4" id="text-2-4-1">
-<p>
-We choose to go for a de novo assembly. Several tools were tested, in the end
-we went for an older tool, CAP3. Discuss the reasons with Susie?
-</p>
-<p>
-An alternative approach would have been to map the reads back to the reference
-genome. However, when mapping back we have to be quite stringent and allow only
-for example one or two mismatch, and one unique good quality mapping
-location. With the reference genome of a different species, this can be
-problematic and the mapping back might be less efficient that creating
-consensus contigs or stacks.
-</p>
-</div>
-</div>
-<div class="outline-4" id="outline-container-sec-2-4-2">
-<h4 id="sec-2-4-2"><span class="section-number-4">2.4.2</span> Removal of repeat sequences</h4>
-</div>
-<div class="outline-4" id="outline-container-sec-2-4-3">
-<h4 id="sec-2-4-3"><span class="section-number-4">2.4.3</span> Mapping back to the threespine genome</h4>
-<div class="outline-text-4" id="text-2-4-3">
-<p>
-Efficiency of mapping back? Distribution by chromosome? Something about sexual
-chromosomes? Comparison of mapping back to coding and non-coding regions?
-</p>
-</div>
-</div>
-</div>
-<div class="outline-3" id="outline-container-sec-2-5">
-<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Genotyping and allele frequency estimates</h3>
-<div class="outline-text-3" id="text-2-5">
-</div><div class="outline-4" id="outline-container-sec-2-5-1">
-<h4 id="sec-2-5-1"><span class="section-number-4">2.5.1</span> Variant calling and filtering</h4>
-</div>
-<div class="outline-4" id="outline-container-sec-2-5-2">
-<h4 id="sec-2-5-2"><span class="section-number-4">2.5.2</span> Diagnostic plots and reality check</h4>
-<div class="outline-text-4" id="text-2-5-2">
-<p>
-How many SNPs do we have? What is the coverage per populations? Do we have to
-pool some populations?
-</p>
-</div>
-</div>
-</div>
-<div class="outline-3" id="outline-container-sec-2-6">
-<h3 id="sec-2-6"><span class="section-number-3">2.6</span> Downstream analysis</h3>
-<div class="outline-text-3" id="text-2-6">
-</div><div class="outline-4" id="outline-container-sec-2-6-1">
-<h4 id="sec-2-6-1"><span class="section-number-4">2.6.1</span> Prediction of mutation effect</h4>
-<div class="outline-text-4" id="text-2-6-1">
-<p>
-Synonymous / non-synonymous mutations? Distribution along the genome?
-</p>
-</div>
-</div>
-<div class="outline-4" id="outline-container-sec-2-6-2">
-<h4 id="sec-2-6-2"><span class="section-number-4">2.6.2</span> Calculation of Gst</h4>
-<div class="outline-text-4" id="text-2-6-2">
-<p>
-Disclaimer: there are ways to do it much more rigorously! Using the quality
-score information all the way to genotype calling and allele frequency
-estimations, using likelihood or Bayesian methods.
-</p>
-</div>
-</div>
-<div class="outline-4" id="outline-container-sec-2-6-3">
-<h4 id="sec-2-6-3"><span class="section-number-4">2.6.3</span> Genome scans</h4>
-<div class="outline-text-4" id="text-2-6-3">
-<p>
-Kernel smoothing, permutation testing.
-</p>
-<p>
-This is possible only when location is known. Can be real or in cM, but we have
-to understand what we do!
-</p>
-<p>
-Permutation testing to look for aggregations of high or low values.
-</p>
-</div>
-</div>
-<div class="outline-4" id="outline-container-sec-2-6-4">
-<h4 id="sec-2-6-4"><span class="section-number-4">2.6.4</span> Gene Ontology annotation and enrichment test</h4>
-<div class="outline-text-4" id="text-2-6-4">
-<p>
-In the paper, done with Cytoscape and Bingo but probably doable with R.
-</p>
-<p>
-GUI are nice, but it is also advisable to have command line tools and pipelines
-for easy reproduction of results and to be able to rerun the analysis with
-updated data.
-</p>
-</div>
-</div>
-</div>
-<div class="outline-3" id="outline-container-sec-2-7">
-<h3 id="sec-2-7"><span class="section-number-3">2.7</span> Conclusion</h3>
-</div>
-</div>
-<div class="outline-2" id="outline-container-sec-3">
-<h2 id="sec-3"><span class="section-number-2">3</span> Cherry-picking some analysis steps</h2>
 </div>
 </body></html>

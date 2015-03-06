@@ -1,0 +1,27 @@
+
+#+Title: De novo assembly - Complete workflow
+#+Summary: Assembly
+#+URL: part-one-03-de-novo-assembly.html
+#+Save_as: part-one-03-de-novo-assembly.html
+#+Status: hidden
+#+OPTIONS: toc:nil num:nil html-postamble:nil
+
+* /De novo/ assembly
+
+@@html:<div class="navLink">@@[[file:part-one-02-raw-reads-processing.html][Previous: Raw reads processing]]@@html:</div>@@
+
+** Assembly into contigs
+
+We choose to go for a de novo assembly. Several tools were tested, in the end
+we went for an older tool, CAP3. Discuss the reasons with Susie?
+
+An alternative approach would have been to map the reads back to the reference
+genome. However, when mapping back we have to be quite stringent and allow only
+for example one or two mismatch, and one unique good quality mapping
+location. With the reference genome of a different species, this can be
+problematic and the mapping back might be less efficient that creating
+consensus contigs or stacks.
+
+** Removal of repeat sequences
+
+@@html:<div class="navLink">@@[[file:part-one-04-variant-calling-genotyping.html][Next: Variant calling and genotyping]]@@html:</div>@@

@@ -1,0 +1,27 @@
+#+Title: Genome scan - Complete workflow
+#+Summary: Genome scan
+#+URL: part-one-09-genome-scan.html
+#+Save_as: part-one-09-genome-scan.html
+#+Status: hidden
+#+OPTIONS: toc:nil num:nil html-postamble:nil
+
+* Performing a genome scan for G_{st}
+
+@@html:<div class="navLink">@@[[file:part-one-08-prediction-SNP-effect.html][Previous: Prediction of SNP effects]]@@html:</div>@@
+
+** Calculation of Gst
+
+Disclaimer: there are ways to do it much more rigorously! Using the quality
+score information all the way to genotype calling and allele frequency
+estimations, using likelihood or Bayesian methods.
+
+** Genome scans
+
+Kernel smoothing, permutation testing.
+
+This is possible only when location is known. Can be real or in cM, but we have
+to understand what we do!
+
+Permutation testing to look for aggregations of high or low values.
+
+@@html:<div class="navLink">@@[[file:part-one-10-GO-enrichment-tests.html][Next: GO enrichment tests]]@@html:</div>@@>

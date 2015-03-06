@@ -1,0 +1,63 @@
+#+Title: Introduction - Complete workflow
+#+Summary: Introduction to part one
+#+URL: part-one-01-introduction.html
+#+Save_as: part-one-01-introduction.html
+#+Status: hidden
+#+OPTIONS: toc:nil num:nil html-postamble:nil
+
+* Introduction
+
+@@html:<div class="navLink">@@[[file:practicals.html][Previous: Practicals]]@@html:</div>@@
+
+** Model
+
+The study in [[http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract][Bruneaux et al. (2013)]] focus on several freshwater and marine
+populations of ninespine stickleback from Fenno-Scandia. Those populations are
+relatively recent since this region was recolonized after the last glacial
+maximum (ca. 11000 years BP). They differ in several morphological, behavioural
+and physiological traits.
+
+#+CAPTION: Sampling locations for ninespine stickleback (from [[http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract][Bruneaux et al. (2013)]]). Marine, pond and lake populations are marked as filled squares, filled circles and open circles, respectively.
+[[file:resources/bruneaux-2013_9spine-map_high.png][file:resources/bruneaux-2013_9spine-map_low.png]]
+
+In general, fish from the freshwater ponds where ninespine is the only fish
+species are larger, bolder and more aggressive than their marine counterparts,
+and also harbour reduced body armour. This is thought to be due to differences
+in intra and interspecific competition, and lab crosses have shown that the
+traits are at least partially genetically determined.
+
+#+CAPTION: Gigantism in ninespine stickleback (from the [[http://www.helsinki.fi/biosci/egru/publications/species/ninespined.html][Ecological Genetics Research Unit]] website). Some pond populations (top) harbour giant size compared to marine populations (bottom).
+[[file:resources/EGRU-website_ninespine-gigantism-high.jpg][file:resources/EGRU-website_ninespine-gigantism-low.jpg]]
+
+The aim of the study was to look for the genetic basis of differentiation
+between the different habitat types, and investigate if signals of parallel
+evolution could be found. For this species, no reference genome is
+available. However, the genome of the (relatively) closely related threespine
+stickleback is available and annotated in Ensembl.
+
+** Approach
+
+Twenty individuals from each population were sampled and their DNA was
+extracted. The DNA was digested by two restriction enzymes and size-selected,
+and equal amounts of RAD fragments per individuals were then pooled into
+population-specific pools. Those pools were barcoded (one barcode per
+population) and sent for sequencing in an Illumina GAII system, using
+paired-end sequencing.
+
+#+CAPTION: Sampling location information and barcodes
+#+ATTR_HTML: :frame hsides
+| Population | Location           | Habitat | Drainage   | Lane and barcode |
+|------------+--------------------+---------+------------+------------------|
+| ABB        | Abbortjärn         | Pond    | Baltic Sea | =3_TTG=          |
+| BYN        | Bynastjärnen       | Pond    | Baltic Sea | =1_CAC=          |
+| PYÖ        | Pyöreälampi        | Pond    | White Sea  | =3_CTT=          |
+| RYT        | Rytilampi          | Pond    | White Sea  | =1_CTT=          |
+| POR        | Iso-Porontima      | Lake    | White Sea  | =6_TTG=          |
+| SKA        | Västre-Skavträsket | Lake    | Baltic Sea | =5_CAC=          |
+| HKI        | Helsinki           | Marine  | Baltic Sea | =2_TCT=          |
+| LEV        | Levin Navolok Bay  | Marine  | White Sea  | =5_TCT=          |
+
+Your work starts as the raw reads are sent back to you from the sequencing
+service.
+
+@@html:<div class="navLink">@@[[file:part-one-02-raw-reads-processing.html][Next: Raw reads processing]]@@html:</div>@@

@@ -1,0 +1,16 @@
+#+Title: Phylogeography - Complete workflow
+#+Summary: Phylogeography
+#+URL: part-one-06-phylogeographic-tree.html
+#+Save_as: part-one-06-phylogeographic-tree.html
+#+Status: hidden
+#+OPTIONS: toc:nil num:nil html-postamble:nil
+
+* Phylogeography - comparison between microsatellites and SNP data
+
+@@html:<div class="navLink">@@[[file:part-one-05-downstream-analysis.html][Previous: Downstream analysis]]@@html:</div>@@
+
+Take the figures from the paper.
+
+Cite also deFaveri paper comparing microsats and SNPs.
+
+@@html:<div class="navLink">@@[[file:part-one-07-mapping-back-3sp-genome.html][Next: Mapping back to the reference genome]]@@html:</div>@@

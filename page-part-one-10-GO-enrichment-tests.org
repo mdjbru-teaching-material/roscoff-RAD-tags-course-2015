@@ -1,0 +1,20 @@
+#+Title: GO enrichment tests - Complete workflow
+#+Summary: GO enrichment tests
+#+URL: part-one-10-GO-enrichment-tests.html
+#+Save_as: part-one-10-GO-enrichment-tests.html
+#+Status: hidden
+#+OPTIONS: toc:nil num:nil html-postamble:nil
+
+* GO enrichment tests
+
+@@html:<div class="navLink">@@[[file:part-one-09-genome-scan.html][Previous: Genome scan for Gst]]@@html:</div>@@
+
+** Gene Ontology annotation and enrichment test
+
+In the paper, done with Cytoscape and Bingo but probably doable with R.
+
+GUI are nice, but it is also advisable to have command line tools and pipelines
+for easy reproduction of results and to be able to rerun the analysis with
+updated data.
+
+@@html:<div class="navLink">@@[[file:part-one-11-conclusion.html][Next: Conclusion]]@@html:</div>@@

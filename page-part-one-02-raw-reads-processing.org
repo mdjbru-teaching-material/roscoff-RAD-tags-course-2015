@@ -1,0 +1,27 @@
+#+Title: Raw reads processing - Complete workflow
+#+Summary: Raw reads processing
+#+URL: part-one-02-raw-reads-processing.html
+#+Save_as: part-one-02-raw-reads-processing.html
+#+Status: hidden
+#+OPTIONS: toc:nil num:nil html-postamble:nil
+
+* Raw read processing
+
+@@html:<div class="navLink">@@[[file:part-one-01-introduction.html][Previous: Introduction]]@@html:</div>@@
+
+** FASTQ format and phred score
+
+** Barcode and restriction-site checking
+
+Similar to demultiplexing, even though the multiplexing is not really high
+here.
+
+A few diagnostic plots to see how to see how the data look like. For example,
+the number of reads varies between populations. Discussion about issues, the
+barcode effects, how to fix that, and similar potential issues within the pools
+(how some individuals can have more reads than others, mutations that break the
+restriction site).
+
+** Quality control
+
+@@html:<div class="navLink">@@[[file:part-one-03-de-novo-assembly.html][Next: De novo assembly]]@@html:</div>@@

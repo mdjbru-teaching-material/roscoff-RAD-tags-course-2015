@@ -1,0 +1,16 @@
+#+Title: Prediction of SNP effects - Complete workflow
+#+Summary: Prediction of SNP effects
+#+URL: part-one-08-prediction-SNP-effect.html
+#+Save_as: part-one-08-prediction-SNP-effect.html
+#+Status: hidden
+#+OPTIONS: toc:nil num:nil html-postamble:nil
+
+* Prediction of SNP effects (in coding sequences)
+
+@@html:<div class="navLink">@@[[file:part-one-07-mapping-back-3sp-genome.html][Previous: Mapping back to the reference genome]]@@html:</div>@@
+
+** Prediction of mutation effect
+
+Synonymous / non-synonymous mutations? Distribution along the genome?
+
+@@html:<div class="navLink">@@[[file:part-one-09-genome-scan.html][Next: Genome scan for Gst]]@@html:</div>@@

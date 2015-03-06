@@ -1,0 +1,33 @@
+#+Title: Downstream analysis - Complete workflow
+#+Summary: Downstream analysis
+#+URL: part-one-05-downstream-analysis.html
+#+Save_as: part-one-05-downstream-analysis.html
+#+Status: hidden
+#+OPTIONS: toc:nil num:nil html-postamble:nil
+
+* Downstream analysis
+
+@@html:<div class="navLink">@@[[file:part-one-04-variant-calling-genotyping.html][Previous: Variant calling and genotyping]]@@html:</div>@@
+
+At this point the basic steps which are common to many RAD-seq experiments have been
+performed:
+- raw reads processing (filtering and trimming)
+- de novo assembly (or mapping back to a reference if available)
+- reads mapping back to the consensus sequences
+- variant calling
+- genotyping and allele frequency estimates
+
+We are ready to perform the downstream analyses which will answer the
+biological question(s) that led us to perform the RAD-seq in the first
+place. Those analyses includes population genomics, phylogeography,
+phylogenetics, and others.
+
+In this practical the downstream analyses will be:
+1. Building a phylogeographic tree of the populations (not demonstrated)
+2. Mapping back the consensus sequences to a reference genome
+3. Predicting the synonymous or non-synonymous effect of mutations
+4. Performing a genome scan using G_{st} to detect regions of low/high
+   differentiation
+5. Test for gene-ontology enrichment in those regions
+
+@@html:<div class="navLink">@@[[file:part-one-06-phylogeographic-tree.html][Next: Phylogeographic tree]]@@html:</div>@@

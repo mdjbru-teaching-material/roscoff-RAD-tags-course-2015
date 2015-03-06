@@ -1,0 +1,25 @@
+#+Title: Variant calling and genotyping - Complete workflow
+#+Summary: Variant calling and genotyping
+#+URL: part-one-04-variant-calling-genotyping.html
+#+Save_as: part-one-04-variant-calling-genotyping.html
+#+Status: hidden
+#+OPTIONS: toc:nil num:nil html-postamble:nil
+
+* Variant calling and genotyping
+
+@@html:<div class="navLink">@@[[file:part-one-03-de-novo-assembly.html][Previous: De novo assembly]]@@html:</div>@@
+
+** Variant calling and filtering
+
+** Genotyping
+
+** Allele frequency estimates
+
+Pooling needed
+
+** Diagnostic plots and reality check
+
+How many SNPs do we have? What is the coverage per populations? Do we have to
+pool some populations?
+
+@@html:<div class="navLink">@@[[file:part-one-05-downstream-analysis.html][Next: Downstream analysis]]@@html:</div>@@
