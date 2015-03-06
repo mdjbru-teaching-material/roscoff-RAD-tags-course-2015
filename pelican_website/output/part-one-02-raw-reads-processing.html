@@ -27,6 +27,34 @@
     
 
 
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Raw read processing</a>
+<ul>
+<li>
+<ul>
+<li><a href="#sec-1-0-1"><span class="todo TODO">TODO</span> add wikipedia links for FASTA, FASTQ and phred score</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-1">FASTA and FASTQ format</a></li>
+<li><a href="#sec-1-2">Phred score</a></li>
+<li><a href="#sec-1-3"><span class="todo TODO">TODO</span> Have a look at the raw reads files</a></li>
+<li><a href="#sec-1-4"><span class="todo TODO">TODO</span> Count the number of reverse reads for each population</a>
+<ul>
+<li><a href="#sec-1-4-1"><span class="todo TODO">TODO</span> Count the number of reverse reads for HKI population</a></li>
+<li><a href="#sec-1-4-2"><span class="todo TODO">TODO</span> Count the number of reverse reads for BYN and RYT populations</a></li>
+<li><a href="#sec-1-4-3"><span class="todo TODO">TODO</span> Count the number of reverse reads for the other populations</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-5">Barcode and restriction-site checking</a></li>
+<li><a href="#sec-1-6">Quality control</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="outline-2" id="outline-container-sec-1">
 <h2 id="sec-1">Raw read processing</h2>
 <div class="outline-text-2" id="text-1">
@@ -34,12 +62,269 @@
 <div class="navLink"><a href="part-one-01-introduction.html">Previous: Introduction</a></div>
 </p>
 </div>
+<div class="outline-4" id="outline-container-sec-1-0-1">
+<h4 id="sec-1-0-1"><span class="todo TODO">TODO</span> add wikipedia links for FASTA, FASTQ and phred score</h4>
+</div>
 <div class="outline-3" id="outline-container-sec-1-1">
-<h3 id="sec-1-1">FASTQ format and phred score</h3>
+<h3 id="sec-1-1">FASTA and FASTQ format</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Many high-throughput sequencing methods produce reads in a format called
+FASTQ. This format is very similar to the FASTA format, but in addition to the
+nucleotide sequence itself it also contains some quality information for each
+position.
+</p>
+<p>
+In the FASTA format, each record has two elements: 
+</p>
+<ul class="org-ul">
+<li>the line starting with <code>&gt;</code> contains the record name
+</li>
+<li>the next line contain the nucleotide sequence
+</li>
+</ul>
+<pre class="example">
+&gt;myLittleSeq
+AATTCCCACAGAATCCCTCGANGGACTGCAAGGCAGCAGCCCATTGCCTAAAAAGGAAGAGTGCACACAGA
+</pre>
+<p>
+In the FASTQ format, each record has four elements:
+</p>
+<ul class="org-ul">
+<li>the line starting with <code>@</code> contains the record name and precedes the sequence
+</li>
+<li>the next line is the nucleotide sequence
+</li>
+<li>the line starting with <code>+</code> repeats the record name and precedes the quality
+information
+</li>
+<li>the next line contains the quality score for each position (one character per
+position)
+</li>
+</ul>
+<pre class="example">
+@myLittleSeq
+AATTCCCACAGAATCCCTCGANGGACTGCAAGGCAGCAGCCCATTGCCTAAAAAGGAAGAGTGCACACAGA
++myLittleSeq
+BBBBBBB?ABABB@BBB6B?6%6&gt;9B;@BA=;ABAACBABA?=?@AAB&gt;8.(.);@:&gt;BBA7@C@.&lt;(0B8
+</pre>
+<p>
+The quality score for each position is encoded in one character and can be
+converted to a numerical value. This score tells how confident the sequencer is
+about the identity of the base at this position of the sequence. One format for
+quality score used by Illumina is the Phred score.
+</p>
+</div>
 </div>
 <div class="outline-3" id="outline-container-sec-1-2">
-<h3 id="sec-1-2">Barcode and restriction-site checking</h3>
+<h3 id="sec-1-2">Phred score</h3>
 <div class="outline-text-3" id="text-1-2">
+<p>
+To write
+</p>
+</div>
+</div>
+<div class="outline-3" id="outline-container-sec-1-3">
+<h3 id="sec-1-3"><span class="todo TODO">TODO</span> Have a look at the raw reads files</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+The raw reads are separated into several files:
+</p>
+<pre class="example">
+s_1_1_sequence.fastq
+s_1_2_sequence.fastq
+s_2_1_sequence.fastq
+s_2_2_sequence.fastq
+s_3_1_sequence.fastq
+s_3_2_sequence.fastq
+s_5_1_sequence.fastq
+s_5_2_sequence.fastq
+s_6_1_sequence.fastq
+s_6_2_sequence.fastq
+</pre>
+<p>
+The file name format is: <code>s_xxx_yyy_sequence.fastq</code> where:
+</p>
+<ul class="org-ul">
+<li><code>xxx</code> is the sequencing lane (1, 2, 3, 5 or 6 here)
+</li>
+<li><code>yyy</code> is the read direction (1 for FORWARD reads, 2 for REVERSE reads - we
+used paired-end sequencing, remember)
+</li>
+</ul>
+<p>
+For example, <code>s_1_1_sequence.fastq</code> and <code>s_1_2_sequence.fastq</code> are the
+sequences from lane 1, forward and reverse reads, respectively.
+</p>
+<p>
+Get a look at the file by typing:
+</p>
+<pre class="example">
+head s_1_1_sequence.fastq
+</pre>
+<pre class="example">
+@HWI-EAS418:1:1:3:665#0/1
+AATTCATTTACTGTGTAGTTTNTTTGCNGCAAATGAAAAGCAGNCTACATAATGCATAAACAGGCACTGCAAGA
++HWI-EAS418:1:1:3:665#0/1
+\`bba`ababbaa`a_[a`a^D^aa`^D[a^S]```URW^b`RD^aabb^^]aabbaSOS__^`bab^a^___a
+@HWI-EAS418:1:1:3:1917#0/1
+AATTCACATGTGCTCTCTTCCNTTGAGNCGATAAACGCCTCAGAGGTTTTCCTTGTAATCGTGGATGGATGACA
++HWI-EAS418:1:1:3:1917#0/1
+`baaa^aa``[\_^a_a__a^DX\^[TDZ\[RL\^[NX\L\HRHVVMM\[]BBBBBBBBBBBBBBBBBBBBBBB
+@HWI-EAS418:1:1:3:1141#0/1
+AATTCTCTATGGCAACCAATGNACAAATAGTACTAACAGCTTAAAATGTTGGGACACAGTTAAGTGCTCAGCTA
+</pre>
+<p>
+The <code>head</code> command displays the first 10 lines of a file. Can you recognize
+which lines contain record names? Record sequences? Quality scores?
+</p>
+</div>
+</div>
+<div class="outline-3" id="outline-container-sec-1-4">
+<h3 id="sec-1-4"><span class="todo TODO">TODO</span> Count the number of reverse reads for each population</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Each population pool was barcoded on one side of the RAD fragment, which
+corresponds to the <b>reverse</b> reads here. The barcodes were three letter long,
+and were linked to the restriction site of ENZ1. This means that the reverse
+reads must start by one of those eight sequences:
+</p>
+<pre class="example">
+| Pop | Lane | Barcode | Rev start |
+|-----+------+---------+-----------|
+| BYN |    1 | CAC     | CACTCC    |
+| RYT |    1 | CTT     | CTTTCC    |
+| HKI |    2 | TCT     | TCTTCC    |
+| PYÖ |    3 | CTT     | CTTTCC    |
+| ABB |    3 | TTG     | TTGTCC    |
+| SKA |    5 | CAC     | CACTCC    |
+| LEV |    5 | TCT     | TCTTCC    |
+| POR |    6 | TTG     | TTGTCC    |
+</pre>
+<p>
+We see that there are two populations pooled in each of lanes 1, 3 and 5, but
+only one population in each of lanes 2 and 6.
+</p>
+</div>
+<div class="outline-4" id="outline-container-sec-1-4-1">
+<h4 id="sec-1-4-1"><span class="todo TODO">TODO</span> Count the number of reverse reads for HKI population</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<p>
+Let's start with something simple and look at lane 2. There is only one
+population, HKI, so all the reverse reads in <code>s_2_2_sequence.fastq</code> should
+start with <code>TCTTCC</code>.
+</p>
+<pre class="example">
+head s_2_2_sequence.fastq
+</pre>
+<pre class="example">
+@HWI-EAS418:2:1:2:1978#0/2
+TCTTCCCTACACTGCGTGTCGTCTCAATCGCGGGAGCAGCAGTAGACACAGCTAGGGGTGATGTGNGTGTGTGT
++HWI-EAS418:2:1:2:1978#0/2
+abbbbbbbbbbbabbb`aabbaba_^`abbaaa_^_aaaa_Z[__\`a`_`aZFY_]YQ^^[_XVDWYXP\T\U
+@HWI-EAS418:2:1:4:1179#0/2
+TCTTCCCAGCTACGCAGACAATGGCTATCCTTAAAAAGAAAAGTGTGGTTTTCTTACTTTTAACCNTTGAGCCA
++HWI-EAS418:2:1:4:1179#0/2
+aabaaaabbaabaaaa`aaa``aaaaa^`aa_aa`aa`_``^`V`\aaX`__]_`a`aaaa``[WD[`ZN^_\\
+@HWI-EAS418:2:1:4:1998#0/2
+TCTTCCACACCGGGTCAGTCTCACTTTGAAGGAAACTTGGTCCCCTCTAAACTGGAGTTAATCTCNTTGGTTGC
+</pre>
+<p>
+Does the first sequences fulfil this expectation?
+</p>
+<p>
+Of course we do not really want to check manually that each sequence starts
+with the correct pattern by visual inspection. One way is to count the total
+number of sequences in the file, and another is to count the number of
+sequences starting with the correct pattern. Hopefully the numbers match…
+</p>
+<p>
+To count the total number of sequences in the file, we can count its lines with
+the command <code>wc -l</code> and then divide by four since each record has four lines:
+</p>
+<pre class="example">
+wc -l s_2_2_sequence.fastq
+</pre>
+<pre class="example">
+1942408 s_2_2_sequence.fastq
+</pre>
+<p>
+How many reads are there in total in this file?
+</p>
+<p>
+Now we can count the number of sequences starting with <code>TCTTCC</code> by using the
+<code>grep</code> command and counting the number of lines of its output with <code>wc -l</code>. The
+<code>grep</code> command looks for a given pattern in the lines of a file, and output the
+matching lines only. The pattern we use for the match is ="<sup>TCTTCC</sup>"<code>. The =^</code>
+tells <code>grep</code> that the string should match at the beginning of a line only, not
+in the middle of it. The output of <code>grep</code> is then sent to <code>wc -l</code> with a pipe
+<code>|</code> so that <code>wc</code> will tell us how many matching lines <code>grep</code> returned. A pipe
+sends the output of the first command as an input to the second command.
+</p>
+<pre class="example">
+grep "^TCTTCC" s_2_2_sequence.fastq | wc -l
+</pre>
+<pre class="example">
+485602
+</pre>
+<p>
+Do the two numbers match? Is everything as expected? Is our approach robust or
+can it fail in some cases?
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-4-2">
+<h4 id="sec-1-4-2"><span class="todo TODO">TODO</span> Count the number of reverse reads for BYN and RYT populations</h4>
+<div class="outline-text-4" id="text-1-4-2">
+<p>
+The BYN population shared lane 1 with the RYT population. Reverse reads from
+both populations are in <code>s_1_2_sequence.fastq</code>. To count the number of reads
+for BYN, we can again use <code>grep</code> and the appropriate pattern:
+</p>
+<pre class="example">
+grep "^CACTCC" s_1_2_sequence.fastq | wc -l
+</pre>
+<pre class="example">
+187008
+</pre>
+<p>
+And we can do the same for RYT:
+</p>
+<pre class="example">
+grep "^CTTTCC" s_1_2_sequence.fastq | wc -l
+</pre>
+<pre class="example">
+599202
+</pre>
+<p>
+Finally, we can check that everything makes sense by counting the total number
+of reads in <code>s_1_2_sequence.fastq</code>:
+</p>
+<pre class="example">
+wc -l s_1_2_sequence.fastq
+</pre>
+<pre class="example">
+3144840
+</pre>
+<p>
+Do the number match? Does everything make sense?
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-4-3">
+<h4 id="sec-1-4-3"><span class="todo TODO">TODO</span> Count the number of reverse reads for the other populations</h4>
+<div class="outline-text-4" id="text-1-4-3">
+<p>
+You can now obtain the number of reverse reads for all the populations. Compare
+the number of reads between populations. Is the coverage homogeneous? Can you
+explain what you observe?
+</p>
+</div>
+</div>
+</div>
+<div class="outline-3" id="outline-container-sec-1-5">
+<h3 id="sec-1-5">Barcode and restriction-site checking</h3>
+<div class="outline-text-3" id="text-1-5">
 <p>
 Similar to demultiplexing, even though the multiplexing is not really high
 here.
@@ -53,9 +338,9 @@ restriction site).
 </p>
 </div>
 </div>
-<div class="outline-3" id="outline-container-sec-1-3">
-<h3 id="sec-1-3">Quality control</h3>
-<div class="outline-text-3" id="text-1-3">
+<div class="outline-3" id="outline-container-sec-1-6">
+<h3 id="sec-1-6">Quality control</h3>
+<div class="outline-text-3" id="text-1-6">
 <p>
 <div class="navLink"><a href="part-one-03-de-novo-assembly.html">Next: De novo assembly</a></div>
 </p>

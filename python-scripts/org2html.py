@@ -33,7 +33,7 @@ def stripMetadata(inputFile, strippedFile) :
     with open(inputFile, "r") as fi :
         with open(strippedFile, "w") as fo:
             for l in fi :
-                if (l.startswith("#+")) :
+                if (":" in l and l.startswith("#+")) :
                     if not any([l[2:].strip().startswith(x) for x in META_NOT_EXPORTED]) :
                         metadata += l[2:]
                 else :

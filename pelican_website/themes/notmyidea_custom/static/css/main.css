@@ -220,7 +220,25 @@ dl {margin: 0 0 1.5em 0;}
 dt {font-weight: bold;}
 dd {margin-left: 1.5em;}
 
-pre{background-color:  rgb(238, 238, 238); padding: 10px; margin: 10px; overflow: auto;}
+pre {
+    padding: 7px;
+    padding-left: 15px;
+    margin: 10px;
+    overflow: auto;
+    border: 1px solid #dddddd;
+}
+
+pre, code {
+    background: #eeeeee;
+    font-size: 120%;
+}
+
+.todo {
+    color: red;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+}
 
 /* Quotes */
 blockquote {

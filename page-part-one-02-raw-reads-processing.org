@@ -3,13 +3,208 @@
 #+URL: part-one-02-raw-reads-processing.html
 #+Save_as: part-one-02-raw-reads-processing.html
 #+Status: hidden
-#+OPTIONS: toc:nil num:nil html-postamble:nil
+#+OPTIONS: toc:3 num:nil html-postamble:nil
 
 * Raw read processing
 
 @@html:<div class="navLink">@@[[file:part-one-01-introduction.html][Previous: Introduction]]@@html:</div>@@
 
-** FASTQ format and phred score
+*** TODO add wikipedia links for FASTA, FASTQ and phred score
+
+** FASTA and FASTQ format
+
+Many high-throughput sequencing methods produce reads in a format called
+FASTQ. This format is very similar to the FASTA format, but in addition to the
+nucleotide sequence itself it also contains some quality information for each
+position.
+
+In the FASTA format, each record has two elements: 
+- the line starting with =>= contains the record name
+- the next line contain the nucleotide sequence
+
+#+CAPTION: Example of FASTA record
+#+BEGIN_SRC
+>myLittleSeq
+AATTCCCACAGAATCCCTCGANGGACTGCAAGGCAGCAGCCCATTGCCTAAAAAGGAAGAGTGCACACAGA
+#+END_SRC
+
+In the FASTQ format, each record has four elements:
+- the line starting with =@= contains the record name and precedes the sequence
+- the next line is the nucleotide sequence
+- the line starting with =+= repeats the record name and precedes the quality
+  information
+- the next line contains the quality score for each position (one character per
+  position)
+
+#+CAPTION: Example of FASTQ record
+#+BEGIN_SRC
+@myLittleSeq
+AATTCCCACAGAATCCCTCGANGGACTGCAAGGCAGCAGCCCATTGCCTAAAAAGGAAGAGTGCACACAGA
++myLittleSeq
+BBBBBBB?ABABB@BBB6B?6%6>9B;@BA=;ABAACBABA?=?@AAB>8.(.);@:>BBA7@C@.<(0B8
+#+END_SRC
+
+The quality score for each position is encoded in one character and can be
+converted to a numerical value. This score tells how confident the sequencer is
+about the identity of the base at this position of the sequence. One format for
+quality score used by Illumina is the Phred score.
+
+** Phred score
+
+To write
+
+** TODO Have a look at the raw reads files
+
+The raw reads are separated into several files:
+#+BEGIN_SRC
+s_1_1_sequence.fastq
+s_1_2_sequence.fastq
+s_2_1_sequence.fastq
+s_2_2_sequence.fastq
+s_3_1_sequence.fastq
+s_3_2_sequence.fastq
+s_5_1_sequence.fastq
+s_5_2_sequence.fastq
+s_6_1_sequence.fastq
+s_6_2_sequence.fastq
+#+END_SRC
+
+The file name format is: =s_xxx_yyy_sequence.fastq= where:
+- =xxx= is the sequencing lane (1, 2, 3, 5 or 6 here)
+- =yyy= is the read direction (1 for FORWARD reads, 2 for REVERSE reads - we
+  used paired-end sequencing, remember)
+
+For example, =s_1_1_sequence.fastq= and =s_1_2_sequence.fastq= are the
+sequences from lane 1, forward and reverse reads, respectively.
+
+Get a look at the file by typing:
+#+BEGIN_SRC 
+head s_1_1_sequence.fastq
+#+END_SRC
+#+BEGIN_EXAMPLE
+@HWI-EAS418:1:1:3:665#0/1
+AATTCATTTACTGTGTAGTTTNTTTGCNGCAAATGAAAAGCAGNCTACATAATGCATAAACAGGCACTGCAAGA
++HWI-EAS418:1:1:3:665#0/1
+\`bba`ababbaa`a_[a`a^D^aa`^D[a^S]```URW^b`RD^aabb^^]aabbaSOS__^`bab^a^___a
+@HWI-EAS418:1:1:3:1917#0/1
+AATTCACATGTGCTCTCTTCCNTTGAGNCGATAAACGCCTCAGAGGTTTTCCTTGTAATCGTGGATGGATGACA
++HWI-EAS418:1:1:3:1917#0/1
+`baaa^aa``[\_^a_a__a^DX\^[TDZ\[RL\^[NX\L\HRHVVMM\[]BBBBBBBBBBBBBBBBBBBBBBB
+@HWI-EAS418:1:1:3:1141#0/1
+AATTCTCTATGGCAACCAATGNACAAATAGTACTAACAGCTTAAAATGTTGGGACACAGTTAAGTGCTCAGCTA
+#+END_EXAMPLE
+The =head= command displays the first 10 lines of a file. Can you recognize
+which lines contain record names? Record sequences? Quality scores?
+
+** TODO Count the number of reverse reads for each population
+
+Each population pool was barcoded on one side of the RAD fragment, which
+corresponds to the *reverse* reads here. The barcodes were three letter long,
+and were linked to the restriction site of ENZ1. This means that the reverse
+reads must start by one of those eight sequences:
+#+BEGIN_SRC
+| Pop | Lane | Barcode | Rev start |
+|-----+------+---------+-----------|
+| BYN |    1 | CAC     | CACTCC    |
+| RYT |    1 | CTT     | CTTTCC    |
+| HKI |    2 | TCT     | TCTTCC    |
+| PYÖ |    3 | CTT     | CTTTCC    |
+| ABB |    3 | TTG     | TTGTCC    |
+| SKA |    5 | CAC     | CACTCC    |
+| LEV |    5 | TCT     | TCTTCC    |
+| POR |    6 | TTG     | TTGTCC    |
+#+END_SRC
+
+We see that there are two populations pooled in each of lanes 1, 3 and 5, but
+only one population in each of lanes 2 and 6.
+
+*** TODO Count the number of reverse reads for HKI population
+
+Let's start with something simple and look at lane 2. There is only one
+population, HKI, so all the reverse reads in =s_2_2_sequence.fastq= should
+start with =TCTTCC=.
+#+BEGIN_SRC 
+head s_2_2_sequence.fastq
+#+END_SRC
+#+BEGIN_EXAMPLE
+@HWI-EAS418:2:1:2:1978#0/2
+TCTTCCCTACACTGCGTGTCGTCTCAATCGCGGGAGCAGCAGTAGACACAGCTAGGGGTGATGTGNGTGTGTGT
++HWI-EAS418:2:1:2:1978#0/2
+abbbbbbbbbbbabbb`aabbaba_^`abbaaa_^_aaaa_Z[__\`a`_`aZFY_]YQ^^[_XVDWYXP\T\U
+@HWI-EAS418:2:1:4:1179#0/2
+TCTTCCCAGCTACGCAGACAATGGCTATCCTTAAAAAGAAAAGTGTGGTTTTCTTACTTTTAACCNTTGAGCCA
++HWI-EAS418:2:1:4:1179#0/2
+aabaaaabbaabaaaa`aaa``aaaaa^`aa_aa`aa`_``^`V`\aaX`__]_`a`aaaa``[WD[`ZN^_\\
+@HWI-EAS418:2:1:4:1998#0/2
+TCTTCCACACCGGGTCAGTCTCACTTTGAAGGAAACTTGGTCCCCTCTAAACTGGAGTTAATCTCNTTGGTTGC
+#+END_EXAMPLE
+Does the first sequences fulfil this expectation?
+
+Of course we do not really want to check manually that each sequence starts
+with the correct pattern by visual inspection. One way is to count the total
+number of sequences in the file, and another is to count the number of
+sequences starting with the correct pattern. Hopefully the numbers match...
+
+To count the total number of sequences in the file, we can count its lines with
+the command =wc -l= and then divide by four since each record has four lines:
+#+BEGIN_SRC
+wc -l s_2_2_sequence.fastq
+#+END_SRC
+#+BEGIN_EXAMPLE
+1942408 s_2_2_sequence.fastq
+#+END_EXAMPLE
+How many reads are there in total in this file?
+
+Now we can count the number of sequences starting with =TCTTCC= by using the
+=grep= command and counting the number of lines of its output with =wc -l=. The
+=grep= command looks for a given pattern in the lines of a file, and output the
+matching lines only. The pattern we use for the match is ="^TCTTCC"=. The =^=
+tells =grep= that the string should match at the beginning of a line only, not
+in the middle of it. The output of =grep= is then sent to =wc -l= with a pipe
+=|= so that =wc= will tell us how many matching lines =grep= returned. A pipe
+sends the output of the first command as an input to the second command.
+#+BEGIN_SRC
+grep "^TCTTCC" s_2_2_sequence.fastq | wc -l
+#+END_SRC
+#+BEGIN_EXAMPLE
+485602
+#+END_EXAMPLE
+Do the two numbers match? Is everything as expected? Is our approach robust or
+can it fail in some cases?
+
+*** TODO Count the number of reverse reads for BYN and RYT populations
+
+The BYN population shared lane 1 with the RYT population. Reverse reads from
+both populations are in =s_1_2_sequence.fastq=. To count the number of reads
+for BYN, we can again use =grep= and the appropriate pattern:
+#+BEGIN_SRC 
+grep "^CACTCC" s_1_2_sequence.fastq | wc -l
+#+END_SRC
+#+BEGIN_EXAMPLE
+187008
+#+END_EXAMPLE
+And we can do the same for RYT:
+#+BEGIN_SRC 
+grep "^CTTTCC" s_1_2_sequence.fastq | wc -l
+#+END_SRC
+#+BEGIN_EXAMPLE
+599202
+#+END_EXAMPLE
+Finally, we can check that everything makes sense by counting the total number
+of reads in =s_1_2_sequence.fastq=:
+#+BEGIN_SRC 
+wc -l s_1_2_sequence.fastq
+#+END_SRC
+#+BEGIN_SRC 
+3144840
+#+END_SRC
+Do the number match? Does everything make sense?
+
+*** TODO Count the number of reverse reads for the other populations
+
+You can now obtain the number of reverse reads for all the populations. Compare
+the number of reads between populations. Is the coverage homogeneous? Can you
+explain what you observe?
 
 ** Barcode and restriction-site checking
 
