@@ -33,13 +33,9 @@ Matthieu Bruneaux ([[mailto:matthieu.d.bruneaux@jyu.fi][matthieu.d.bruneaux@jyu.
 The practicals will take place on 10th, 11th and 12th of March at the [[http://www.sb-roscoff.fr/][Station
 Biologique de Roscoff]], in the computer room (IGM).
 
-- *2015-03-10 Tue (Afternoon)*: RAD-seq presentation, beginning of practicals
+- *2015-03-10 Tue (Afternoon)*: RAD-seq presentation ([[file:resources/presentation.pdf][pdf]]), beginning of practicals
 - *2015-03-11 Wed (All day)*: Practicals and open questions
 - *2015-03-12 Thu (All day)*: Practicals and open questions, conclusion
-
-* RAD-seq presentation
-
-The pdf file of the presentation can be found [[file:resources/presentation.pdf][here]] (work in progress).
 
 * Contact
 
