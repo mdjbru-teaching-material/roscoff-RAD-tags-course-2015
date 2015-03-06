@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8" />
+    <title>Introduction - Complete workflow</title>
+    <link rel="stylesheet" href="./theme/css/main.css" />
+    <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+  </head>
+
+  <body id="index" class="home">
+    <header id="banner" class="body">
+      <h1><a href="./">Roscoff course 2015 - RAD tags </a></h1>
+      <nav><ul>
+<!-- http://stackoverflow.com/questions/18520046/how-can-i-control-the-order-of-pages-from-within-a-pelican-article-category -->
+          <li><a href="./index.html">About</a></li>
+          <li><a href="./practicals.html">Practicals</a></li>
+          <li><a href="./bibliography-notes.html">Bibliography notes</a></li>
+      </ul></nav>
+    </header><!-- /#banner -->
+
+<section id="content" class="body">
+    <!-- <h1 class="entry-title">Introduction - Complete workflow</h1> -->
+    
+    
+
+
+<div class="outline-2" id="outline-container-sec-1">
+<h2 id="sec-1">Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<div class="navLink"><a href="practicals.html">Previous: Practicals</a></div>
+</p>
+</div>
+<div class="outline-3" id="outline-container-sec-1-1">
+<h3 id="sec-1-1">Model</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The study in <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract">Bruneaux et al. (2013)</a> focus on several <b>freshwater</b> and <b>marine</b>
+populations of <b>ninespine stickleback</b> from Fenno-Scandia. Those populations
+are relatively recent since this region was recolonized after the last glacial
+maximum (ca. 11000 years BP). They differ in several morphological, behavioural
+and physiological traits.
+</p>
+<div class="figure">
+<p><a href="resources/bruneaux-2013_9spine-map_high.png"><img alt="bruneaux-2013_9spine-map_low.png" src="resources/bruneaux-2013_9spine-map_low.png" /></a>
+</p>
+<p><span class="figure-number">Figure 1:</span> Sampling locations for ninespine stickleback (from <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05749.x/abstract">Bruneaux et al. (2013)</a>). Marine, pond and lake populations are marked as filled squares, filled circles and open circles, respectively.</p>
+</div>
+<p>
+In general, fish from the freshwater ponds where ninespine is the only fish
+species are <b>larger</b>, <b>bolder</b> and <b>more aggressive</b> than their marine
+counterparts, and also harbour <b>reduced body armour</b>. This is thought to be due
+to differences in intra and interspecific competition, and lab crosses have
+shown that the traits are <b>at least partially genetically determined</b>.
+</p>
+<div class="figure">
+<p><a href="resources/EGRU-website_ninespine-gigantism-high.jpg"><img alt="EGRU-website_ninespine-gigantism-low.jpg" src="resources/EGRU-website_ninespine-gigantism-low.jpg" /></a>
+</p>
+<p><span class="figure-number">Figure 2:</span> Gigantism in ninespine stickleback (from the <a href="http://www.helsinki.fi/biosci/egru/publications/species/ninespined.html">Ecological Genetics Research Unit</a> website). Some pond populations (top) harbour giant size compared to marine populations (bottom).</p>
+</div>
+<p>
+The aim of the study was to <b>look for the genetic basis of differentiation</b>
+between the different habitat types, and investigate if signals of parallel
+evolution could be found. For this species, <b>no reference genome</b> is
+available. However, the <b>genome of the (relatively) closely related threespine
+stickleback</b> is available and annotated in Ensembl.
+</p>
+</div>
+</div>
+<div class="outline-3" id="outline-container-sec-1-2">
+<h3 id="sec-1-2">Approach</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+<b>Twenty individuals</b> from each population were sampled and their DNA was
+extracted. The DNA was digested by two restriction enzymes and size-selected
+(<b>ddRAD</b>), and equal amounts of RAD fragments per individuals were then
+<b>pooled</b> into population-specific pools. Those pools were <b>barcoded</b> (one
+barcode per population pool) and sent for sequencing in an Illumina GAII
+system, using <b>paired-end</b> sequencing.
+</p>
+<table border="2" cellpadding="6" cellspacing="0" frame="hsides" rules="groups">
+<caption align="above"><span class="table-number">Table 1:</span> Sampling location information and barcodes</caption>
+<colgroup>
+<col class="left"></col>
+<col class="left"></col>
+<col class="left"></col>
+<col class="left"></col>
+<col class="left"></col>
+</colgroup>
+<thead>
+<tr>
+<th class="left" scope="col">Population</th>
+<th class="left" scope="col">Location</th>
+<th class="left" scope="col">Habitat</th>
+<th class="left" scope="col">Drainage</th>
+<th class="left" scope="col">Lane and barcode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">ABB</td>
+<td class="left">Abbortjärn</td>
+<td class="left">Pond</td>
+<td class="left">Baltic Sea</td>
+<td class="left"><code>3_TTG</code></td>
+</tr>
+<tr>
+<td class="left">BYN</td>
+<td class="left">Bynastjärnen</td>
+<td class="left">Pond</td>
+<td class="left">Baltic Sea</td>
+<td class="left"><code>1_CAC</code></td>
+</tr>
+<tr>
+<td class="left">PYÖ</td>
+<td class="left">Pyöreälampi</td>
+<td class="left">Pond</td>
+<td class="left">White Sea</td>
+<td class="left"><code>3_CTT</code></td>
+</tr>
+<tr>
+<td class="left">RYT</td>
+<td class="left">Rytilampi</td>
+<td class="left">Pond</td>
+<td class="left">White Sea</td>
+<td class="left"><code>1_CTT</code></td>
+</tr>
+<tr>
+<td class="left">POR</td>
+<td class="left">Iso-Porontima</td>
+<td class="left">Lake</td>
+<td class="left">White Sea</td>
+<td class="left"><code>6_TTG</code></td>
+</tr>
+<tr>
+<td class="left">SKA</td>
+<td class="left">Västre-Skavträsket</td>
+<td class="left">Lake</td>
+<td class="left">Baltic Sea</td>
+<td class="left"><code>5_CAC</code></td>
+</tr>
+<tr>
+<td class="left">HKI</td>
+<td class="left">Helsinki</td>
+<td class="left">Marine</td>
+<td class="left">Baltic Sea</td>
+<td class="left"><code>2_TCT</code></td>
+</tr>
+<tr>
+<td class="left">LEV</td>
+<td class="left">Levin Navolok Bay</td>
+<td class="left">Marine</td>
+<td class="left">White Sea</td>
+<td class="left"><code>5_TCT</code></td>
+</tr>
+</tbody>
+</table>
+<p>
+Your work starts as the raw reads are sent back to you from the sequencing
+service.
+</p>
+<p>
+<div class="navLink"><a href="part-one-02-raw-reads-processing.html">Next: Raw reads processing</a></div>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+
+    <!-- <section id="extras" class="body"> -->
+    <!--  -->
+    <!--  -->
+    <!-- </section><\!-- /#extras -\-> -->
+    
+    <footer id="contentinfo" class="body">
+      <address id="about" class="vcard body">
+	<p>
+          Generated with <a href="http://orgmode.org/">Org mode</a>
+          in <a href="http://www.gnu.org/software/emacs/">Emacs</a>
+          and <a href="http://getpelican.com/">Pelican</a>, a static site
+          generator which uses <a href="http://python.org">Python</a>.
+	</p>
+        <p>
+	  Theme modified from the original <i>notmyidea</i> theme
+	  by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing
+	  Magazine</a>.
+	</p>
+      </address><!-- /#about -->
+    </footer><!-- /#contentinfo -->
+
+    <!--  -->
+    <!--  -->
+    <!--  -->
+
+  </body>
+</html>
