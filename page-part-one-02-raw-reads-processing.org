@@ -405,7 +405,7 @@ wc -l SKA.rev.names
 Do you have the same number of records in each file? Extract the names in the
 same way for LEV.
 
-*** TODO Piping commands: getting the reverse reads names for the other populations
+*** TODO Getting the reverse reads names for the other populations
 
 Since we are only interested in getting the reads names, we can bypass the
 creation of all the intermediate files and just pipe the commands together.
@@ -474,6 +474,25 @@ barplot(n_pairs,            # numerical values used for the plot
   ylab = "N pairs")         # label for y-axis
 #+END_SRC
 
+** TODO Barcode and restriction site removal
+
+All forward reads start with =AATTC=, due to the digestion by EcoRI. Similarly,
+all the reverse reads start with =XXXTCC=, due to the barcodes (=XXX=) and the
+digestion by HaeIII. Those nucleotides can be removed by simply removing the 5
+first nucleotides in all forward reads and the 6 first nucleotides in all
+reverse reads.
+
+A small homemade [[file:resources/remove_N_start_fastq.py][python script]] (=remove_N_start_fastq.py=) is used for
+that:
+#+BEGIN_SRC bash
+python remove_N_start_fastq.py *.for.fastq 5
+python remove_N_start_fastq.py *.rev.fastq 6
+#+END_SRC
+
+Check for the first lines of a few files that the operation worked. Why do you
+think it is important to cut those nucleotides? What would happen if we would
+keep them?
+
 ** Barcode and restriction-site checking and demultiplexing       :noexport:
 
 *** Detect errors in the barcode and restriction site while demultiplexing
@@ -523,7 +542,7 @@ grep -F -A 1 -f names.not.in.SKA.nor.LEV s_5_2_sequence.lowQual.fastq > bad.seqs
 If we look at =bad.seqs= with =less= for example (=less bad.seqs=), we can see
 that there is one mismatch in the first 6 nucleotides.
 
-** Complete demultiplexing
+** Complete demultiplexing                                        :noexport:
 
 *** TODO Demultiplex the forward and reverse reads
 
