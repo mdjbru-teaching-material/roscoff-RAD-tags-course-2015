@@ -9,16 +9,14 @@
 
 @@html:<div class="navLink">@@[[file:part-one-01-introduction.html][Previous: Introduction]]@@html:</div>@@
 
-** TODO add wikipedia links for FASTA, FASTQ and phred score
-
 ** FASTA and FASTQ format
 
 Many high-throughput sequencing methods produce reads in a format called
-FASTQ. This format is very similar to the FASTA format, but in addition to the
-nucleotide sequence itself it also contains some quality information for each
+[[http://en.wikipedia.org/wiki/FASTQ_format][FASTQ]]. This format is very similar to the [[http://en.wikipedia.org/wiki/FASTA_format][FASTA]] format, but in addition to the
+nucleotide sequence itself it also contains some *quality information* for each
 position.
 
-In the FASTA format, each record has two elements: 
+In the [[http://en.wikipedia.org/wiki/FASTA_format][FASTA]] format, each record has two elements: 
 - the line starting with =>= contains the record name
 - the next line contain the nucleotide sequence
 
@@ -27,7 +25,7 @@ In the FASTA format, each record has two elements:
 AATTCCCACAGAATCCCTCGANGGACTGCAAGGCAGCAGCCCATTGCCTAAAAAGGAAGAGTGCACACAGA
 #+END_SRC
 
-In the FASTQ format, each record has four elements:
+In the [[http://en.wikipedia.org/wiki/FASTQ_format][FASTQ]] format, each record has four elements:
 - the line starting with =@= contains the record name and precedes the sequence
 - the next line is the nucleotide sequence
 - the line starting with =+= repeats the record name and precedes the quality
@@ -47,14 +45,52 @@ converted to a numerical value. This score tells how confident the sequencer is
 about the identity of the base at this position of the sequence. One format for
 quality score used by Illumina is the Phred score.
 
-** Phred score
+** Phred quality score
 
-To write
+The quality information in the FASTQ can be encoded as a quality score such as
+the commonly used [[http://en.wikipedia.org/wiki/Phred_quality_score][Phred score]]. The type of score encoding for a FASTQ file
+depends on the sequencing platform format.
+
+The [[http://en.wikipedia.org/wiki/Phred_quality_score][Phred score]] gives the probability that the base identity in the sequence is
+correct at this position. The higher the score, the higher probability that the
+base call is correct. The relation between the quality score =Q= and the
+probability of *incorrect* base assignment =P= is:
+#+BEGIN_SRC 
+Q = -10.log(P) where log is the decimal log operation
+#+END_SRC
+
+#+CAPTION: Phred quality scores and correct/incorrect base call probabilities
+#+BEGIN_SRC 
+| Phred score | Prob(incorrect base) | Prob(correct base) |
+|-------------+-------------------+-----------------|
+|          10 |               0.1 |         0.90000 |
+|          20 |              0.01 |         0.99000 |
+|          30 |             0.001 |         0.99900 |
+|          40 |            0.0001 |         0.99990 |
+|          50 |           0.00001 |         0.99999 |
+#+END_SRC
+
+Typically, the Phred score numerical value is encoded to the FASTQ file by
+adding a fixed, constant value and converting the resulting number to an [[http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters][ASCII
+character]]. For example, if the encoding is [Phred+33] as it is for Sanger or
+Illumina 1.8+, then a Phred score of 50 is encoded as "S" in the FASTQ file
+since 50+33=83 and the ASCII character for 83 is "S". The [[http://en.wikipedia.org/wiki/FASTQ_format#Encoding][wikipedia page]] about
+the quality score encoding in FASTQ file has more detailed information and
+examples about it.
 
 ** Raw reads files
 *** TODO Have a look at the raw reads files
 
-The raw reads are separated into several files:
+Go into the raw reads folder and list its content by typing:
+#+BEGIN_SRC bash
+cd 01_raw_reads
+ls -lh
+#+END_SRC
+=ls= lists the content of the current folder, and the =-l= and =-h= options ask
+for a detailed list and for human-readable sizes, respectively.
+
+The raw reads are separated into several files, one per lane per sense (forward
+or reverse reads):
 #+BEGIN_SRC verb
 s_1_1_sequence.fastq
 s_1_2_sequence.fastq
@@ -204,6 +240,39 @@ Do the number match? Does everything make sense?
 You can now obtain the number of reverse reads for all the populations. Compare
 the number of reads between populations. Is the coverage homogeneous? Can you
 explain what you observe?
+#+BEGIN_EXAMPLE
+| Pop | Lane | Barcode | Rev start | N reads |
+|-----+------+---------+-----------+---------|
+| BYN |    1 | CAC     | CACTCC    |  187008 |
+| RYT |    1 | CTT     | CTTTCC    |  599202 |
+| HKI |    2 | TCT     | TCTTCC    |  485602 |
+| PYÖ |    3 | CTT     | CTTTCC    |  675123 |
+| ABB |    3 | TTG     | TTGTCC    |  428807 |
+| SKA |    5 | CAC     | CACTCC    |   81633 |
+| LEV |    5 | TCT     | TCTTCC    |  376011 |
+| POR |    6 | TTG     | TTGTCC    |  333744 |
+#+END_EXAMPLE
+
+Plot your results in a bar plot with R. You can do it by yourself if you know
+how to do, or you can use the code below:
+#+BEGIN_SRC R
+# *** R script ***
+
+# Summary plot for reverse reads abundance
+# ----------------------------------------
+
+# Input the data
+pop = c("BYN", "RYT", "HKI", "PYO", "ABB", "SKA", "LEV", "POR")
+habitat = c("Pond", "Pond", "Marine", "Pond", "Pond", "Lake", "Marine", "Lake")
+n_reads = c(187008, 599202, 485602, 675123, 428807, 81633, 376011, 333744)
+
+# Bar plot 
+barplot(n_reads,            # numerical values used for the plot
+  names.arg = pop,          # names for each bar
+  col = as.factor(habitat), # col is determined by the factor "habitat"
+  las = 1,                  # orientation of the y-axis numbers
+  ylab = "N reads")         # label for y-axis
+#+END_SRC
 
 ** Barcode and restriction-site checking and demultiplexing
 

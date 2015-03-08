@@ -17,7 +17,7 @@ DELETE_OUTPUT_DIRECTORY = True
 
 # Org reader
 PLUGIN_PATHS = ["."]
-PLUGINS = ["subcategory"]
+PLUGINS = ["render_math"]
 #ORG_READER_EMACS_LOCATION = "/usr/bin/emacs"
 #PLUGIN_PATHS = ["./extract_toc"]
 #PLUGINS = ["extract_toc"]

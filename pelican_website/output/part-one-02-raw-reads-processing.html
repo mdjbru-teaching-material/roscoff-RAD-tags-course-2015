@@ -33,37 +33,36 @@
 <ul>
 <li><a href="#sec-1">Raw read processing</a>
 <ul>
-<li><a href="#sec-1-1"><span class="todo TODO">TODO</span> add wikipedia links for FASTA, FASTQ and phred score</a></li>
-<li><a href="#sec-1-2">FASTA and FASTQ format</a></li>
-<li><a href="#sec-1-3">Phred score</a></li>
-<li><a href="#sec-1-4">Raw reads files</a>
+<li><a href="#sec-1-1">FASTA and FASTQ format</a></li>
+<li><a href="#sec-1-2">Phred quality score</a></li>
+<li><a href="#sec-1-3">Raw reads files</a>
 <ul>
-<li><a href="#sec-1-4-1"><span class="todo TODO">TODO</span> Have a look at the raw reads files</a></li>
+<li><a href="#sec-1-3-1"><span class="todo TODO">TODO</span> Have a look at the raw reads files</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-5">Count the number of reverse reads for each population</a>
+<li><a href="#sec-1-4">Count the number of reverse reads for each population</a>
 <ul>
-<li><a href="#sec-1-5-1"><span class="todo TODO">TODO</span> Count the number of reverse reads for HKI population</a></li>
-<li><a href="#sec-1-5-2"><span class="todo TODO">TODO</span> Count the number of reverse reads for BYN and RYT populations</a></li>
-<li><a href="#sec-1-5-3"><span class="todo TODO">TODO</span> Count the number of reverse reads for the other populations</a></li>
+<li><a href="#sec-1-4-1"><span class="todo TODO">TODO</span> Count the number of reverse reads for HKI population</a></li>
+<li><a href="#sec-1-4-2"><span class="todo TODO">TODO</span> Count the number of reverse reads for BYN and RYT populations</a></li>
+<li><a href="#sec-1-4-3"><span class="todo TODO">TODO</span> Count the number of reverse reads for the other populations</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-6">Barcode and restriction-site checking and demultiplexing</a>
+<li><a href="#sec-1-5">Barcode and restriction-site checking and demultiplexing</a>
 <ul>
-<li><a href="#sec-1-6-1">Detect errors in the barcode and restriction site while demultiplexing</a></li>
-<li><a href="#sec-1-6-2"><span class="todo TODO">TODO</span> Extract the reverse reads from SKA</a></li>
-<li><a href="#sec-1-6-3"><span class="todo TODO">TODO</span> Extract the reverse reads from LEV</a></li>
-<li><a href="#sec-1-6-4"><span class="todo TODO">TODO</span> Get the reads names for each population</a></li>
-<li><a href="#sec-1-6-5"><span class="todo TODO">TODO</span> Get the reads with unexpected pattern in <code>s_2_5_sequence.fastq</code></a></li>
+<li><a href="#sec-1-5-1">Detect errors in the barcode and restriction site while demultiplexing</a></li>
+<li><a href="#sec-1-5-2"><span class="todo TODO">TODO</span> Extract the reverse reads from SKA</a></li>
+<li><a href="#sec-1-5-3"><span class="todo TODO">TODO</span> Extract the reverse reads from LEV</a></li>
+<li><a href="#sec-1-5-4"><span class="todo TODO">TODO</span> Get the reads names for each population</a></li>
+<li><a href="#sec-1-5-5"><span class="todo TODO">TODO</span> Get the reads with unexpected pattern in <code>s_2_5_sequence.fastq</code></a></li>
 </ul>
 </li>
-<li><a href="#sec-1-7">Complete demultiplexing</a>
+<li><a href="#sec-1-6">Complete demultiplexing</a>
 <ul>
-<li><a href="#sec-1-7-1"><span class="todo TODO">TODO</span> Demultiplex the forward and reverse reads</a></li>
-<li><a href="#sec-1-7-2"><span class="todo TODO">TODO</span> Diagnostic plots with R</a></li>
+<li><a href="#sec-1-6-1"><span class="todo TODO">TODO</span> Demultiplex the forward and reverse reads</a></li>
+<li><a href="#sec-1-6-2"><span class="todo TODO">TODO</span> Diagnostic plots with R</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-8">Quality control</a></li>
+<li><a href="#sec-1-7">Quality control</a></li>
 </ul>
 </li>
 </ul>
@@ -77,19 +76,16 @@
 </p>
 </div>
 <div class="outline-3" id="outline-container-sec-1-1">
-<h3 id="sec-1-1"><span class="todo TODO">TODO</span> add wikipedia links for FASTA, FASTQ and phred score</h3>
-</div>
-<div class="outline-3" id="outline-container-sec-1-2">
-<h3 id="sec-1-2">FASTA and FASTQ format</h3>
-<div class="outline-text-3" id="text-1-2">
+<h3 id="sec-1-1">FASTA and FASTQ format</h3>
+<div class="outline-text-3" id="text-1-1">
 <p>
 Many high-throughput sequencing methods produce reads in a format called
-FASTQ. This format is very similar to the FASTA format, but in addition to the
-nucleotide sequence itself it also contains some quality information for each
+<a href="http://en.wikipedia.org/wiki/FASTQ_format">FASTQ</a>. This format is very similar to the <a href="http://en.wikipedia.org/wiki/FASTA_format">FASTA</a> format, but in addition to the
+nucleotide sequence itself it also contains some <b>quality information</b> for each
 position.
 </p>
 <p>
-In the FASTA format, each record has two elements: 
+In the <a href="http://en.wikipedia.org/wiki/FASTA_format">FASTA</a> format, each record has two elements: 
 </p>
 <ul class="org-ul">
 <li>the line starting with <code>&gt;</code> contains the record name
@@ -103,7 +99,7 @@ AATTCCCACAGAATCCCTCGANGGACTGCAAGGCAGCAGCCCATTGCCTAAAAAGGAAGAGTGCACACAGA
 </pre>
 </div>
 <p>
-In the FASTQ format, each record has four elements:
+In the <a href="http://en.wikipedia.org/wiki/FASTQ_format">FASTQ</a> format, each record has four elements:
 </p>
 <ul class="org-ul">
 <li>the line starting with <code>@</code> contains the record name and precedes the sequence
@@ -132,22 +128,64 @@ quality score used by Illumina is the Phred score.
 </p>
 </div>
 </div>
-<div class="outline-3" id="outline-container-sec-1-3">
-<h3 id="sec-1-3">Phred score</h3>
-<div class="outline-text-3" id="text-1-3">
+<div class="outline-3" id="outline-container-sec-1-2">
+<h3 id="sec-1-2">Phred quality score</h3>
+<div class="outline-text-3" id="text-1-2">
 <p>
-To write
+The quality information in the FASTQ can be encoded as a quality score such as
+the commonly used <a href="http://en.wikipedia.org/wiki/Phred_quality_score">Phred score</a>. The type of score encoding for a FASTQ file
+depends on the sequencing platform format.
+</p>
+<p>
+The <a href="http://en.wikipedia.org/wiki/Phred_quality_score">Phred score</a> gives the probability that the base identity in the sequence is
+correct at this position. The higher the score, the higher probability that the
+base call is correct. The relation between the quality score <code>Q</code> and the
+probability of <b>incorrect</b> base assignment <code>P</code> is:
+</p>
+<pre class="example">
+Q = -10.log(P) where log is the decimal log operation
+</pre>
+<pre class="example">
+| Phred score | Prob(incorrect base) | Prob(correct base) |
+|-------------+-------------------+-----------------|
+|          10 |               0.1 |         0.90000 |
+|          20 |              0.01 |         0.99000 |
+|          30 |             0.001 |         0.99900 |
+|          40 |            0.0001 |         0.99990 |
+|          50 |           0.00001 |         0.99999 |
+</pre>
+<p>
+Typically, the Phred score numerical value is encoded to the FASTQ file by
+adding a fixed, constant value and converting the resulting number to an <a href="http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters">ASCII
+character</a>. For example, if the encoding is [Phred+33] as it is for Sanger or
+Illumina 1.8+, then a Phred score of 50 is encoded as "S" in the FASTQ file
+since 50+33=83 and the ASCII character for 83 is "S". The <a href="http://en.wikipedia.org/wiki/FASTQ_format#Encoding">wikipedia page</a> about
+the quality score encoding in FASTQ file has more detailed information and
+examples about it.
 </p>
 </div>
 </div>
-<div class="outline-3" id="outline-container-sec-1-4">
-<h3 id="sec-1-4">Raw reads files</h3>
-<div class="outline-text-3" id="text-1-4">
-</div><div class="outline-4" id="outline-container-sec-1-4-1">
-<h4 id="sec-1-4-1"><span class="todo TODO">TODO</span> Have a look at the raw reads files</h4>
-<div class="outline-text-4" id="text-1-4-1">
+<div class="outline-3" id="outline-container-sec-1-3">
+<h3 id="sec-1-3">Raw reads files</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div class="outline-4" id="outline-container-sec-1-3-1">
+<h4 id="sec-1-3-1"><span class="todo TODO">TODO</span> Have a look at the raw reads files</h4>
+<div class="outline-text-4" id="text-1-3-1">
 <p>
-The raw reads are separated into several files:
+Go into the raw reads folder and list its content by typing:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">cd 01_raw_reads
+ls -lh
+</pre>
+</div>
+<p>
+<code>ls</code> lists the content of the current folder, and the <code>-l</code> and <code>-h</code> options ask
+for a detailed list and for human-readable sizes, respectively.
+</p>
+<p>
+The raw reads are separated into several files, one per lane per sense (forward
+or reverse reads):
 </p>
 <div class="org-src-container">
 <pre class="src src-verb">s_1_1_sequence.fastq
@@ -202,9 +240,9 @@ which lines contain record names? Record sequences? Quality scores?
 </div>
 </div>
 </div>
-<div class="outline-3" id="outline-container-sec-1-5">
-<h3 id="sec-1-5">Count the number of reverse reads for each population</h3>
-<div class="outline-text-3" id="text-1-5">
+<div class="outline-3" id="outline-container-sec-1-4">
+<h3 id="sec-1-4">Count the number of reverse reads for each population</h3>
+<div class="outline-text-3" id="text-1-4">
 <p>
 Each population pool was barcoded on one side of the RAD fragment, which
 corresponds to the <b>reverse</b> reads here. The barcodes were three letter long,
@@ -229,9 +267,9 @@ We see that there are two populations pooled in each of lanes 1, 3 and 5, but
 only one population in each of lanes 2 and 6.
 </p>
 </div>
-<div class="outline-4" id="outline-container-sec-1-5-1">
-<h4 id="sec-1-5-1"><span class="todo TODO">TODO</span> Count the number of reverse reads for HKI population</h4>
-<div class="outline-text-4" id="text-1-5-1">
+<div class="outline-4" id="outline-container-sec-1-4-1">
+<h4 id="sec-1-4-1"><span class="todo TODO">TODO</span> Count the number of reverse reads for HKI population</h4>
+<div class="outline-text-4" id="text-1-4-1">
 <p>
 Let's start with something simple and look at lane 2. There is only one
 population, HKI, so all the reverse reads in <code>s_2_2_sequence.fastq</code> should
@@ -299,9 +337,9 @@ can it fail in some cases?
 </p>
 </div>
 </div>
-<div class="outline-4" id="outline-container-sec-1-5-2">
-<h4 id="sec-1-5-2"><span class="todo TODO">TODO</span> Count the number of reverse reads for BYN and RYT populations</h4>
-<div class="outline-text-4" id="text-1-5-2">
+<div class="outline-4" id="outline-container-sec-1-4-2">
+<h4 id="sec-1-4-2"><span class="todo TODO">TODO</span> Count the number of reverse reads for BYN and RYT populations</h4>
+<div class="outline-text-4" id="text-1-4-2">
 <p>
 The BYN population shared lane 1 with the RYT population. Reverse reads from
 both populations are in <code>s_1_2_sequence.fastq</code>. To count the number of reads
@@ -340,20 +378,55 @@ Do the number match? Does everything make sense?
 </p>
 </div>
 </div>
-<div class="outline-4" id="outline-container-sec-1-5-3">
-<h4 id="sec-1-5-3"><span class="todo TODO">TODO</span> Count the number of reverse reads for the other populations</h4>
-<div class="outline-text-4" id="text-1-5-3">
+<div class="outline-4" id="outline-container-sec-1-4-3">
+<h4 id="sec-1-4-3"><span class="todo TODO">TODO</span> Count the number of reverse reads for the other populations</h4>
+<div class="outline-text-4" id="text-1-4-3">
 <p>
 You can now obtain the number of reverse reads for all the populations. Compare
 the number of reads between populations. Is the coverage homogeneous? Can you
 explain what you observe?
 </p>
+<pre class="example">
+| Pop | Lane | Barcode | Rev start | N reads |
+|-----+------+---------+-----------+---------|
+| BYN |    1 | CAC     | CACTCC    |  187008 |
+| RYT |    1 | CTT     | CTTTCC    |  599202 |
+| HKI |    2 | TCT     | TCTTCC    |  485602 |
+| PYÖ |    3 | CTT     | CTTTCC    |  675123 |
+| ABB |    3 | TTG     | TTGTCC    |  428807 |
+| SKA |    5 | CAC     | CACTCC    |   81633 |
+| LEV |    5 | TCT     | TCTTCC    |  376011 |
+| POR |    6 | TTG     | TTGTCC    | 333744  |
+</pre>
+<p>
+Plot your results in a bar plot with R. You can do it by yourself if you know
+how to do, or you can use the code below:
+</p>
+<div class="org-src-container">
+<pre class="src src-R"># *** R script ***
+
+# Summary plot for reverse reads abundance
+# ----------------------------------------
+
+# Input the data
+pop = c("BYN", "RYT", "HKI", "PYO", "ABB", "SKA", "LEV", "POR")
+habitat = c("Pond", "Pond", "Marine", "Pond", "Pond", "Lake", "Marine", "Lake")
+n_reads = c(187008, 599202, 485602, 675123, 428807, 81633, 376011, 333744)
+
+# Bar plot 
+barplot(n_reads,            # numerical values used for the plot
+  names.arg = pop,          # names for each bar
+  col = as.factor(habitat), # col is determined by the factor "habitat"
+  las = 1,                  # orientation of the y-axis numbers
+  ylab = "N reads")         # label for y-axis
+</pre>
 </div>
 </div>
 </div>
-<div class="outline-3" id="outline-container-sec-1-6">
-<h3 id="sec-1-6">Barcode and restriction-site checking and demultiplexing</h3>
-<div class="outline-text-3" id="text-1-6">
+</div>
+<div class="outline-3" id="outline-container-sec-1-5">
+<h3 id="sec-1-5">Barcode and restriction-site checking and demultiplexing</h3>
+<div class="outline-text-3" id="text-1-5">
 <p>
 In our case, the reads are already quite clean since there is no reads starting
 with an unexpected pattern. However, it is possible to have reads that do have
@@ -366,9 +439,9 @@ when the barcodes used for different populations are sufficiently different to
 start with (see for example the STACKS pipeline).
 </p>
 </div>
-<div class="outline-4" id="outline-container-sec-1-6-1">
-<h4 id="sec-1-6-1">Detect errors in the barcode and restriction site while demultiplexing</h4>
-<div class="outline-text-4" id="text-1-6-1">
+<div class="outline-4" id="outline-container-sec-1-5-1">
+<h4 id="sec-1-5-1">Detect errors in the barcode and restriction site while demultiplexing</h4>
+<div class="outline-text-4" id="text-1-5-1">
 <p>
 Here, we'll just see how to detect those mistakes while demultiplexing,
 i.e. while sorting the reads from one file into one file per population. The
@@ -386,9 +459,9 @@ patterns.
 </p>
 </div>
 </div>
-<div class="outline-4" id="outline-container-sec-1-6-2">
-<h4 id="sec-1-6-2"><span class="todo TODO">TODO</span> Extract the reverse reads from SKA</h4>
-<div class="outline-text-4" id="text-1-6-2">
+<div class="outline-4" id="outline-container-sec-1-5-2">
+<h4 id="sec-1-5-2"><span class="todo TODO">TODO</span> Extract the reverse reads from SKA</h4>
+<div class="outline-text-4" id="text-1-5-2">
 <p>
 We use <code>grep</code> again. Since we want to extract full records, not only the
 nucleotide sequences that matches the pattern, we use <code>-B 1</code> (extract one line
@@ -427,9 +500,9 @@ Now we can count the number of sequence in <code>SKA-rev.fastq</code>:
 </pre>
 </div>
 </div>
-<div class="outline-4" id="outline-container-sec-1-6-3">
-<h4 id="sec-1-6-3"><span class="todo TODO">TODO</span> Extract the reverse reads from LEV</h4>
-<div class="outline-text-4" id="text-1-6-3">
+<div class="outline-4" id="outline-container-sec-1-5-3">
+<h4 id="sec-1-5-3"><span class="todo TODO">TODO</span> Extract the reverse reads from LEV</h4>
+<div class="outline-text-4" id="text-1-5-3">
 <p>
 Let's do the same for the LEV population:
 </p>
@@ -458,9 +531,9 @@ sequence?
 </p>
 </div>
 </div>
-<div class="outline-4" id="outline-container-sec-1-6-4">
-<h4 id="sec-1-6-4"><span class="todo TODO">TODO</span> Get the reads names for each population</h4>
-<div class="outline-text-4" id="text-1-6-4">
+<div class="outline-4" id="outline-container-sec-1-5-4">
+<h4 id="sec-1-5-4"><span class="todo TODO">TODO</span> Get the reads names for each population</h4>
+<div class="outline-text-4" id="text-1-5-4">
 <p>
 To do things in a more rigorous way, we can actually create one list of reads
 names for each population. Those lists will help us to sort the reads later on.
@@ -481,9 +554,9 @@ Prepare a list of reverse reads names for each population, using the
 </p>
 </div>
 </div>
-<div class="outline-4" id="outline-container-sec-1-6-5">
-<h4 id="sec-1-6-5"><span class="todo TODO">TODO</span> Get the reads with unexpected pattern in <code>s_2_5_sequence.fastq</code></h4>
-<div class="outline-text-4" id="text-1-6-5">
+<div class="outline-4" id="outline-container-sec-1-5-5">
+<h4 id="sec-1-5-5"><span class="todo TODO">TODO</span> Get the reads with unexpected pattern in <code>s_2_5_sequence.fastq</code></h4>
+<div class="outline-text-4" id="text-1-5-5">
 <p>
 Now you should have a list of the reverse reads for SKA and LEV:
 </p>
@@ -524,21 +597,21 @@ that there is one mismatch in the first 6 nucleotides.
 </div>
 </div>
 </div>
-<div class="outline-3" id="outline-container-sec-1-7">
-<h3 id="sec-1-7">Complete demultiplexing</h3>
-<div class="outline-text-3" id="text-1-7">
-</div><div class="outline-4" id="outline-container-sec-1-7-1">
-<h4 id="sec-1-7-1"><span class="todo TODO">TODO</span> Demultiplex the forward and reverse reads</h4>
-<div class="outline-text-4" id="text-1-7-1">
+<div class="outline-3" id="outline-container-sec-1-6">
+<h3 id="sec-1-6">Complete demultiplexing</h3>
+<div class="outline-text-3" id="text-1-6">
+</div><div class="outline-4" id="outline-container-sec-1-6-1">
+<h4 id="sec-1-6-1"><span class="todo TODO">TODO</span> Demultiplex the forward and reverse reads</h4>
+<div class="outline-text-4" id="text-1-6-1">
 <p>
 Similar to demultiplexing, even though the multiplexing is not really high
 here.
 </p>
 </div>
 </div>
-<div class="outline-4" id="outline-container-sec-1-7-2">
-<h4 id="sec-1-7-2"><span class="todo TODO">TODO</span> Diagnostic plots with R</h4>
-<div class="outline-text-4" id="text-1-7-2">
+<div class="outline-4" id="outline-container-sec-1-6-2">
+<h4 id="sec-1-6-2"><span class="todo TODO">TODO</span> Diagnostic plots with R</h4>
+<div class="outline-text-4" id="text-1-6-2">
 <p>
 A few diagnostic plots to see how to see how the data look like. For example,
 the number of reads varies between populations. Discussion about issues, the
@@ -549,9 +622,9 @@ restriction site).
 </div>
 </div>
 </div>
-<div class="outline-3" id="outline-container-sec-1-8">
-<h3 id="sec-1-8">Quality control</h3>
-<div class="outline-text-3" id="text-1-8">
+<div class="outline-3" id="outline-container-sec-1-7">
+<h3 id="sec-1-7">Quality control</h3>
+<div class="outline-text-3" id="text-1-7">
 <p>
 <div class="navLink"><a href="part-one-03-de-novo-assembly.html">Next: De novo assembly</a></div>
 </p>
