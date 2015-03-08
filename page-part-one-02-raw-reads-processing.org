@@ -79,6 +79,11 @@ the quality score encoding in FASTQ file has more detailed information and
 examples about it.
 
 ** Raw reads files
+
+Note: the raw reads files were prepared from the files submitted to the Dryad
+repository. For convenience, =dos2unix= was run on the files to make them more
+easy to work with on GNU/Linux systems.
+
 *** TODO Have a look at the raw reads files
 
 Go into the raw reads folder and list its content by typing:
@@ -425,9 +430,49 @@ Now, you can prepare a list of reverse reads names for each population.
 *** TODO Final step: getting all the read pairs for all populations
 
 Now that we have the reverse reads names for each population, can you find a
-way, using only =grep= and =sed= commands and pipes, to create for each
+way, using only =grep=, =sed= and pipes, to create for each
 population two files containing the forward and reverse reads involved in
 matching pairs? (The order within each file is not important)
+
+As an example, this is how to do it for BYN:
+#+BEGIN_SRC bash
+# Get the list of reverse names for BYN
+grep -B 1 -A 2 "^CACTCC" s_1_2_sequence.fastq | grep "^@" | sed -e "s/\/2//g" > BYN.rev.names
+# Get the forward records that have a match in the rev list
+grep -F -A 3 -f BYN.rev.names s_1_1_sequence.fastq | grep -v "^\-\-" > BYN.pair.for.fastq
+# Extract the names of those forward reads
+grep "^@" BYN.pair.for.fastq | sed -e "s/\/1//g" > BYN.pair.for.names
+# Get the reverse records which had a match in the forward file
+grep -F -A 3 -f BYN.pair.for.names s_1_2_sequence.fastq | grep -v "^\-\-" > BYN.pair.rev.fastq
+rm BYN.*.names
+#+END_SRC
+
+If you have time, prepare the paired forward and reverse files for each
+population and count how many pairs of reads are available for each population.
+If you don't have time, you can run this [[file:resources/extract_pairs.sh][bash script]], =extract_pairs.sh=:
+#+BEGIN_SRC bash
+bash extract_pairs.sh
+#+END_SRC
+
+You can plot the results with R:
+#+BEGIN_SRC R
+# *** R script ***
+
+# Summary plot for paired reads abundance
+# ---------------------------------------
+
+# Input the data
+pop = c("BYN", "RYT", "HKI", "PYO", "ABB", "SKA", "LEV", "POR")
+habitat = c("Pond", "Pond", "Marine", "Pond", "Pond", "Lake", "Marine", "Lake")
+n_pairs = c(175685, 577420, 446765, 652455, 396861, 78983, 361187, 321539)
+
+# Bar plot 
+barplot(n_pairs,            # numerical values used for the plot
+  names.arg = pop,          # names for each bar
+  col = as.factor(habitat), # col is determined by the factor "habitat"
+  las = 1,                  # orientation of the y-axis numbers
+  ylab = "N pairs")         # label for y-axis
+#+END_SRC
 
 ** Barcode and restriction-site checking and demultiplexing       :noexport:
 
@@ -494,5 +539,7 @@ barcode effects, how to fix that, and similar potential issues within the pools
 restriction site).
 
 ** Quality control
+
+To complete
 
 @@html:<div class="navLink">@@[[file:part-one-03-de-novo-assembly.html][Next: De novo assembly]]@@html:</div>@@
