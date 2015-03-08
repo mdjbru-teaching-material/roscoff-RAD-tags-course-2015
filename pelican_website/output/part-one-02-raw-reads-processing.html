@@ -47,13 +47,14 @@
 <li><a href="#sec-1-4-3"><span class="todo TODO">TODO</span> Count the number of reverse reads for the other populations</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-5">Barcode and restriction-site checking and demultiplexing</a>
+<li><a href="#sec-1-5">Demultiplexing SKA and LEV reads</a>
 <ul>
-<li><a href="#sec-1-5-1">Detect errors in the barcode and restriction site while demultiplexing</a></li>
+<li><a href="#sec-1-5-1">How to demultiplex</a></li>
 <li><a href="#sec-1-5-2"><span class="todo TODO">TODO</span> Extract the reverse reads from SKA</a></li>
 <li><a href="#sec-1-5-3"><span class="todo TODO">TODO</span> Extract the reverse reads from LEV</a></li>
-<li><a href="#sec-1-5-4"><span class="todo TODO">TODO</span> Get the reads names for each population</a></li>
-<li><a href="#sec-1-5-5"><span class="todo TODO">TODO</span> Get the reads with unexpected pattern in <code>s_2_5_sequence.fastq</code></a></li>
+<li><a href="#sec-1-5-4"><span class="todo TODO">TODO</span> Get the reads names for SKA and LEV</a></li>
+<li><a href="#sec-1-5-5"><span class="todo TODO">TODO</span> Piping commands: getting the reverse reads names for the other populations</a></li>
+<li><a href="#sec-1-5-6"><span class="todo TODO">TODO</span> Final step: getting all the read pairs for all populations</a></li>
 </ul>
 </li>
 <li><a href="#sec-1-6">Complete demultiplexing</a>
@@ -396,7 +397,7 @@ explain what you observe?
 | ABB |    3 | TTG     | TTGTCC    |  428807 |
 | SKA |    5 | CAC     | CACTCC    |   81633 |
 | LEV |    5 | TCT     | TCTTCC    |  376011 |
-| POR |    6 | TTG     | TTGTCC    | 333744  |
+| POR |    6 | TTG     | TTGTCC    |  333744 |
 </pre>
 <p>
 Plot your results in a bar plot with R. You can do it by yourself if you know
@@ -425,37 +426,52 @@ barplot(n_reads,            # numerical values used for the plot
 </div>
 </div>
 <div class="outline-3" id="outline-container-sec-1-5">
-<h3 id="sec-1-5">Barcode and restriction-site checking and demultiplexing</h3>
+<h3 id="sec-1-5">Demultiplexing SKA and LEV reads</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
-In our case, the reads are already quite clean since there is no reads starting
-with an unexpected pattern. However, it is possible to have reads that do have
-mistakes at the beginning of the sequence, and that should be discarded because
-they cannot be assigned to a population for example.
-</p>
-<p>
-In practice, there are methods to correct the barcode for one base mismatch
-when the barcodes used for different populations are sufficiently different to
-start with (see for example the STACKS pipeline).
+As is common in RAD projects, we have several populations sharing the same lane
+but we can differentiate them using their specific barcode. The demultiplexing
+operation consists in sorting the reads from each population into separate
+files for downstream processing.
 </p>
 </div>
 <div class="outline-4" id="outline-container-sec-1-5-1">
-<h4 id="sec-1-5-1">Detect errors in the barcode and restriction site while demultiplexing</h4>
+<h4 id="sec-1-5-1">How to demultiplex</h4>
 <div class="outline-text-4" id="text-1-5-1">
 <p>
-Here, we'll just see how to detect those mistakes while demultiplexing,
-i.e. while sorting the reads from one file into one file per population. The
-file <code>s_5_2_sequence.fastq</code>, which contains the reverse reads for two
-populations, was transformed to a low quality file,
-<code>s_5_2_sequence.lowQual.fastq</code> in which some nucleotide were randomly changed
-(the Phred scores themselves were not touched).
+We will start by demultiplexing the reverse reads (those which have the
+specific barcodes). Once we have the names of the reverse reads for each
+population, we'll match those names in the forward files. This is because, in
+paired-end sequencing, paired sequences have matching names:
+</p>
+<pre class="example">
+# Somewhere in the reverse reads file:
+@HWI-EAS418:1:1:3:665#0/1
+# Somewhere in the forward reads file:
+@HWI-EAS418:1:1:3:665#0/2
+</pre>
+<p>
+In this example, the name of the RAD fragment is <code>HWI-EAS418:1:1:3:665#0</code>. The
+forward and reverse reads have the suffix <code>/1</code> and <code>/2</code>, respectively. Once we
+have the names of the reverse reads for one population, that we identified with
+the specific barcode, we can extract the forward reads (which do not have a
+barcode) by matching the fragment names.
 </p>
 <p>
 Reads in <code>s_5_2_sequence.fastq</code> should start with either <code>CACTCC</code> (SKA
-population) or <code>TCTTCC</code> (LEV population). Let's filter the reads from the
-modified file, <code>s_5_2_sequence.lowQual.fastq</code> to separate files for each
-population, and to a third file for reads that do not match the expected
-patterns.
+population) or <code>TCTTCC</code> (LEV population). We will filter the reads from this
+file based on this expectation. 
+</p>
+<p>
+Note that it is possible to have reads that do have mistakes at the beginning
+of the sequence in the barcode or in the restriction site and that do not match
+the expectations. If the read cannot be assigned to a population unambiguously,
+it should be discarded.
+</p>
+<p>
+In practice, there are methods to correct the barcode for one base mismatch
+when the barcodes used for different populations are sufficiently different
+from each other (see for example the STACKS pipeline).
 </p>
 </div>
 </div>
@@ -463,29 +479,37 @@ patterns.
 <h4 id="sec-1-5-2"><span class="todo TODO">TODO</span> Extract the reverse reads from SKA</h4>
 <div class="outline-text-4" id="text-1-5-2">
 <p>
-We use <code>grep</code> again. Since we want to extract full records, not only the
-nucleotide sequences that matches the pattern, we use <code>-B 1</code> (extract one line
-before the match) and <code>-A 2</code> (extract two lines after the matching line). We
-send <code>grep</code> output to a file by using the redirection operator <code>&gt;</code>.
-</p>
-<p>
-In addition, <code>grep</code> will add a <code>--</code> line between groups of contiguous
-matches. We do not want to keep it in our output file, so we filter that out
-with a reverse <code>grep</code>: a <code>grep</code> call with the <code>-v</code> option which asks <code>grep</code> to
-output only the lines that do <b>not</b> match the pattern.
+We use <code>grep</code> again. Since we want to extract full records this time (the four
+lines with the name of the record, the sequence and the quality score), not
+only the nucleotide sequences that matches the pattern, we use <code>grep</code> with the
+options <code>-B 1</code> (extract one line before the match) and <code>-A 2</code> (extract two
+lines after the match). We send <code>grep</code> output to a file by using the
+redirection operator <code>&gt;</code>.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">grep -B 1 -A 2 "^CACTCC" s_5_2_sequence.lowQual.fastq &gt; SKA-rev.to-clean.fastq
-grep -v "^\-" SKA-rev.to-clean.fastq &gt; SKA-rev.final.fastq
+<pre class="src src-bash">grep -B 1 -A 2 "^CACTCC" s_5_2_sequence.fastq &gt; SKA-rev.tmp.fastq
 </pre>
 </div>
 <p>
-We could do all in one go, without the intermediate <code>SKA-rev.to-clean.fastq</code>
-file which contains the <code>--</code> lines, by using a pipe between the two <code>grep</code>
-calls:
+In addition, <code>grep</code> will add a <code>--</code> line between groups of contiguous matches
+(you can check that with <code>less SKA-rev.tmp.fastq</code>). We do not want to keep it
+in our output file, so we filter that out with a reverse <code>grep</code>: a <code>grep</code> call
+with the <code>-v</code> option which asks <code>grep</code> to output only the lines that do <b>not</b>
+match the pattern.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">grep -B 1 -A 2 "^CACTCC" s_5_2_sequence.lowQual.fastq | grep -v "^\-" &gt; SKA-rev.fastq
+<pre class="src src-bash">grep -v "^\-\-" SKA-rev.tmp.fastq &gt; SKA-rev.final.fastq
+# Here the pattern is "^\-\-" and means a "--" at the beginning of the line.
+# Since "-" is a special character for grep, we have to escape it with "\-"
+# so that grep considers it as a normal character.
+</pre>
+</div>
+<p>
+We could do all in one go, without the intermediate <code>SKA-rev.tmp.fastq</code> file
+which contains the <code>--</code> lines, by using a pipe between the two <code>grep</code> calls:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">grep -B 1 -A 2 "^CACTCC" s_5_2_sequence.fastq | grep -v "^\-" &gt; SKA-rev.fastq
 </pre>
 </div>
 <p>
@@ -507,7 +531,7 @@ Now we can count the number of sequence in <code>SKA-rev.fastq</code>:
 Let's do the same for the LEV population:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">grep -B 1 -A 2 "^TCTTCC" s_5_2_sequence.lowQual.fastq | grep -v "^\-" &gt; LEV-rev.fastq
+<pre class="src src-bash">grep -B 1 -A 2 "^TCTTCC" s_5_2_sequence.fastq | grep -v "^\-" &gt; LEV-rev.fastq
 grep "^@" LEV-rev.fastq | wc -l
 </pre>
 </div>
@@ -515,84 +539,103 @@ grep "^@" LEV-rev.fastq | wc -l
 374311
 </pre>
 <p>
-And the total number of initial sequences was:
-</p>
-<div class="org-src-container">
-<pre class="src src-bash">grep "^@" s_5_2_sequence.lowQual.fastq | wc -l
-</pre>
-</div>
-<pre class="example">
-457644
-</pre>
-<p>
-Were there any reads which were not sent to the SKA nor to the LEV file? How
-many was this? Can you imagine a way to get those reads to examine their
-sequence?
+How would you check that all reads were sent to the SKA or to the LEV file?
+Perform the check: was there any reads not assigned to a population?
 </p>
 </div>
 </div>
 <div class="outline-4" id="outline-container-sec-1-5-4">
-<h4 id="sec-1-5-4"><span class="todo TODO">TODO</span> Get the reads names for each population</h4>
+<h4 id="sec-1-5-4"><span class="todo TODO">TODO</span> Get the reads names for SKA and LEV</h4>
 <div class="outline-text-4" id="text-1-5-4">
 <p>
-To do things in a more rigorous way, we can actually create one list of reads
-names for each population. Those lists will help us to sort the reads later on.
+Now we have a file with the full reverse reads for each population. What we
+would really like to have is just a list of the names of the reads for each
+population, to use them to match the forward reads.
 </p>
 <p>
-As an example, let's get all the names of the reverse reads for BYN. We can do
-it in two steps: first we extract the full records of the reverse reads
-starting with <code>CACTCC</code> (BYN specific pattern), and then we extract only the
-lines containing the reads names. Let's <code>grep</code> again!
+The approach is straightforward: we can just <code>grep</code> the lines starting with <code>@</code>
+in the sorted reverse reads files, and then remove the suffix <code>/2</code> from the
+record name. Let's do it for SKA:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">grep -B 1 -A 2 "^CACTCC" s_1_2_sequence.fastq | grep "^@" &gt; BYN.rev.names
+<pre class="src src-bash">grep "^@" SKA-rev.fastq &gt; SKA-rev-records-names
+head SKA-rev-records-names
 </pre>
 </div>
 <p>
-Prepare a list of reverse reads names for each population, using the
-<code>s_2_5_sequence.lowQual.fastq</code> instead of the <code>s_2_5_sequence.fastq</code>.
+To remove the ending <code>/2</code> we use <code>sed</code>. <code>sed</code> is a program which can replace
+one string by another in a text file:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sed -e "s/\/2//g" SKA-rev-records-names &gt; SKA.rev.names
+</pre>
+</div>
+<p>
+The <code>sed</code> commands takes an expression (introduced by <code>-e</code>) of the format
+<code>s/PATTERN/REPLACE/g</code>, where <code>PATTERN</code> is the string to be searched for in the
+file and <code>REPLACE</code> is the replacement string. Here <code>PATTERN</code> is <code>\/2</code> (we have
+to escape the <code>/</code> because it is a special character for <code>sed</code>) and the
+replacement is the empty string!
+</p>
+<p>
+Let's check that everything makes sense:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">grep "^@" SKA-rev.fastq | wc -l
+wc -l SKA-rev-records-names
+wc -l SKA.rev.names
+</pre>
+</div>
+<p>
+Do you have the same number of records in each file? Extract the names in the
+same way for LEV.
 </p>
 </div>
 </div>
 <div class="outline-4" id="outline-container-sec-1-5-5">
-<h4 id="sec-1-5-5"><span class="todo TODO">TODO</span> Get the reads with unexpected pattern in <code>s_2_5_sequence.fastq</code></h4>
+<h4 id="sec-1-5-5"><span class="todo TODO">TODO</span> Piping commands: getting the reverse reads names for the other populations</h4>
 <div class="outline-text-4" id="text-1-5-5">
 <p>
-Now you should have a list of the reverse reads for SKA and LEV:
+Since we are only interested in getting the reads names, we can bypass the
+creation of all the intermediate files and just pipe the commands together.
+</p>
+<p>
+As an example, let's get all the names of the reverse reads for BYN. We can do
+it in three steps: 
+</p>
+<ul class="org-ul">
+<li>first we extract the full records of the reverse reads starting with <code>CACTCC</code>
+(BYN specific pattern)
+</li>
+<li>then we extract only the lines containing the reads names
+</li>
+<li>finally we remove the suffix <code>/2</code> and send the result to a file
+</li>
+</ul>
+<p>
+Let's <code>grep</code> again!
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">grep -B 1 -A 2 "^CACTCC" s_5_2_sequence.lowQual.fastq | grep "^@" &gt; SKA.rev.names
-grep -B 1 -A 2 "^TCTTCC" s_5_2_sequence.lowQual.fastq | grep "^@" &gt; LEV.rev.names
+<pre class="src src-bash">grep -B 1 -A 2 "^CACTCC" s_1_2_sequence.fastq | grep "^@" | sed -e "s/\/2//g" &gt; BYN.rev.names
 </pre>
 </div>
 <p>
-We can also prepare the list of all reads in the initial file:
+This gives you an idea of the versatility of the command line when combining
+simple programs with the pipe.
 </p>
-<div class="org-src-container">
-<pre class="src src-bash">grep "^@" s_5_2_sequence.lowQual.fastq &gt; all.names
-</pre>
+<p>
+Now, you can prepare a list of reverse reads names for each population.
+</p>
 </div>
-<p>
-Now, by using inverted <code>grep</code> and by giving a file (with the <code>-f</code> option)
-containing the patterns to match to <code>grep</code>, we can get the names which were not
-assigned to SKA nor to LEV. We also use the <code>-F</code> option to tell <code>grep</code> the
-pattern are fix, not regular expressions, to make it faster:
-</p>
-<div class="org-src-container">
-<pre class="src src-bash">grep -F -v -f SKA.rev.names all.names &gt; names.not.in.SKA
-grep -F -v -f LEV.rev.names names.not.in.SKA &gt; names.not.in.SKA.nor.LEV
-</pre>
 </div>
+<div class="outline-4" id="outline-container-sec-1-5-6">
+<h4 id="sec-1-5-6"><span class="todo TODO">TODO</span> Final step: getting all the read pairs for all populations</h4>
+<div class="outline-text-4" id="text-1-5-6">
 <p>
-Great! Now we can use this list of non-matching names to get their actual
-sequences and see what were the problems:
-</p>
-<pre class="example">
-grep -F -A 1 -f names.not.in.SKA.nor.LEV s_5_2_sequence.lowQual.fastq &gt; bad.seqs
-</pre>
-<p>
-If we look at <code>bad.seqs</code> with <code>less</code> for example (<code>less bad.seqs</code>), we can see
-that there is one mismatch in the first 6 nucleotides.
+Now that we have the reverse reads names for each population, can you find a
+way, using only <code>grep</code> and <code>sed</code> commands and pipes, to create for each
+population two files containing the forward and reverse reads involved in
+matching pairs? (The order within each file is not important)
 </p>
 </div>
 </div>
