@@ -12,15 +12,87 @@
 
 ** Assembly into contigs
 
-We choose to go for a de novo assembly. Several tools were tested, in the end
-we went for an older tool, CAP3. Discuss the reasons with Susie?
+We choose to go for a /de novo/ assembly since we do not have a genome for this
+species. Several tools were tested, and in the end we decided to go with a bit
+older tool, CAP3 ([[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC310812/][original publication]]), which can incorporate quality
+information in the assembly process.
+
+We perform two independent assemblies, one for the forward reads and one for
+the reverse reads.
+
+*** Concatenate all reads for a given sense
+
+We have to pool all the reads of a given sense together:
+#+BEGIN_SRC bash
+ls -1
+#+END_SRC
+#+BEGIN_EXAMPLE
+ABB.pair.for.fastq.clean
+ABB.pair.rev.fastq.clean
+BYN.pair.for.fastq.clean
+BYN.pair.rev.fastq.clean
+HKI.pair.for.fastq.clean
+HKI.pair.rev.fastq.clean
+LEV.pair.for.fastq.clean
+LEV.pair.rev.fastq.clean
+POR.pair.for.fastq.clean
+POR.pair.rev.fastq.clean
+PYO.pair.for.fastq.clean
+PYO.pair.rev.fastq.clean
+RYT.pair.for.fastq.clean
+RYT.pair.rev.fastq.clean
+SKA.pair.for.fastq.clean
+SKA.pair.rev.fastq.clean
+#+END_EXAMPLE
+#+BEGIN_SRC bash
+cat *for* > for.fastq
+cat *rev* > rev.fastq
+#+END_SRC
+
+We obtain two large files with all the reads.
+
+*** TODO Run CAP3 (forward reads)
+
+CAP3 takes for input two files, one containing the FASTA sequences and one
+containing the corresponding quality scores. We can split the FASTQ files into
+those two files using a [[file:resources/split_fasta_qual.py][python script]] (=split_fasta_qual.py=):
+#+BEGIN_SRC bash
+python split_fasta_qual.py for.fastq
+python split_fasta_qual.py rev.fastq
+#+END_SRC
+
+We submit the CAP3 assembly as a job on the ABiMS server. We need to prepare
+our [[file:resources/cap3-for-job][job file]] (=cap3-for-job=) (see the ABiMS [[http://abims.sb-roscoff.fr/resources/cluster/howto][how-to]] page for more details about
+job files and how to submit them):
+#+BEGIN_SRC bash
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+cap3 for.fastq.fasta > for.cap3.log
+#+END_SRC
+Here the command is simply =cap3 for.fastq.fasta > for.cap3.log=. CAP3
+automatically gets the quality information from =for.fastq.fasta.qual=.
+
+The job file is submitted to the long queue with:
+#+BEGIN_SRC bash
+qsub -q long.q cap3-for-job
+#+END_SRC
+
+*** TODO Run CAP3 (reverse reads)
+
+Submit a similar assembly for the reverse reads.
 
 An alternative approach would have been to map the reads back to the reference
-genome. However, when mapping back we have to be quite stringent and allow only
-for example one or two mismatch, and one unique good quality mapping
-location. With the reference genome of a different species, this can be
-problematic and the mapping back might be less efficient that creating
-consensus contigs or stacks.
+genome. Why did we not use the threespine genome as a reference? 
+
+(When mapping back we have to be quite stringent and allow only for example one
+or two mismatch, and one unique good quality mapping location. With the
+reference genome of a different species, this can be problematic and the
+mapping back might be less efficient that creating consensus contigs or
+stacks.)
 
 ** Removal of repeat sequences
 

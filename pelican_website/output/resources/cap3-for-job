@@ -1,0 +1,7 @@
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+cap3 for.fastq.fasta > for.cap3.log

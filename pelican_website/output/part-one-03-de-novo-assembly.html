@@ -38,17 +38,113 @@
 <h3 id="sec-1-1">Assembly into contigs</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-We choose to go for a de novo assembly. Several tools were tested, in the end
-we went for an older tool, CAP3. Discuss the reasons with Susie?
+We choose to go for a <i>de novo</i> assembly since we do not have a genome for this
+species. Several tools were tested, and in the end we decided to go with a bit
+older tool, CAP3 (<a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC310812/">original publication</a>), which can incorporate quality
+information in the assembly process.
+</p>
+<p>
+We perform two independent assemblies, one for the forward reads and one for
+the reverse reads.
+</p>
+</div>
+<div class="outline-4" id="outline-container-sec-1-1-1">
+<h4 id="sec-1-1-1">Concatenate all reads for a given sense</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+We have to pool all the reads of a given sense together:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">ls -1
+</pre>
+</div>
+<pre class="example">
+ABB.pair.for.fastq.clean
+ABB.pair.rev.fastq.clean
+BYN.pair.for.fastq.clean
+BYN.pair.rev.fastq.clean
+HKI.pair.for.fastq.clean
+HKI.pair.rev.fastq.clean
+LEV.pair.for.fastq.clean
+LEV.pair.rev.fastq.clean
+POR.pair.for.fastq.clean
+POR.pair.rev.fastq.clean
+PYO.pair.for.fastq.clean
+PYO.pair.rev.fastq.clean
+RYT.pair.for.fastq.clean
+RYT.pair.rev.fastq.clean
+SKA.pair.for.fastq.clean
+SKA.pair.rev.fastq.clean
+</pre>
+<div class="org-src-container">
+<pre class="src src-bash">cat *for* &gt; for.fastq
+cat *rev* &gt; rev.fastq
+</pre>
+</div>
+<p>
+We obtain two large files with all the reads.
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-1-2">
+<h4 id="sec-1-1-2"><span class="todo TODO">TODO</span> Run CAP3 (forward reads)</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+CAP3 takes for input two files, one containing the FASTA sequences and one
+containing the corresponding quality scores. We can split the FASTQ files into
+those two files using a <a href="resources/split_fasta_qual.py">python script</a> (<code>split_fasta_qual.py</code>):
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">python split_fasta_qual.py for.fastq
+python split_fasta_qual.py rev.fastq
+</pre>
+</div>
+<p>
+We submit the CAP3 assembly as a job on the ABiMS server. We need to prepare
+our <a href="resources/cap3-for-job">job file</a> (<code>cap3-for-job</code>) (see the ABiMS <a href="http://abims.sb-roscoff.fr/resources/cluster/howto">how-to</a> page for more details about
+job files and how to submit them):
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+cap3 for.fastq.fasta &gt; for.cap3.log
+</pre>
+</div>
+<p>
+Here the command is simply <code>cap3 for.fastq.fasta &gt; for.cap3.log</code>. CAP3
+automatically gets the quality information from <code>for.fastq.fasta.qual</code>.
+</p>
+<p>
+The job file is submitted to the long queue with:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">qsub -q long.q cap3-for-job
+</pre>
+</div>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-1-3">
+<h4 id="sec-1-1-3"><span class="todo TODO">TODO</span> Run CAP3 (reverse reads)</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<p>
+Submit a similar assembly for the reverse reads.
 </p>
 <p>
 An alternative approach would have been to map the reads back to the reference
-genome. However, when mapping back we have to be quite stringent and allow only
-for example one or two mismatch, and one unique good quality mapping
-location. With the reference genome of a different species, this can be
-problematic and the mapping back might be less efficient that creating
-consensus contigs or stacks.
+genome. Why did we not use the threespine genome as a reference? 
 </p>
+<p>
+(When mapping back we have to be quite stringent and allow only for example one
+or two mismatch, and one unique good quality mapping location. With the
+reference genome of a different species, this can be problematic and the
+mapping back might be less efficient that creating consensus contigs or
+stacks.)
+</p>
+</div>
 </div>
 </div>
 <div class="outline-3" id="outline-container-sec-1-2">
