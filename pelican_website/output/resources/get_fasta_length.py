@@ -1,6 +1,6 @@
 ### * Description
 
-# Script to get read length from a fastq file (sequences must be one-liners).
+# Script to get read length from a fasta file (sequences can be multi-liners).
 #
 # Usage:
 # python script.py inputFile
@@ -10,6 +10,7 @@
 ### ** Import
 
 import sys
+from Bio import SeqIO
 
 ### ** Parameters
 
@@ -19,8 +20,7 @@ INPUT_FILE = sys.argv[1]
 
 with open(INPUT_FILE, "r") as fi :
     with open(INPUT_FILE + ".lengths", "w") as fo :
-        for l in fi :
-            r = fi.next()
-            fo.write(str(len(r.strip())) + "\n")
-            fi.next()
-            fi.next()
+        h = SeqIO.parse(fi, "fasta")
+        for s in h :
+            fo.write(str(len(str(s.seq))) + "\n")
+

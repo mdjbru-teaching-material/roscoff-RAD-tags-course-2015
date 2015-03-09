@@ -18,7 +18,7 @@ import sys
 INPUT_FILE = sys.argv[1]
 SCORE_THRESHOLD = int(sys.argv[2])
 LENGTH_THRESHOLD = int(sys.argv[3])
-PHRED_CONSTANT = 33
+PHRED_CONSTANT = 64
 
 ### * Run
 

@@ -20,6 +20,7 @@
 <li><a href="#sec-1-1-1">Concatenate all reads for a given sense</a></li>
 <li><a href="#sec-1-1-2"><span class="todo TODO">TODO</span> Run CAP3 (forward reads)</a></li>
 <li><a href="#sec-1-1-3"><span class="todo TODO">TODO</span> Run CAP3 (reverse reads)</a></li>
+<li><a href="#sec-1-1-4">CAP3 run</a></li>
 </ul>
 </li>
 <li><a href="#sec-1-2">Quality filtering of consensus sequences</a>
@@ -153,15 +154,27 @@ stacks.)
 </p>
 </div>
 </div>
+<div class="outline-4" id="outline-container-sec-1-1-4">
+<h4 id="sec-1-1-4">CAP3 run</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<p>
+The CAP3 run is quite long (a bit more than 15 hours for the reverse reads). We
+give you the assembly for the reverse reads (<code>CAP3-rev.fasta</code>), using the
+default parameters of CAP3. Note that for a real analysis we would need to made
+several tests with different parameters and select the ones that give the
+better assembly.
+</p>
+</div>
+</div>
 </div>
 <div class="outline-3" id="outline-container-sec-1-2">
 <h3 id="sec-1-2">Quality filtering of consensus sequences</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 The <i>de novo</i> assembly with CAP3 can be tuned by changing the parameters from
-the default ones. An assembly is likely not to be perfect and the resulting
-consensus sequences have to be quality checked before being used for read
-mapping.
+the default ones (which we should do for a real analysis). An assembly is
+likely not to be perfect and the resulting consensus sequences have to be
+quality checked before being used for read mapping.
 </p>
 </div>
 <div class="outline-4" id="outline-container-sec-1-2-1">
@@ -176,10 +189,10 @@ consensus sequences of the same length.
 </p>
 <p>
 We can get the length of the reads by using a homemade <a href="resources/get_read_length.py">python script</a>
-(<code>get_read_length.py</code>):
+(<code>get_fasta_length.py</code>):
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">python get_read_length.py consensus-for.fasta
+<pre class="src src-bash">python get_fasta_length.py cap3-rev.fasta
 </pre>
 </div>
 <p>
@@ -191,10 +204,14 @@ We can plot the read length distribution with R:
 # Plot read length distribution
 #------------------------------
 
-d = read.table("consensus-for.fasta.lengths")
+d = read.table("cap3-rev.fasta.lengths")
 plot(hist(d[, 1])
 </pre>
 </div>
+<p>
+How does the length distribution look like? How would you remove the sequences
+that do not match the median length?
+</p>
 </div>
 </div>
 <div class="outline-4" id="outline-container-sec-1-2-2">
@@ -213,13 +230,73 @@ consensus sequences and then we use <code>blastn</code>:
 </p>
 <div class="org-src-container">
 <pre class="src src-bash"># Prepare the blast database
-
-# Perform the blast search (output in tabular format)
+makeblastdb -help
+makeblastdb -in cap3-rev.fasta -dbtype nucl
 </pre>
 </div>
 <p>
+We have to perform the <code>blastn</code> by submitting a job because it is a long
+process. See <code>blastn -help</code> for more details. The job file is
+<code>cap3-blastn-job</code>:
+</p>
+<pre class="example">
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+# Perform the blast search (output in tabular format)
+blastn -task blastn -db cap3-rev.fasta -query cap3-rev.fasta -out cap3-blastn-results -outfmt 6
+</pre>
+<p>
+We submit the job with <code>qsub -q long.q cap3-for-job</code>. Here we ask for a tabular
+output format.
+</p>
+<p>
 Next, we parse the results to identify consensus sequences to be removed or to
-merged together.
+be merged together. We must remember that the default output for <code>blastn</code> in
+tabular format is (from <code>blastn -help</code>):
+</p>
+<pre class="example">
+qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore
+</pre>
+<p>
+We can first have a look at the distribution of the size of the matches;
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">cut -f 4 cap3-blastn-results &gt; lengths
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-R"># R script
+d = read.table("lengths")[, 1]
+hist(d)
+</pre>
+</div>
+<p>
+What threshold would you use to consider a match to be important based on this
+distribution? How you would keep only the matches longer than this threshold in
+the blastn result file?
+</p>
+<p>
+We can also look at the number of matches for each consensus sequence:
+</p>
+<pre class="example">
+cut -f 1 cap3-blastn-results &gt; seq-names
+sort seq-names &gt; seq-names-sorted
+uniq -c seq-names-sorted &gt; seq-names-count
+sort -nr seq-names-count &gt; seq-match-count
+</pre>
+<div class="org-src-container">
+<pre class="src src-R"># R script
+d = read.table("seq-match-count")
+plot(d[, 1])
+</pre>
+</div>
+<p>
+How does the distribution of matches look like? How would you select a
+threshold? How would you apply it?
 </p>
 </div>
 </div>
@@ -228,7 +305,29 @@ merged together.
 <div class="outline-text-4" id="text-1-2-3">
 <p>
 The last quality control step is to remove consensus sequences that contains
-microsatellite repeats.
+microsatellite repeats. To do this, we use Sputnik on the consensus
+sequences. We should use it on the consensus sequence file after removing the
+sequences with repeated motives, but since the intermediate file is missing
+we'll run it on the full consensus file. We have to submit a job again,
+<code>sputnik-job</code>:
+</p>
+<pre class="example">
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+# Perform the blast search (output in tabular format)
+sputnik cap3-rev.fasta
+</pre>
+<p>
+We submit it with <code>qsub -q long.q sputnik-job</code>.
+</p>
+<p>
+Examine the output of Sputnik and count the number of contigs with
+microsatellite repeats. How would you proceed to remove them from the initial
+consensus file?
 </p>
 <p>
 <div class="navLink"><a href="part-one-04-variant-calling-genotyping.html">Next: Variant calling and genotyping</a></div>

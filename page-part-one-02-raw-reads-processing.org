@@ -493,6 +493,9 @@ Check for the first lines of a few files that the operation worked. Why do you
 think it is important to cut those nucleotides? What would happen if we would
 keep them?
 
+@@html:<div class="navLink">@@[[file:part-one-03-de-novo-assembly.html][Next: De novo assembly]]@@html:</div>@@
+
+
 ** Barcode and restriction-site checking and demultiplexing       :noexport:
 
 *** Detect errors in the barcode and restriction site while demultiplexing
@@ -557,4 +560,3 @@ barcode effects, how to fix that, and similar potential issues within the pools
 (how some individuals can have more reads than others, mutations that break the
 restriction site).
 
-@@html:<div class="navLink">@@[[file:part-one-03-de-novo-assembly.html][Next: De novo assembly]]@@html:</div>@@

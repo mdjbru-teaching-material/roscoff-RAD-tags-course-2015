@@ -1,0 +1,8 @@
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+# Perform the blast search (output in tabular format)
+blastn -task blastn -db cap3-rev.fasta -query cap3-rev.fasta -out cap3-blastn-results -outfmt 6
