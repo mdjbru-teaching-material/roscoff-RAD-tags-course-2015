@@ -30,7 +30,7 @@
 - Arouse curiosity
 - Give useful pointers
 
-** Disclaimer about the speaker
+** Disclaimer about the speaker!
 
 ***                                                                 :B_block:
 :PROPERTIES:
@@ -38,16 +38,160 @@
 :END:
 - Not a population geneticist, not a bioinformatician
 - Evolutionary biologist who dropped into a RAD-seq project when he was
-  post-doc
-- Some things are probably wrong!
+  a small post-doc
+- Some things said here are probably incorrect or plainly wrong!
 
 * Introduction: RAD-seq and population genomics
 
 ** What are RAD markers?
-Miller et al. 2007
-restriction site polymorphism
 
-** RAD-seq
+*** Miller et al. 2007                                            :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/miller-2007a-title.png]]
+#+END_CENTER
+
+*** Description of RAD markers
+- *Restriction site associated DNA* fragments
+- Used with micro-array systems
+- Similar to RFLP or AFLP, but many more markers
+
+** RAD - Miller et al. 2007 (6 steps)
+
+*** Digest - tag - shear                                    :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.80
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/miller-2007a-fig1a.png]]
+#+END_CENTER
+
+** RAD - Miller et al. 2007 (6 steps)
+
+*** Purify - release - type                                 :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.75
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/miller-2007a-fig1b.png]]
+#+END_CENTER
+
+** RAD - Miller et al. 2007 (method summary)
+
+*** Digest - tag - shear                                    :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.47
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/miller-2007a-fig1a.png]]
+#+END_CENTER
+
+*** Purify - release - type                                 :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.47
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/miller-2007a-fig1b.png]]
+#+END_CENTER
+
+*** Demonstration                                                 :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Mapping breakpoint on a /Drosophila/ chromosome
+- Identification of the lateral plate locus in threespine stickleback
+
+** RAD - Miller et al. 2007
+
+*** Advantage of the method                                       :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Easy-to-produce genotyping resource for *non-model species*
+- *Moderate cost*
+- *Genetic mapping* possible (if markers location known)
+- *Bulk genotyping* possible
+
+*** But note that...                                              :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- At this point *the restriction site is the polymorphic marker*
+- *One restriction enzyme* only is used
+
+** What is RAD-seq?
+
+*** Baird et al. 2008                                             :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/baird-2008-title.png]]
+#+END_CENTER
+
+*** RAD-seq                                                       :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- RAD fragments with *high-throughput sequencing* (Illumina)
+- SNP identified by *sequence polymorphism* and *site disruption*
+- Can be used *with or without reference genome*
+
+** RAD-seq - Baird 2008
+
+*** Digest - tag                                                   :B_column:
+:PROPERTIES:
+:BEAMER_env: column
+:END:
+#+BEGIN_CENTER
+[[file:images/baird-2008-fig1a.png]]
+#+END_CENTER
+
+** RAD-seq - Baird 2008
+
+*** Pool - shear                                                 :B_column:
+:PROPERTIES:
+:BEAMER_env: column
+:END:
+#+BEGIN_CENTER
+[[file:images/baird-2008-fig1b.png]]
+#+END_CENTER
+
+** RAD-seq - Baird 2008
+
+*** Second adapter                                               :B_column:
+:PROPERTIES:
+:BEAMER_env: column
+:END:
+#+BEGIN_CENTER
+[[file:images/baird-2008-fig1c.png]]
+#+END_CENTER
+
+** RAD-seq - Baird 2008
+
+*** Amplification and sequencing                                   :B_column:
+:PROPERTIES:
+:BEAMER_env: column
+:END:
+#+BEGIN_CENTER
+[[file:images/baird-2008-fig1d.png]]
+#+END_CENTER
+
+** RAD-seq - Baird 2008
+
+*** Method summary                                               :B_column:
+:PROPERTIES:
+:BEAMER_env: column
+:END:
+#+BEGIN_CENTER
+[[file:images/baird-2008-fig1.png]]
+#+END_CENTER
 
 ** Single read vs. paired ends
 Examples, applications
