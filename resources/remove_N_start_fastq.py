@@ -18,7 +18,6 @@ import sys
 ### ** Parameters
 
 N_ARGS = len(sys.argv) - 1
-print(N_ARGS)
 INPUT_FILES = sys.argv[1: N_ARGS]
 N_TO_REMOVE = int(sys.argv[N_ARGS])
 
