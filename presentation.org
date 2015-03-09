@@ -193,6 +193,71 @@
 [[file:images/baird-2008-fig1.png]]
 #+END_CENTER
 
+** RAD-seq - Baird 2008
+
+*** Demonstration                                                   :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Discover 13000 SNP in threespine stickleback and in /Neurospora/
+- Barcoding system for multiplexing
+- Marker density can be tuned by the choice of restriction enzyme
+
+*** Threespine stickleback                                        :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/baird-2008-fig2.png]]
+#+END_CENTER
+
+** Population genomics of parallel adaptation - Hohenlohe 2010
+
+*** One major paper                                               :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/hohenlohe-2010-title.png]]
+#+END_CENTER
+
+*** Method                                                  :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_col: 0.6
+:END:
+- Model: threespine stickleback
+- Comparison of 3 freshwater and 2 marine populations
+- 20 individuals per population, individual barcodes
+
+*** /Gasterosteus aculeatus/                                :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_col: 0.3
+:END:
+#+BEGIN_CENTER
+[[file:images/hohenlohe-2010-fig1.png]]
+#+END_CENTER
+
+** Used for other things that population genomics
+
+Phylogeography, QTL mapping, ...
+
+** Development of pipelines and tools
+
+Rainbow, STACKS, GATK
+
+** Tools for NGS can be used for RAD
+
+** Simple scripts can be used also
+
+This is one thing I want to show during the practical
+
+Get a good grip and a good feeling/understanding about the data with simple,
+straightforward methods before choosing to apply more complex methods which
+rely on third-party scripts. It is important to understand what the third party
+scripts do!
+
 ** Single read vs. paired ends
 Examples, applications
 

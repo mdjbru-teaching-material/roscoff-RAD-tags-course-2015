@@ -8,3 +8,12 @@
 * Going further: cherry picking some analyses
 
 This is just a place-holder page for now.
+
+** In-silico digestion
+
+Playing with small genome (Neurospora? One chromosome for threespine?) and with
+different combination of enzymes and size filtering
+
+Link to the paper where they compare their results with in silico predictions
+(using more complex simulation for size selection, using a gaussian
+distribution, ...)
