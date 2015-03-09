@@ -58,7 +58,6 @@
 </ul>
 </li>
 <li><a href="#sec-1-6"><span class="todo TODO">TODO</span> Barcode and restriction site removal</a></li>
-<li><a href="#sec-1-7">Quality control</a></li>
 </ul>
 </li>
 </ul>
@@ -153,11 +152,11 @@ Q = -10.log(P) where log is the decimal log operation
 <p>
 Typically, the Phred score numerical value is encoded to the FASTQ file by
 adding a fixed, constant value and converting the resulting number to an <a href="http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters">ASCII
-character</a>. For example, if the encoding is [Phred+33] as it is for Sanger or
-Illumina 1.8+, then a Phred score of 50 is encoded as "S" in the FASTQ file
-since 50+33=83 and the ASCII character for 83 is "S". The <a href="http://en.wikipedia.org/wiki/FASTQ_format#Encoding">wikipedia page</a> about
-the quality score encoding in FASTQ file has more detailed information and
-examples about it.
+character</a>. For example, if the encoding is [Phred+64] as it is for Illumina
+1.5+, then a Phred score of 50 is encoded as "r" in the FASTQ file since
+50+64=114 and the ASCII character for 114 is "r". The <a href="http://en.wikipedia.org/wiki/FASTQ_format#Encoding">wikipedia page</a> about the
+quality score encoding in FASTQ file has more detailed information and examples
+about it.
 </p>
 </div>
 </div>
@@ -710,17 +709,6 @@ python remove_N_start_fastq.py *.rev.fastq 6
 Check for the first lines of a few files that the operation worked. Why do you
 think it is important to cut those nucleotides? What would happen if we would
 keep them?
-</p>
-</div>
-</div>
-<div class="outline-3" id="outline-container-sec-1-7">
-<h3 id="sec-1-7">Quality control</h3>
-<div class="outline-text-3" id="text-1-7">
-<p>
-To complete
-</p>
-<p>
-<div class="navLink"><a href="part-one-03-de-novo-assembly.html">Next: De novo assembly</a></div>
 </p>
 </div>
 </div>

@@ -18,6 +18,7 @@ import sys
 ### ** Parameters
 
 INPUT_FILE = sys.argv[1]
+PHRED_CONSTANT = 64
 
 ### * Function
 
@@ -26,7 +27,7 @@ INPUT_FILE = sys.argv[1]
 def convertPhredToQual(phred) :
     o = ""
     for c in phred.strip() :
-        o += str(ord(c) - 33) + " "
+        o += str(ord(c) - PHRED_CONSTANT) + " "
     o = o.strip()
     return(o)
 
