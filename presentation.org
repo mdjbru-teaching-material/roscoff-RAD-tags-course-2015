@@ -283,7 +283,7 @@
 ***                                                         :B_block:BMCOL:
 :PROPERTIES:
 :BEAMER_env: block
-:BEAMER_col: 0.45
+:BEAMER_col: 0.55
 :END:
 
 #+BEGIN_CENTER
@@ -293,7 +293,7 @@
 *** Evidence for balancing selection                        :B_block:BMCOL:
 :PROPERTIES:
 :BEAMER_env: block
-:BEAMER_col: 0.45
+:BEAMER_col: 0.40
 :END:
 - A: Nucleotide diversity, B: heterozygosity across all five populations
   (blue), three FW (red) or two SW (green)
@@ -352,7 +352,7 @@
 :PROPERTIES:
 :BEAMER_env: block
 :END:
-- Paired-end sequencing of RAD fragments to build contigs on the randmoly
+- Paired-end sequencing of RAD fragments to build *contigs* on the randomly
   sheared side
 - Demonstration with threespine and /E. coli/ sequencing
 - Up to 5kb contigs with circularization step
@@ -417,12 +417,8 @@
 :BEAMER_env: block
 :END:
 - Two enzyme double digestion
-- Paired-end sequencing on after size-selection
+- Paired-end sequencing after size-selection
 - *You will hear more about it soon* (see practicals)
-
-** Paired-end double RAD
-
-*** TODO Add a picture
 
 ** Uses of RAD tags
 
@@ -431,8 +427,267 @@
 :BEAMER_env: block
 :END:
 #+BEGIN_CENTER
-[[file:images/peterson-2012-fig1.png]]
+[[file:images/peterson-2012-fig2.png]]
 #+END_CENTER
+
+** There are also some potential issues...
+
+*** Crucial to understand the potential biases of RAD tags
+- *PCR-duplicates*
+- *Individual vs pool genotyping* for allele frequencies
+- Comparison *SNP vs microsat*
+
+*** Needs for (bio)informatic analyses
+- *Specific pipelines* have been developed (STACKS, Rainbow, dDocent)
+- Usual NGS tools can be used
+- Again, the most important is to *understand what is going on*
+
+** Conclusion
+
+*** In a nutshell                                                 :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- *RAD tags*: versatile method of *genome complexity reduction*
+- *RAD-seq*: large scale discovery of SNPs, affordable
+- Useful for both *model* and *non-model* organisms
+- *Just a tool*: the downstream analyses are still *your expertise*
+
+* Practicals
+
+** Before starting the practicals
+
+***                                                               :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+Any questions ?
+
+** Practical plan
+
+*** Complete analysis, from raw reads to results                  :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Reproduce results from Bruneaux et al. 2013
+- From raw reads to final results
+- Skipping some steps
+
+*** Cherry picking some other analyses?                           :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- If we have time
+- You can tell me what you would be interested in
+
+** General workflow (1/2)
+
+*** RAD-seq experiment                                            :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+1. DNA extraction (pooling?)
+2. Digestion and adapter ligation (simple or double RAD? Barcodes?)
+3. Size selection
+4. Sequencing (single reads? double reads?)
+
+*** Read processing                                               :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Demultiplexing and barcode removal
+- Quality control / trimming
+
+** General workflow (2/2)
+
+*** /de novo/ assembly or mapping back                              :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Consensus sequences from /de novo/ assembly
+- Mapping back the reads to consensus (or to reference genome)
+
+*** Variant calling and allelotyping                                :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Variant calling (filtering? likelihood? bayesian?)
+- Genotyping / allelotyping
+
+*** Downstream analysis                                           :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Genome scans
+- QTL mapping
+- Phylogenies
+- etc...
+
+** Nine-spined stickleback in Fenno-Scandia
+
+*** Nine-spined stickleback                               :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+
+**** Nine-spined stickleback                               :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_col: 0.5
+:END:
+- Versatile fish species
+- Recent history of recolonization (Teacher 2011)
+- Evidences of *local adaptation* (Prof. Merilä's group)
+
+**** Map                                                           :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+[[file:images/teacher-2011_map-pungitius.png]]
+
+\pause
+
+*** Local adaptation                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+
+# **** Local adaptation                                      :B_block:BMCOL:
+# :PROPERTIES:
+# :BEAMER_env: block
+# :BEAMER_col: 0.9
+# :END:
+# - Differences between freshwater and marine populations
+# - Effect of community composition
+# - Genetic-based differences in many traits
+
+*** Giant ninespine                                       :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+
+**** Picture                                                       :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.9
+:END:
+[[file:images/giant-9spine_EGRU-helsinki.png]]
+
+** RAD tag experiments
+
+*** Context and approach                                    :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.45
+:BEAMER_env: block
+:END:
+- No transcriptomic or genomic resources
+- But *three-spined stickleback genome* available
+- Aim: *mapping the genetic differences* associated with local adaptation
+\pause
+- RAD tag approach
+  + \alert{R}estriction-site-\alert{A}ssociated \alert{D}NA tag
+  + Individuals pooled per populations
+  + Discover SNPs and estimate *allele frequencies*
+
+***                                                  :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/rad-tags.png]]
+#+END_CENTER
+
+** Results (1/2)
+
+*** Low coverage                                          :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+
+**** Low coverage issues                                      :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:BEAMER_env: block
+:END:
+- SNP coverage lower than expected
+- Populations *pooled by habitat type*
+
+**** Map                                                           :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.35
+:END:
+#+BEGIN_CENTER
+#+LATEX_ATTR: :width 0.8\textwidth
+[[file:images/map_9spines_bruneaux-2013.png]]
+#+END_CENTER
+
+\pause
+
+*** Kernel smoothing and permutation tests                        :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+#+LATEX_ATTR: :width 0.9\textwidth
+[[file:images/gst-profile-pval_bruneaux-2103.png]]
+#+END_CENTER
+
+** Results (2/2)
+
+*** Identification of candidate genes
+- Annotations from the three-spined stickleback genome
+- Gene Ontology information
+
+\pause
+
+*** GO enrichment tests                                           :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/high-gst-GO-bruneaux-2013.png]]
+#+END_CENTER
+
+** During the first part of the practicals
+
+*** Simple scripts can be used also                               :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- This is one thing I want to show during the practical
+- The objective is to get a *good grip* and a *good feeling/understanding* about
+  the data with simple, straightforward methods
+- Once we are comfortable, we can choose to apply *more complex methods* which
+  rely on third-party scripts
+- It is important to *understand what the third partyscripts do!*
+
+* Attic                                                            :noexport:
+
+** Typical analysis
+
+- Depends on the question and objectives!
+- Experimental/sampling design
+- DNA extraction, library preps
+- Barcoding? pooling?
+- Sequencing (service?)
+- Reads cleaning
+- demultiplexing
+- assembly or alignment (mapping if reference available)
+- genotype calling
+- RAD stops here (i.e. lots of markers and allele frequencies for different populations or genotypes for individuals)
+- Downstream analysis:
+  - genome scan
+  - Fst, Gst, outlier detection
+  - Phylogeography
+  - Parallel evolution
+  - and many other things...
+
+** ddRAD
+Examples, applications
+(population genomics, mapping, QTL, phylogeography, ...)
+or put those appplications in more general context?
+nonmodel species, marker discovery
+anything that needs lots of markers in lots of individuals or pools
 
 ** Uses of RAD tags
 
@@ -474,76 +729,10 @@ Houston 2012
 
 Rubin 2012
 
-** There are also some potential issues...
-
-- PCR-duplicates
-- individual vs pool genotyping for allele frequencies
-- Comparison SNP vs microsat (deFaveri)
-
-** Conclusion
-
-*** In a nutshell                                                 :B_block:
-:PROPERTIES:
-:BEAMER_env: block
-:END:
-- *RAD tags*: versatile method of *genome complexity reduction*
-- *RAD-seq*: large scale discovery of SNPs, affordable
-- Useful for both *model* and *non-model* organisms
-- *Just a tool*: the downstream analyses are still *your expertise*
-
-* Practicals
-
-** General workflow scheme
-
-** Development of pipelines and tools
-
-Rainbow, STACKS, GATK, dDocent
-
-** Tools for NGS can be used for RAD
-
-** Simple scripts can be used also
-
-This is one thing I want to show during the practical
-
-Get a good grip and a good feeling/understanding about the data with simple,
-straightforward methods before choosing to apply more complex methods which
-rely on third-party scripts. It is important to understand what the third party
-scripts do!
-
-
-** One complete project
-
 ** Tour of other tools and specific analyses
+
 To illustrate some specific points (e.g. likelihood or bayesian based genotyping
 or allele frequency estimates or Fst calculations, ...)
-
-* Attic                                                            :noexport:
-
-** Typical analysis
-
-- Depends on the question and objectives!
-- Experimental/sampling design
-- DNA extraction, library preps
-- Barcoding? pooling?
-- Sequencing (service?)
-- Reads cleaning
-- demultiplexing
-- assembly or alignment (mapping if reference available)
-- genotype calling
-- RAD stops here (i.e. lots of markers and allele frequencies for different populations or genotypes for individuals)
-- Downstream analysis:
-  - genome scan
-  - Fst, Gst, outlier detection
-  - Phylogeography
-  - Parallel evolution
-  - and many other things...
-
-** ddRAD
-Examples, applications
-(population genomics, mapping, QTL, phylogeography, ...)
-or put those appplications in more general context?
-nonmodel species, marker discovery
-anything that needs lots of markers in lots of individuals or pools
 
 * Org config                                                       :noexport:
 

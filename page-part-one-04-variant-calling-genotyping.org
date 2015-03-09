@@ -13,7 +13,7 @@
 
 *** TODO Examine Phred score profiles
 
-Now that we have the consensus sequences, we need to map back each read to then
+Now that we have the consensus sequences, we need to map back each read to them
 to align matching reads together and detect polymorphic positions.
 
 Read calling during sequencing is not perfect, and for Illumina the miscall
