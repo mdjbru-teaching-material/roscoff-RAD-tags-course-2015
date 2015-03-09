@@ -195,17 +195,19 @@
 
 ** RAD-seq - Baird 2008
 
-*** Demonstration                                                   :B_block:
+*** Demonstration                                           :B_block:BMCOL:
 :PROPERTIES:
 :BEAMER_env: block
+:BEAMER_col: 0.4
 :END:
-- Discover 13000 SNP in threespine stickleback and in /Neurospora/
-- Barcoding system for multiplexing
-- Marker density can be tuned by the choice of restriction enzyme
+- Discover *13000 SNP* in threespine stickleback and in /Neurospora/
+- *Barcoding* system for multiplexing
+- *Marker density* can be tuned by the choice of restriction enzyme
 
-*** Threespine stickleback                                        :B_block:
+*** Threespine stickleback                                  :B_block:BMCOL:
 :PROPERTIES:
 :BEAMER_env: block
+:BEAMER_col: 0.55
 :END:
 #+BEGIN_CENTER
 [[file:images/baird-2008-fig2.png]]
@@ -213,7 +215,7 @@
 
 ** Population genomics of parallel adaptation - Hohenlohe 2010
 
-*** One major paper                                               :B_block:
+*** A major paper                                                  :B_block:
 :PROPERTIES:
 :BEAMER_env: block
 :END:
@@ -221,31 +223,281 @@
 [[file:images/hohenlohe-2010-title.png]]
 #+END_CENTER
 
-*** Method                                                  :B_block:BMCOL:
+*** Method                                                         :B_block:
 :PROPERTIES:
 :BEAMER_env: block
-:BEAMER_col: 0.6
 :END:
 - Model: threespine stickleback
 - Comparison of 3 freshwater and 2 marine populations
 - 20 individuals per population, individual barcodes
+- Single reads (not paired ends)
 
-*** /Gasterosteus aculeatus/                                :B_block:BMCOL:
+** Population genomics of parallel adaptation - Hohenlohe 2010
+
+*** /Gasterosteus aculeatus/           :B_block:BMCOL:
 :PROPERTIES:
 :BEAMER_env: block
-:BEAMER_col: 0.3
+:BEAMER_col: 0.45
+:END:
+#+BEGIN_CENTER
+[[file:images/baird-2008-fig2.png]]
+#+END_CENTER
+
+*** Locations                                                 :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_col: 0.45
 :END:
 #+BEGIN_CENTER
 [[file:images/hohenlohe-2010-fig1.png]]
 #+END_CENTER
 
-** Used for other things that population genomics
+** Hohenlohe 2010
 
-Phylogeography, QTL mapping, ...
+#+BEGIN_CENTER
+[[file:images/hohenlohe-2010-fig2a.png]]
+#+END_CENTER
+
+** Hohenlohe 2010
+
+#+BEGIN_CENTER
+[[file:images/hohenlohe-2010-fig2b.png]]
+#+END_CENTER
+
+** Hohenlohe 2010 - Genome profiles
+
+#+BEGIN_CENTER
+[[file:images/hohenlohe-2010-fig3.png]]
+#+END_CENTER
+
+***                                                :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- A: number of RAD tags per 1Mb
+- B: Coverage per RAD per individual in one run (16 individuals - black line is
+  average)
+
+** Hohenlohe 2010
+
+***                                                         :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_col: 0.45
+:END:
+
+#+BEGIN_CENTER
+[[file:images/hohenlohe-2010-fig5.png]]
+#+END_CENTER
+
+*** Evidence for balancing selection                        :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_col: 0.45
+:END:
+- A: Nucleotide diversity, B: heterozygosity across all five populations
+  (blue), three FW (red) or two SW (green)
+- C: Fst between FW and SW (blue), among FW (red) and among SW (green)
+- Horizontal bars shows regions of significantly elevated or reduced values on
+  the profile
+
+** Hohenlohe 2010
+
+*** Genome-wide differentiation among populations           :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_col: 0.45
+:END:
+#+BEGIN_CENTER
+[[file:images/hohenlohe-2010-fig6.png]]
+#+END_CENTER
+
+*** Differentiation among SW and FW, zoom on LG               :B_block:BMCOL:
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_col: 0.45
+:END:
+#+BEGIN_CENTER
+[[file:images/hohenlohe-2010-fig8.png]]
+#+END_CENTER
+
+** Hohenlohe 2010
+
+*** Highlights                                                    :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- RAD-seq on *natural populations*, 45000 SNPs in 100 individuals
+- *Barcoded* samples
+- Genome profiling, *kernel smoothing* and *permutation testing*
+
+*** But note that...                                              :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Genome available
+- Single reads
+
+** What is paired-end RAD-seq?
+
+*** Etter 2011                                                    :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/etter-2011-title.png]]
+#+END_CENTER
+
+*** Method                                                        :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Paired-end sequencing of RAD fragments to build contigs on the randmoly
+  sheared side
+- Demonstration with threespine and /E. coli/ sequencing
+- Up to 5kb contigs with circularization step
+
+** Single-reads RAD-seq
+
+#+BEGIN_CENTER
+[[file:images/baird-2008-fig1d.png]]
+#+END_CENTER
+
+** Paired-ends RAD-seq
+
+#+BEGIN_CENTER
+[[file:images/etter-2011-fig1.png]]
+#+END_CENTER
+
+*** Notes                                                         :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- The *stacked end* is useful for *high coverage* work (SNP calling, allele
+  frequency estimates)
+- The *echelon end* is useful for contig building, but *base coverage is lower*
+
+** What is double-digest RAD-seq?
+
+*** Peterson et al. 2012                                          :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/peterson-2012-title.png]]
+#+END_CENTER
+
+*** Method
+- Two enzyme double digest followed by precise size selection
+- Library contains only fragments close to target size
+- Read counts across regions are expected to be correlated between individuals
+
+** Peterson 2012
+
+*** Double digest RAD tag                                         :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/peterson-2012-fig1.png]]
+#+END_CENTER
+
+** What is paired-end double RAD?
+
+*** Bruneaux et al. 2013                                          :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/bruneaux-2013-title.png]]
+#+END_CENTER
+
+*** Method                                                        :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- Two enzyme double digestion
+- Paired-end sequencing on after size-selection
+- *You will hear more about it soon* (see practicals)
+
+** Paired-end double RAD
+
+*** TODO Add a picture
+
+** Uses of RAD tags
+
+*** From Peterson 2012                                            :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+#+BEGIN_CENTER
+[[file:images/peterson-2012-fig1.png]]
+#+END_CENTER
+
+** Uses of RAD tags
+
+***                                                                 :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.45
+:END:
+
+**** Population genomics                                         :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+
+Hess 2013 - Pacific lamprey
+
+**** Phylogeography                                              :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+
+Emerson 2011
+
+***                                                                 :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.45
+:END:
+
+**** QTL mapping                                                 :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+
+Houston 2012
+
+**** Phylogenies                                                 :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+
+Rubin 2012
+
+** There are also some potential issues...
+
+- PCR-duplicates
+- individual vs pool genotyping for allele frequencies
+- Comparison SNP vs microsat (deFaveri)
+
+** Conclusion
+
+*** In a nutshell                                                 :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- *RAD tags*: versatile method of *genome complexity reduction*
+- *RAD-seq*: large scale discovery of SNPs, affordable
+- Useful for both *model* and *non-model* organisms
+- *Just a tool*: the downstream analyses are still *your expertise*
+
+* Practicals
+
+** General workflow scheme
 
 ** Development of pipelines and tools
 
-Rainbow, STACKS, GATK
+Rainbow, STACKS, GATK, dDocent
 
 ** Tools for NGS can be used for RAD
 
@@ -258,8 +510,33 @@ straightforward methods before choosing to apply more complex methods which
 rely on third-party scripts. It is important to understand what the third party
 scripts do!
 
-** Single read vs. paired ends
-Examples, applications
+
+** One complete project
+
+** Tour of other tools and specific analyses
+To illustrate some specific points (e.g. likelihood or bayesian based genotyping
+or allele frequency estimates or Fst calculations, ...)
+
+* Attic                                                            :noexport:
+
+** Typical analysis
+
+- Depends on the question and objectives!
+- Experimental/sampling design
+- DNA extraction, library preps
+- Barcoding? pooling?
+- Sequencing (service?)
+- Reads cleaning
+- demultiplexing
+- assembly or alignment (mapping if reference available)
+- genotype calling
+- RAD stops here (i.e. lots of markers and allele frequencies for different populations or genotypes for individuals)
+- Downstream analysis:
+  - genome scan
+  - Fst, Gst, outlier detection
+  - Phylogeography
+  - Parallel evolution
+  - and many other things...
 
 ** ddRAD
 Examples, applications
@@ -267,36 +544,6 @@ Examples, applications
 or put those appplications in more general context?
 nonmodel species, marker discovery
 anything that needs lots of markers in lots of individuals or pools
-
-** Other flavours
-
-** Typical analysis
-Depends on the question and objectives!
-Experimental/sampling design
-DNA extraction, library preps
-Barcoding? pooling?
-Sequencing (service?)
-Reads cleaning
-demultiplexing
-assembly or alignment (mapping if reference available)
-genotype calling
-RAD stops here (i.e. lots of markers and allele frequencies for different populations or genotypes for individuals)
-Downstream analysis:
-- genome scan
-- Fst, Gst, outlier detection
-- Phylogeography
-- Parallel evolution
-- and many other things...
-
-* Practicals
-
-** General workflow scheme
-
-** One complete project
-
-** Tour of other tools and specific analyses
-To illustrate some specific points (e.g. likelihood or bayesian based genotyping
-or allele frequency estimates or Fst calculations, ...)
 
 * Org config                                                       :noexport:
 
