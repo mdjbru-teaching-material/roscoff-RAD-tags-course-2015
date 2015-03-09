@@ -3,15 +3,65 @@
 #+URL: part-one-04-variant-calling-genotyping.html
 #+Save_as: part-one-04-variant-calling-genotyping.html
 #+Status: hidden
-#+OPTIONS: toc:nil num:nil html-postamble:nil
+#+OPTIONS: toc:3 num:nil html-postamble:nil
 
 * Variant calling and genotyping
 
 @@html:<div class="navLink">@@[[file:part-one-03-de-novo-assembly.html][Previous: De novo assembly]]@@html:</div>@@
 
-** Variant calling and filtering
+** Mapping back the reads to the consensus sequences
 
-** Genotyping
+*** TODO Examine Phred score profiles
+
+Now that we have the consensus sequences, we need to map back each read to then
+to align matching reads together and detect polymorphic positions.
+
+Read calling during sequencing is not perfect, and for Illumina the miscall
+rate is around 1% (Nielsen et al. 2011). To minimise the errors during SNP
+detection (false positives), we should process the reads to remove bases with
+low quality score from the analysis.
+
+Let's examine the distribution of quality scores for each set of reads. We can
+use a homemade [[file:resources/extract_phred_profiles.py][python script]] (=extract_phred_profiles.py=) to get the Phred
+score in a tabular format. We can then use R to plot the average profiles.
+
+#+BEGIN_SRC bash
+python extract_phred_profiles.py s_6_2_sequence.fastq
+#+END_SRC
+
+#+BEGIN_SRC R
+# R script
+#
+# Plot the Phred profile for a FASTQ file
+#----------------------------------------
+
+p = read.table("s_6_2_sequence.fastq.phred_profile", sep = "\t", header = F)
+boxplot(p, outline = F)
+#+END_SRC
+
+How does the quality score change along the reads?
+
+*** TODO Read trimming
+
+To remove low quality bases from the 3' end, we will remove bases from this end
+until the Phred quality score reached 20 (error rate = 1%). Remaining reads
+with length less than 40 will be discarded.
+
+We could do that using Fastq Quality trimmer as implemented in Galaxy tools,
+but we can also use a homemade python script (=trim_reads.py=):
+
+#+BEGIN_SRC bash
+# Usage: python script.py inputFile phredThreshold lengthThreshold
+python trim_reads.py s_6_2_sequence.fastq 20 40
+#+END_SRC
+
+** Variant calling
+
+*** TODO Read alignment to the consensus sequences
+
+*** TODO SNP calling
+
+*** TODO SNP filtering
 
 ** Allele frequency estimates
 

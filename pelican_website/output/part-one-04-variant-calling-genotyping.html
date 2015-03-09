@@ -27,6 +27,32 @@
     
 
 
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Variant calling and genotyping</a>
+<ul>
+<li><a href="#sec-1-1">Mapping back the reads to the consensus sequences</a>
+<ul>
+<li><a href="#sec-1-1-1"><span class="todo TODO">TODO</span> Examine Phred score profiles</a></li>
+<li><a href="#sec-1-1-2"><span class="todo TODO">TODO</span> Read trimming</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">Variant calling</a>
+<ul>
+<li><a href="#sec-1-2-1"><span class="todo TODO">TODO</span> Read alignment to the consensus sequences</a></li>
+<li><a href="#sec-1-2-2"><span class="todo TODO">TODO</span> SNP calling</a></li>
+<li><a href="#sec-1-2-3"><span class="todo TODO">TODO</span> SNP filtering</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-3">Allele frequency estimates</a></li>
+<li><a href="#sec-1-4">Diagnostic plots and reality check</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="outline-2" id="outline-container-sec-1">
 <h2 id="sec-1">Variant calling and genotyping</h2>
 <div class="outline-text-2" id="text-1">
@@ -35,10 +61,77 @@
 </p>
 </div>
 <div class="outline-3" id="outline-container-sec-1-1">
-<h3 id="sec-1-1">Variant calling and filtering</h3>
+<h3 id="sec-1-1">Mapping back the reads to the consensus sequences</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div class="outline-4" id="outline-container-sec-1-1-1">
+<h4 id="sec-1-1-1"><span class="todo TODO">TODO</span> Examine Phred score profiles</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Now that we have the consensus sequences, we need to map back each read to then
+to align matching reads together and detect polymorphic positions.
+</p>
+<p>
+Read calling during sequencing is not perfect, and for Illumina the miscall
+rate is around 1% (Nielsen et al. 2011). To minimise the errors during SNP
+detection (false positives), we should process the reads to remove bases with
+low quality score from the analysis.
+</p>
+<p>
+Let's examine the distribution of quality scores for each set of reads. We can
+use a homemade <a href="resources/extract_phred_profiles.py">python script</a> (<code>extract_phred_profiles.py</code>) to get the Phred
+score in a tabular format. We can then use R to plot the average profiles.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">python extract_phred_profiles.py s_6_2_sequence.fastq
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-R"># R script
+#
+# Plot the Phred profile for a FASTQ file
+#----------------------------------------
+
+p = read.table("s_6_2_sequence.fastq.phred_profile", sep = "\t", header = F)
+boxplot(p, outline = F)
+</pre>
+</div>
+<p>
+How does the quality score change along the reads?
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-1-2">
+<h4 id="sec-1-1-2"><span class="todo TODO">TODO</span> Read trimming</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+To remove low quality bases from the 3' end, we will remove bases from this end
+until the Phred quality score reached 20 (error rate = 1%). Remaining reads
+with length less than 40 will be discarded.
+</p>
+<p>
+We could do that using Fastq Quality trimmer as implemented in Galaxy tools,
+but we can also use a homemade python script (<code>trim_reads.py</code>):
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"># Usage: python script.py inputFile phredThreshold lengthThreshold
+python trim_reads.py s_6_2_sequence.fastq 20 40
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div class="outline-3" id="outline-container-sec-1-2">
-<h3 id="sec-1-2">Genotyping</h3>
+<h3 id="sec-1-2">Variant calling</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div class="outline-4" id="outline-container-sec-1-2-1">
+<h4 id="sec-1-2-1"><span class="todo TODO">TODO</span> Read alignment to the consensus sequences</h4>
+</div>
+<div class="outline-4" id="outline-container-sec-1-2-2">
+<h4 id="sec-1-2-2"><span class="todo TODO">TODO</span> SNP calling</h4>
+</div>
+<div class="outline-4" id="outline-container-sec-1-2-3">
+<h4 id="sec-1-2-3"><span class="todo TODO">TODO</span> SNP filtering</h4>
+</div>
 </div>
 <div class="outline-3" id="outline-container-sec-1-3">
 <h3 id="sec-1-3">Allele frequency estimates</h3>

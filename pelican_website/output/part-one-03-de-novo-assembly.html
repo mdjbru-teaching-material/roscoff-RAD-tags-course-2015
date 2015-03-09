@@ -27,6 +27,31 @@
     
 
 
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1"><i>De novo</i> assembly</a>
+<ul>
+<li><a href="#sec-1-1">Assembly into consensus sequences</a>
+<ul>
+<li><a href="#sec-1-1-1">Concatenate all reads for a given sense</a></li>
+<li><a href="#sec-1-1-2"><span class="todo TODO">TODO</span> Run CAP3 (forward reads)</a></li>
+<li><a href="#sec-1-1-3"><span class="todo TODO">TODO</span> Run CAP3 (reverse reads)</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">Quality filtering of consensus sequences</a>
+<ul>
+<li><a href="#sec-1-2-1"><span class="todo TODO">TODO</span> Examine read length</a></li>
+<li><a href="#sec-1-2-2"><span class="todo TODO">TODO</span> Identify repetitive motives or extremely similar consensus sequences</a></li>
+<li><a href="#sec-1-2-3"><span class="todo TODO">TODO</span> Remove microsatellite repeats</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="outline-2" id="outline-container-sec-1">
 <h2 id="sec-1"><i>De novo</i> assembly</h2>
 <div class="outline-text-2" id="text-1">
@@ -35,7 +60,7 @@
 </p>
 </div>
 <div class="outline-3" id="outline-container-sec-1-1">
-<h3 id="sec-1-1">Assembly into contigs</h3>
+<h3 id="sec-1-1">Assembly into consensus sequences</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 We choose to go for a <i>de novo</i> assembly since we do not have a genome for this
@@ -148,11 +173,85 @@ stacks.)
 </div>
 </div>
 <div class="outline-3" id="outline-container-sec-1-2">
-<h3 id="sec-1-2">Removal of repeat sequences</h3>
+<h3 id="sec-1-2">Quality filtering of consensus sequences</h3>
 <div class="outline-text-3" id="text-1-2">
+<p>
+The <i>de novo</i> assembly with CAP3 can be tuned by changing the parameters from
+the default ones. An assembly is likely not to be perfect and the resulting
+consensus sequences have to be quality checked before being used for read
+mapping.
+</p>
+</div>
+<div class="outline-4" id="outline-container-sec-1-2-1">
+<h4 id="sec-1-2-1"><span class="todo TODO">TODO</span> Examine read length</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+Because of the ddRAD protocol, we expect to produce consensus sequences by
+piling up identical or very similar reads into stacks. Since most of the reads
+have the same length to start with (xx for forward reads and xx for reverse
+reads after cutting the barcode and restriction sites), we expect to obtain
+consensus sequences of the same length.
+</p>
+<p>
+We can get the length of the reads by using a homemade <a href="resources/get_read_length.py">python script</a>
+(<code>get_read_length.py</code>):
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">python get_read_length.py consensus-for.fasta
+</pre>
+</div>
+<p>
+We can plot the read length distribution with R:
+</p>
+<div class="org-src-container">
+<pre class="src src-R"># R script
+#
+# Plot read length distribution
+#------------------------------
+
+d = read.table("consensus-for.fasta.lengths")
+plot(hist(d[, 1])
+</pre>
+</div>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-2-2">
+<h4 id="sec-1-2-2"><span class="todo TODO">TODO</span> Identify repetitive motives or extremely similar consensus sequences</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+CAP3 sometimes produces consensus which contain repetitive motives or very
+similar consensus sequences. Those sequences are problematic for the read
+mapping back. We perform a blast of the consensus sequences against themselves
+to identify sequences which have motives with many matches, or duplicate
+consensus sequences.
+</p>
+<p>
+To perform the blast search, we firt prepare a blast database from the
+consensus sequences and then we use <code>blastn</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"># Prepare the blast database
+
+# Perform the blast search (output in tabular format)
+</pre>
+</div>
+<p>
+Next, we parse the results to identify consensus sequences to be removed or to
+merged together.
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-2-3">
+<h4 id="sec-1-2-3"><span class="todo TODO">TODO</span> Remove microsatellite repeats</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<p>
+The last quality control step is to remove consensus sequences that contains
+microsatellite repeats.
+</p>
 <p>
 <div class="navLink"><a href="part-one-04-variant-calling-genotyping.html">Next: Variant calling and genotyping</a></div>
 </p>
+</div>
 </div>
 </div>
 </div>

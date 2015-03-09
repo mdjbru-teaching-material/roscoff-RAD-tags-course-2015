@@ -1,16 +1,15 @@
-
 #+Title: De novo assembly - Complete workflow
 #+Summary: Assembly
 #+URL: part-one-03-de-novo-assembly.html
 #+Save_as: part-one-03-de-novo-assembly.html
 #+Status: hidden
-#+OPTIONS: toc:nil num:nil html-postamble:nil
+#+OPTIONS: toc:3 num:nil html-postamble:nil
 
 * /De novo/ assembly
 
 @@html:<div class="navLink">@@[[file:part-one-02-raw-reads-processing.html][Previous: Raw reads processing]]@@html:</div>@@
 
-** Assembly into contigs
+** Assembly into consensus sequences
 
 We choose to go for a /de novo/ assembly since we do not have a genome for this
 species. Several tools were tested, and in the end we decided to go with a bit
@@ -94,6 +93,61 @@ reference genome of a different species, this can be problematic and the
 mapping back might be less efficient that creating consensus contigs or
 stacks.)
 
-** Removal of repeat sequences
+** Quality filtering of consensus sequences
+
+The /de novo/ assembly with CAP3 can be tuned by changing the parameters from
+the default ones. An assembly is likely not to be perfect and the resulting
+consensus sequences have to be quality checked before being used for read
+mapping.
+
+*** TODO Examine read length
+
+
+
+Because of the ddRAD protocol, we expect to produce consensus sequences by
+piling up identical or very similar reads into stacks. Since most of the reads
+have the same length to start with (xx for forward reads and xx for reverse
+reads after cutting the barcode and restriction sites), we expect to obtain
+consensus sequences of the same length.
+
+We can get the length of the reads by using a homemade [[file:resources/get_read_length.py][python script]]
+(=get_read_length.py=):
+#+BEGIN_SRC bash
+python get_read_length.py consensus-for.fasta
+#+END_SRC
+We can plot the read length distribution with R:
+#+BEGIN_SRC R
+# R script
+#
+# Plot read length distribution
+#------------------------------
+
+d = read.table("consensus-for.fasta.lengths")
+plot(hist(d[, 1])
+#+END_SRC
+
+*** TODO Identify repetitive motives or extremely similar consensus sequences
+
+CAP3 sometimes produces consensus which contain repetitive motives or very
+similar consensus sequences. Those sequences are problematic for the read
+mapping back. We perform a blast of the consensus sequences against themselves
+to identify sequences which have motives with many matches, or duplicate
+consensus sequences.
+
+To perform the blast search, we firt prepare a blast database from the
+consensus sequences and then we use =blastn=:
+#+BEGIN_SRC bash
+# Prepare the blast database
+
+# Perform the blast search (output in tabular format)
+#+END_SRC
+
+Next, we parse the results to identify consensus sequences to be removed or to
+merged together.
+
+*** TODO Remove microsatellite repeats
+
+The last quality control step is to remove consensus sequences that contains
+microsatellite repeats.
 
 @@html:<div class="navLink">@@[[file:part-one-04-variant-calling-genotyping.html][Next: Variant calling and genotyping]]@@html:</div>@@
