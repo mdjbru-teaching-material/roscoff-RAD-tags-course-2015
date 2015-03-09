@@ -583,10 +583,10 @@ Any questions ?
 - But *three-spined stickleback genome* available
 - Aim: *mapping the genetic differences* associated with local adaptation
 \pause
-- RAD tag approach
-  + \alert{R}estriction-site-\alert{A}ssociated \alert{D}NA tag
-  + Individuals pooled per populations
-  + Discover SNPs and estimate *allele frequencies*
+- paired-end, double RAD tag approach
+  + DNA of 48 individuals pooled per population
+  + Digestion by EcoRI and HaeIII
+  + Purification, amplification and size-selection
 
 ***                                                  :B_block:BMCOL:
 :PROPERTIES:
@@ -659,7 +659,7 @@ Any questions ?
   the data with simple, straightforward methods
 - Once we are comfortable, we can choose to apply *more complex methods* which
   rely on third-party scripts
-- It is important to *understand what the third partyscripts do!*
+- It is important to *understand what the third-party scripts do!*
 
 * Attic                                                            :noexport:
 

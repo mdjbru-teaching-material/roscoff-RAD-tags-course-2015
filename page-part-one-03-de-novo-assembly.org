@@ -25,7 +25,7 @@ We have to pool all the reads of a given sense together:
 #+BEGIN_SRC bash
 ls -1
 #+END_SRC
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC
 ABB.pair.for.fastq.clean
 ABB.pair.rev.fastq.clean
 BYN.pair.for.fastq.clean
@@ -42,7 +42,7 @@ RYT.pair.for.fastq.clean
 RYT.pair.rev.fastq.clean
 SKA.pair.for.fastq.clean
 SKA.pair.rev.fastq.clean
-#+END_EXAMPLE
+#+END_SRC
 #+BEGIN_SRC bash
 cat *for* > for.fastq
 cat *rev* > rev.fastq
@@ -93,16 +93,22 @@ reference genome of a different species, this can be problematic and the
 mapping back might be less efficient that creating consensus contigs or
 stacks.)
 
+*** CAP3 run
+
+The CAP3 run is quite long (a bit more than 15 hours for the reverse reads). We
+give you the assembly for the reverse reads (=CAP3-rev.fasta=), using the
+default parameters of CAP3. Note that for a real analysis we would need to made
+several tests with different parameters and select the ones that give the
+better assembly.
+
 ** Quality filtering of consensus sequences
 
 The /de novo/ assembly with CAP3 can be tuned by changing the parameters from
-the default ones. An assembly is likely not to be perfect and the resulting
-consensus sequences have to be quality checked before being used for read
-mapping.
+the default ones (which we should do for a real analysis). An assembly is
+likely not to be perfect and the resulting consensus sequences have to be
+quality checked before being used for read mapping.
 
 *** TODO Examine read length
-
-
 
 Because of the ddRAD protocol, we expect to produce consensus sequences by
 piling up identical or very similar reads into stacks. Since most of the reads
@@ -111,9 +117,9 @@ reads after cutting the barcode and restriction sites), we expect to obtain
 consensus sequences of the same length.
 
 We can get the length of the reads by using a homemade [[file:resources/get_read_length.py][python script]]
-(=get_read_length.py=):
+(=get_fasta_length.py=):
 #+BEGIN_SRC bash
-python get_read_length.py consensus-for.fasta
+python get_fasta_length.py cap3-rev.fasta
 #+END_SRC
 We can plot the read length distribution with R:
 #+BEGIN_SRC R
@@ -122,9 +128,12 @@ We can plot the read length distribution with R:
 # Plot read length distribution
 #------------------------------
 
-d = read.table("consensus-for.fasta.lengths")
+d = read.table("cap3-rev.fasta.lengths")
 plot(hist(d[, 1])
 #+END_SRC
+
+How does the length distribution look like? How would you remove the sequences
+that do not match the median length?
 
 *** TODO Identify repetitive motives or extremely similar consensus sequences
 
@@ -138,16 +147,86 @@ To perform the blast search, we firt prepare a blast database from the
 consensus sequences and then we use =blastn=:
 #+BEGIN_SRC bash
 # Prepare the blast database
-
-# Perform the blast search (output in tabular format)
+makeblastdb -help
+makeblastdb -in cap3-rev.fasta -dbtype nucl
 #+END_SRC
 
+We have to perform the =blastn= by submitting a job because it is a long
+process. See =blastn -help= for more details. The job file is
+=cap3-blastn-job=:
+#+BEGIN_SRC 
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+# Perform the blast search (output in tabular format)
+blastn -task blastn -db cap3-rev.fasta -query cap3-rev.fasta -out cap3-blastn-results -outfmt 6
+#+END_SRC
+
+We submit the job with =qsub -q long.q cap3-for-job=. Here we ask for a tabular
+output format.
+
 Next, we parse the results to identify consensus sequences to be removed or to
-merged together.
+be merged together. We must remember that the default output for =blastn= in
+tabular format is (from =blastn -help=):
+#+BEGIN_SRC 
+qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore
+#+END_SRC
+We can first have a look at the distribution of the size of the matches;
+#+BEGIN_SRC bash
+cut -f 4 cap3-blastn-results > lengths
+#+END_SRC
+#+BEGIN_SRC R
+# R script
+d = read.table("lengths")[, 1]
+hist(d)
+#+END_SRC
+
+What threshold would you use to consider a match to be important based on this
+distribution? How you would keep only the matches longer than this threshold in
+the blastn result file?
+
+We can also look at the number of matches for each consensus sequence:
+#+BEGIN_SRC 
+cut -f 1 cap3-blastn-results > seq-names
+sort seq-names > seq-names-sorted
+uniq -c seq-names-sorted > seq-names-count
+sort -nr seq-names-count > seq-match-count
+#+END_SRC
+#+BEGIN_SRC R
+# R script
+d = read.table("seq-match-count")
+plot(d[, 1])
+#+END_SRC
+
+How does the distribution of matches look like? How would you select a
+threshold? How would you apply it?
 
 *** TODO Remove microsatellite repeats
 
 The last quality control step is to remove consensus sequences that contains
-microsatellite repeats.
+microsatellite repeats. To do this, we use Sputnik on the consensus
+sequences. We should use it on the consensus sequence file after removing the
+sequences with repeated motives, but since the intermediate file is missing
+we'll run it on the full consensus file. We have to submit a job again,
+=sputnik-job=:
+#+BEGIN_SRC 
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+# Perform the blast search (output in tabular format)
+sputnik cap3-rev.fasta
+#+END_SRC
+
+We submit it with =qsub -q long.q sputnik-job=.
+
+Examine the output of Sputnik and count the number of contigs with
+microsatellite repeats. How would you proceed to remove them from the initial
+consensus file?
 
 @@html:<div class="navLink">@@[[file:part-one-04-variant-calling-genotyping.html][Next: Variant calling and genotyping]]@@html:</div>@@

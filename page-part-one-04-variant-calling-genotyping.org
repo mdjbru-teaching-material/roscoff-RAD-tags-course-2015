@@ -55,13 +55,28 @@ but we can also use a homemade python script (=trim_reads.py=):
 python trim_reads.py s_6_2_sequence.fastq 20 40
 #+END_SRC
 
+We apply the quality trimming to each forward and reverse reads files for each
+population:
+#+BEGIN_SRC bash
+ls -1
+#+END_SRC
+#+BEGIN_SRC 
+
+#+END_SRC
+
+Also apply this trimming to the files containing all the forward reads and all
+the reverse reads used for the /de novo/ assembly. How would you examine the
+resulting distribution of read lengths in those trimmed files?
+
 ** Variant calling
 
 *** TODO Read alignment to the consensus sequences
 
+
 *** TODO SNP calling
 
 *** TODO SNP filtering
+
 
 ** Allele frequency estimates
 

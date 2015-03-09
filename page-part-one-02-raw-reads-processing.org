@@ -72,11 +72,11 @@ Q = -10.log(P) where log is the decimal log operation
 
 Typically, the Phred score numerical value is encoded to the FASTQ file by
 adding a fixed, constant value and converting the resulting number to an [[http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters][ASCII
-character]]. For example, if the encoding is [Phred+33] as it is for Sanger or
-Illumina 1.8+, then a Phred score of 50 is encoded as "S" in the FASTQ file
-since 50+33=83 and the ASCII character for 83 is "S". The [[http://en.wikipedia.org/wiki/FASTQ_format#Encoding][wikipedia page]] about
-the quality score encoding in FASTQ file has more detailed information and
-examples about it.
+character]]. For example, if the encoding is [Phred+64] as it is for Illumina
+1.5+, then a Phred score of 50 is encoded as "r" in the FASTQ file since
+50+64=114 and the ASCII character for 114 is "r". The [[http://en.wikipedia.org/wiki/FASTQ_format#Encoding][wikipedia page]] about the
+quality score encoding in FASTQ file has more detailed information and examples
+about it.
 
 ** Raw reads files
 
@@ -556,9 +556,5 @@ the number of reads varies between populations. Discussion about issues, the
 barcode effects, how to fix that, and similar potential issues within the pools
 (how some individuals can have more reads than others, mutations that break the
 restriction site).
-
-** Quality control
-
-To complete
 
 @@html:<div class="navLink">@@[[file:part-one-03-de-novo-assembly.html][Next: De novo assembly]]@@html:</div>@@
