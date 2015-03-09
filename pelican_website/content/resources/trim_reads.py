@@ -15,25 +15,27 @@ import sys
 
 ### ** Parameters
 
-INPUT_FILE = sys.argv[1]
-SCORE_THRESHOLD = int(sys.argv[2])
-LENGTH_THRESHOLD = int(sys.argv[3])
+N_ARGS = len(sys.argv) - 1
+INPUT_FILES = sys.argv[1 : (N_ARGS - 1)]
+SCORE_THRESHOLD = int(sys.argv[(N_ARGS - 1)])
+LENGTH_THRESHOLD = int(sys.argv[N_ARGS])
 PHRED_CONSTANT = 64
 
 ### * Run
 
-with open(INPUT_FILE, "r") as fi :
-    with open(INPUT_FILE + ".trimmed", "w") as fo :
-        for l1 in fi :
-            l2 = fi.next()
-            l3 = fi.next()
-            l4 = fi.next()
-            phred_score = [ord(x) - PHRED_CONSTANT for x in l4.strip()]
-            i = len(phred_score) - 1
-            while (i > 0 and phred_score[i] < SCORE_THRESHOLD) :
-                i -= 1
-            if (i + 1) >= LENGTH_THRESHOLD :
-                fo.write(l1)
-                fo.write(l2.strip()[0:(i+1)] + "\n")
-                fo.write(l3)
-                fo.write("".join([chr(x + PHRED_CONSTANT) for x in phred_score[0:(i+1)]]) + "\n")
+for INPUT_FILE in INPUT_FILES :
+    with open(INPUT_FILE, "r") as fi :
+        with open(INPUT_FILE + ".trimmed", "w") as fo :
+            for l1 in fi :
+                l2 = fi.next()
+                l3 = fi.next()
+                l4 = fi.next()
+                phred_score = [ord(x) - PHRED_CONSTANT for x in l4.strip()]
+                i = len(phred_score) - 1
+                while (i > 0 and phred_score[i] < SCORE_THRESHOLD) :
+                    i -= 1
+                if (i + 1) >= LENGTH_THRESHOLD :
+                    fo.write(l1)
+                    fo.write(l2.strip()[0:(i+1)] + "\n")
+                    fo.write(l3)
+                    fo.write("".join([chr(x + PHRED_CONSTANT) for x in phred_score[0:(i+1)]]) + "\n")

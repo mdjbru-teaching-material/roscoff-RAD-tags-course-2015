@@ -63,6 +63,9 @@ ls -1
 #+BEGIN_SRC 
 
 #+END_SRC
+#+BEGIN_SRC bash
+python trim_reads.py *.fastq.clean 20 40
+#+END_SRC
 
 Also apply this trimming to the files containing all the forward reads and all
 the reverse reads used for the /de novo/ assembly. How would you examine the
