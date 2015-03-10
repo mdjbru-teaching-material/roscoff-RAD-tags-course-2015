@@ -73,10 +73,109 @@ resulting distribution of read lengths in those trimmed files?
 
 ** Variant calling
 
+*** TODO Prepare input files for Maq
+
+We will use the =Maq= program to perform the read alignment. A detailed
+explanation of the Maq workflow is available [[http://maq.sourceforge.net/maq-man.shtml][here]].
+
+We have the reference files:
+#+BEGIN_SRC 
+consensus-for.fasta
+consensus-rev.fasta
+#+END_SRC
+and the reads files:
+#+BEGIN_SRC 
+ABB.pair.for.fastq.clean.trimmed
+ABB.pair.rev.fastq.clean.trimmed
+BYN.pair.for.fastq.clean.trimmed
+BYN.pair.rev.fastq.clean.trimmed
+HKI.pair.for.fastq.clean.trimmed
+HKI.pair.rev.fastq.clean.trimmed
+LEV.pair.for.fastq.clean.trimmed
+LEV.pair.rev.fastq.clean.trimmed
+POR.pair.for.fastq.clean.trimmed
+POR.pair.rev.fastq.clean.trimmed
+PYO.pair.for.fastq.clean.trimmed
+PYO.pair.rev.fastq.clean.trimmed
+RYT.pair.for.fastq.clean.trimmed
+RYT.pair.rev.fastq.clean.trimmed
+SKA.pair.for.fastq.clean.trimmed
+SKA.pair.rev.fastq.clean.trimmed
+#+END_SRC
+
+First, we convert the fasta reference to Maq bfa format:
+#+BEGIN_SRC bash
+maq fasta2bfa consensus-for.fasta consensus-for.bfa
+maq fasta2bfa consensus-rev.fasta consensus-rev.bfa
+#+END_SRC
+
+Then we convert the fastq read files to Maq bfq format using a small bash
+script, =convert-trimmed-to-bfq.sh=. The script file is:
+#+BEGIN_SRC
+#!/bin/bash
+FILES=`ls *.trimmed`   # get the list of trimmed read files
+
+for f in $FILES
+do
+  echo $f
+  maq sol2sanger $f $f.sanger       # convert Illumina 1.5+ to Sanger scores
+  maq fastq2bfq $f.sanger $f.bfq    # convert fastq to bfq
+done
+#+END_SRC
+We use it with:
+#+BEGIN_SRC bash
+bash convert-trimmed-to-bfq.sh
+#+END_SRC
+
+We also generate the bfq files for all the concatenated forward reads and all
+the concatenated reverse reads:
+#+BEGIN_SRC bash
+# Concatenate the forward and reverse reads
+cat *for*.trimmed > reads.for.trimmed
+cat *rev*.trimmed > reads.rev.trimmed
+# Convert to bfq
+maq sol2sanger reads.for.trimmed reads.for.sanger
+maq sol2sanger reads.rev.trimmed reads.rev.sanger
+maq fastq2bfq reads.for.sanger reads.for.bfq
+maq fastq2bfq reads.rev.sanger reads.rev.bfq
+#+END_SRC
+
+At this point, the fasta and fastq files have been converted to the binary
+format used by Maq.
+
 *** TODO Read alignment to the consensus sequences
 
+Here we will use all the forward reads and all the reverse reads and align them
+to the consensus sequences. For the practicals, we work only with the forward
+reads from now on.
+
+Again, this step could be long, so we submit it as a job in the file
+=map-maq-for-job=. The map file is a binary file, but we also convert it to a
+human-readable form with =mapview=:
+#+BEGIN_SRC 
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+# Maq map forward reads
+maq map for.map consensus-for.bfa reads.for.bfq
+maq mapview for.map > for.map.txt
+#+END_SRC
+
+We submit the job with =qsub -q long.q map-maq-for-job=. Have a look at the map
+with =less -S for.map.txt=. Using the [[http://maq.sourceforge.net/maq-manpage.shtml][man page]] (search for "mapview" with
+CTRL+F), understand the output format, and in particular look for the number of
+mismatches of the best hits. Can you identify which reads are similar to the
+consensus sequence and which harbour potential SNPs?
 
 *** TODO SNP calling
+
+Now that the reads have been mapped back, we can perform the SNP calling
+operation.
+
+
 
 *** TODO SNP filtering
 

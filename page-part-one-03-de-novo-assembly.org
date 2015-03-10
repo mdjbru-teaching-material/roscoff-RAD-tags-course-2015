@@ -181,12 +181,11 @@ cut -f 4 cap3-blastn-results > lengths
 #+BEGIN_SRC R
 # R script
 d = read.table("lengths")[, 1]
-hist(d)
+hist(d, xlim = c(0,120), breaks = 0:120, col = "cornflowerblue")
 #+END_SRC
 
-What threshold would you use to consider a match to be important based on this
-distribution? How you would keep only the matches longer than this threshold in
-the blastn result file?
+What is the minimal match length observed in this distribution? How would you
+differentiate between repeated motives and duplicate consensus sequences?
 
 We can also look at the number of matches for each consensus sequence:
 #+BEGIN_SRC 
@@ -198,7 +197,8 @@ sort -nr seq-names-count > seq-match-count
 #+BEGIN_SRC R
 # R script
 d = read.table("seq-match-count")
-plot(d[, 1])
+plot(d[, 1], pch = ".")
+plot(d[, 1], pch = ".", ylim = c(0, 100))
 #+END_SRC
 
 How does the distribution of matches look like? How would you select a
@@ -228,5 +228,8 @@ We submit it with =qsub -q long.q sputnik-job=.
 Examine the output of Sputnik and count the number of contigs with
 microsatellite repeats. How would you proceed to remove them from the initial
 consensus file?
+
+We give you two fasta files containing the filtered consensus sequences that we
+keep in the end.
 
 @@html:<div class="navLink">@@[[file:part-one-04-variant-calling-genotyping.html][Next: Variant calling and genotyping]]@@html:</div>@@

@@ -1,0 +1,9 @@
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+# Maq map forward reads
+maq map for.map consensus-for.bfa reads.for.bfq
+maq mapcheck consensus-for.bfa for.map > for.mapcheck
