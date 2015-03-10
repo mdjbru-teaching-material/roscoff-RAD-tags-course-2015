@@ -476,9 +476,10 @@ barplot(n_pairs,            # numerical values used for the plot
 
 ** TODO Barcode and restriction site removal
 
-All forward reads start with =AATTC=, due to the digestion by EcoRI. Similarly,
-all the reverse reads start with =XXXTCC=, due to the barcodes (=XXX=) and the
-digestion by HaeIII. Those nucleotides can be removed by simply removing the 5
+All forward reads start with =AATTC=, due to the digestion by EcoRI
+(=G-AATTC=). Similarly, all the reverse reads start with =XXXTCC=, due to the
+barcodes (=XXX=) and the digestion by HaeIII (=GG-CC=) and the addition of a
+=T= base in between. Those nucleotides can be removed by simply removing the 5
 first nucleotides in all forward reads and the 6 first nucleotides in all
 reverse reads.
 

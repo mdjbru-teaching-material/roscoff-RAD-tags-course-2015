@@ -47,8 +47,7 @@
 <li><a href="#sec-1-2-4">SNP filtering</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-3">Allele frequency estimates</a></li>
-<li><a href="#sec-1-4">Diagnostic plots and reality check</a></li>
+<li><a href="#sec-1-3">Diagnostic plots for reality check</a></li>
 </ul>
 </li>
 </ul>
@@ -127,6 +126,22 @@ population:
 </pre>
 </div>
 <pre class="example">
+ABB.pair.for.fastq.clean
+ABB.pair.rev.fastq.clean
+BYN.pair.for.fastq.clean
+BYN.pair.rev.fastq.clean
+HKI.pair.for.fastq.clean
+HKI.pair.rev.fastq.clean
+LEV.pair.for.fastq.clean
+LEV.pair.rev.fastq.clean
+POR.pair.for.fastq.clean
+POR.pair.rev.fastq.clean
+PYO.pair.for.fastq.clean
+PYO.pair.rev.fastq.clean
+RYT.pair.for.fastq.clean
+RYT.pair.rev.fastq.clean
+SKA.pair.for.fastq.clean
+SKA.pair.rev.fastq.clean
 </pre>
 <div class="org-src-container">
 <pre class="src src-bash">python trim_reads.py *.fastq.clean 20 40
@@ -135,7 +150,8 @@ population:
 <p>
 Also apply this trimming to the files containing all the forward reads and all
 the reverse reads used for the <i>de novo</i> assembly. How would you examine the
-resulting distribution of read lengths in those trimmed files?
+resulting distribution of read lengths in those trimmed files? If you have
+time, do it.
 </p>
 </div>
 </div>
@@ -342,22 +358,14 @@ likelihood and bayesian methods. See the <b>bibliography notes</b> section.
 <p>
 Since the SNP filtering as done here is mainly an exercise in scripting (using
 R or Python for example), we will not perform it during the practicals and we
-will use a ready-made output file containing the SNP information.
+will use ready-made output files containing the SNP information.
 </p>
 </div>
 </div>
 </div>
 <div class="outline-3" id="outline-container-sec-1-3">
-<h3 id="sec-1-3">Allele frequency estimates</h3>
+<h3 id="sec-1-3">Diagnostic plots for reality check</h3>
 <div class="outline-text-3" id="text-1-3">
-<p>
-Pooling needed
-</p>
-</div>
-</div>
-<div class="outline-3" id="outline-container-sec-1-4">
-<h3 id="sec-1-4">Diagnostic plots and reality check</h3>
-<div class="outline-text-3" id="text-1-4">
 <p>
 How many SNPs do we have? What is the coverage per populations? Do we have to
 pool some populations?

@@ -690,9 +690,10 @@ barplot(n_pairs,            # numerical values used for the plot
 <h3 id="sec-1-6"><span class="todo TODO">TODO</span> Barcode and restriction site removal</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
-All forward reads start with <code>AATTC</code>, due to the digestion by EcoRI. Similarly,
-all the reverse reads start with <code>XXXTCC</code>, due to the barcodes (<code>XXX</code>) and the
-digestion by HaeIII. Those nucleotides can be removed by simply removing the 5
+All forward reads start with <code>AATTC</code>, due to the digestion by EcoRI
+(<code>G-AATTC</code>). Similarly, all the reverse reads start with <code>XXXTCC</code>, due to the
+barcodes (<code>XXX</code>) and the digestion by HaeIII (<code>GG-CC</code>) and the addition of a
+<code>T</code> base in between. Those nucleotides can be removed by simply removing the 5
 first nucleotides in all forward reads and the 6 first nucleotides in all
 reverse reads.
 </p>
