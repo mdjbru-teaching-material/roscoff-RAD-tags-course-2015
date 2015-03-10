@@ -44,7 +44,7 @@
 <li><a href="#sec-1-2-1"><span class="todo TODO">TODO</span> Prepare input files for Maq</a></li>
 <li><a href="#sec-1-2-2"><span class="todo TODO">TODO</span> Read alignment to the consensus sequences</a></li>
 <li><a href="#sec-1-2-3"><span class="todo TODO">TODO</span> SNP calling</a></li>
-<li><a href="#sec-1-2-4"><span class="todo TODO">TODO</span> SNP filtering</a></li>
+<li><a href="#sec-1-2-4">SNP filtering</a></li>
 </ul>
 </li>
 <li><a href="#sec-1-3">Allele frequency estimates</a></li>
@@ -269,10 +269,82 @@ consensus sequence and which harbour potential SNPs?
 Now that the reads have been mapped back, we can perform the SNP calling
 operation.
 </p>
+<p>
+We use the <code>assemble</code> and the <code>cns2snp</code> function of Maq to extract the SNP
+information. The job file is <code>maq-assemble-cns2snp-job</code>:
+</p>
+<pre class="example">
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+# Maq assemble
+maq assemble for.cns consensus-for.bfa for.map 2&gt; for-assemble.log
+# Maq cns2snp
+maq cns2snp for.cns &gt; for.snp
+</pre>
+<p>
+As usual, we submit the job with <code>qsub -q long.q
+map-assemble-cns2snp-job</code>. Have a look at the output file <code>for.snp</code>. How many
+putative SNPs were detected? The format of the output file is explained on the
+<a href="http://maq.sourceforge.net/maq-manpage.shtml">man page</a> (search for "cns2snp" with CTRL+F).
+</p>
+<p>
+A very useful file for detailed SNP filtering is the pileup file. We can
+produce it with:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">maq pileup consensus-for.bfa for.map &gt; for.pileup
+</pre>
+</div>
+<p>
+Have a look at the pileup file with <code>less -S for.pileup</code>. Can you understand
+its format? (see the <a href="http://maq.sourceforge.net/maq-manpage.shtml">man page</a>, search for "pileup") Can you identify the
+contigs with low coverage and high coverage? Can you identify putative
+polymorphic positions? Can you identify positions that look like genuine SNPs?
+</p>
 </div>
 </div>
 <div class="outline-4" id="outline-container-sec-1-2-4">
-<h4 id="sec-1-2-4"><span class="todo TODO">TODO</span> SNP filtering</h4>
+<h4 id="sec-1-2-4">SNP filtering</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<p>
+The SNP filtering is a delicate operation, since it is important to make a
+distinction between genuine SNPs and false positives due to sequencing
+errors. In this case, we used the following criteria:
+</p>
+<ul class="org-ul">
+<li>alleles with a frequency equal to or less than the error rate (i.e. &lt;=0.01)
+were removed
+</li>
+<li>retained SNP should be biallelic
+</li>
+<li>read depth (coverage) should be greater than 10 but less than 1000
+</li>
+<li>at least 3 reads should be observed per SNP allele
+</li>
+<li>maximum two SNPs per consensus sequence
+</li>
+<li>not falling less than 5 bases away from identified microsatellites (if
+microsatellites were kept)
+</li>
+</ul>
+<p>
+Those criteria are rather on the conservative side and might result in losing
+genuine SNPs. Explain why and propose better criteria.
+</p>
+<p>
+Some SNP calling methods use more elaborate approaches such as maximum
+likelihood and bayesian methods. See the <b>bibliography notes</b> section.
+</p>
+<p>
+Since the SNP filtering as done here is mainly an exercise in scripting (using
+R or Python for example), we will not perform it during the practicals and we
+will use a ready-made output file containing the SNP information.
+</p>
+</div>
 </div>
 </div>
 <div class="outline-3" id="outline-container-sec-1-3">
