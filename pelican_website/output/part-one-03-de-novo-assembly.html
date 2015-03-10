@@ -227,8 +227,9 @@ plot(hist(d[, 1])
 </pre>
 </div>
 <p>
-How does the length distribution look like? How would you remove the sequences
-that do not match the median length?
+How does the length distribution look like? What is the length of forward
+reads? Of reverse reads? How would you remove the sequences that do not match
+the median length?
 </p>
 </div>
 </div>
@@ -300,6 +301,7 @@ differentiate between repeated motives and duplicate consensus sequences?
 We can also look at the number of matches for each consensus sequence:
 </p>
 <pre class="example">
+# command line
 cut -f 1 cap3-blastn-results &gt; seq-names
 sort seq-names &gt; seq-names-sorted
 uniq -c seq-names-sorted &gt; seq-names-count
@@ -308,13 +310,38 @@ sort -nr seq-names-count &gt; seq-match-count
 <div class="org-src-container">
 <pre class="src src-R"># R script
 d = read.table("seq-match-count")
-plot(d[, 1], pch = ".")
-plot(d[, 1], pch = ".", ylim = c(0, 100))
+names(d) = c("count", "consensus")
+plot(d$count, pch = ".")
+plot(d$count, pch = ".", ylim = c(0, 100))
+hist(d$count, col = "cornflowerblue", xlab = "N matches")
+hist(d$count, col = "cornflowerblue", ylim = c(0, 10000), xlab = "N matches")
+hist(d$count, breaks = 1000, col = "cornflowerblue", xlab = "N matches",
+     xlim = c(0, 200))
 </pre>
 </div>
 <p>
 How does the distribution of matches look like? How would you select a
 threshold? How would you apply it?
+</p>
+<p>
+Here is some R code to extract the names of the consensus sequences for which
+the number of matches:
+</p>
+<pre class="example">
+# R
+d = read.table("seq-match-count")
+names(d) = c("count", "consensus")
+threshold = xx # Replace xx with your threshold for the number of matches allowed
+d2 = subset(d, d$count &lt;= threshold)
+nrow(d)
+nrow(d2)
+write.table(d2$consensus, file = "names-kept-consensus", quote = F,
+  row.names = F, col.names = F)
+</pre>
+<p>
+Have a look at <code>names-kept-consensus</code> with <code>less</code>. How would you use this file
+to filter only the consensus sequences we want to keep? If you have some time,
+do it.
 </p>
 </div>
 </div>
@@ -348,8 +375,8 @@ microsatellite repeats. How would you proceed to remove them from the initial
 consensus file?
 </p>
 <p>
-We give you two fasta files containing the filtered consensus sequences that we
-keep in the end.
+We will now give you two fasta files containing the filtered consensus
+sequences that we decide to keep in the end.
 </p>
 <p>
 <div class="navLink"><a href="part-one-04-variant-calling-genotyping.html">Next: Variant calling and genotyping</a></div>

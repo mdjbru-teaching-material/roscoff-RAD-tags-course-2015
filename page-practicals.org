@@ -24,6 +24,9 @@ The practicals are done in two parts:
 
 * Detailed instructions
 
+During the practicals, we will be using an Etherpad document to share code. You
+can access the Etherpad document [[https://etherpad.fr/p/1DAjASHRdI][here]].
+
 Please follow the links to proceed to the detailed instructions:
 - *[[file:part-one-01-introduction.html][Part one: a complete analysis, from raw reads to results]]*
   - [[file:part-one-01-introduction.html][Introduction]]
