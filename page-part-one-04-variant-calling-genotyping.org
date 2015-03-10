@@ -175,10 +175,60 @@ consensus sequence and which harbour potential SNPs?
 Now that the reads have been mapped back, we can perform the SNP calling
 operation.
 
+We use the =assemble= and the =cns2snp= function of Maq to extract the SNP
+information. The job file is =maq-assemble-cns2snp-job=:
+#+BEGIN_SRC 
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+# Maq assemble
+maq assemble for.cns consensus-for.bfa for.map 2> for-assemble.log
+# Maq cns2snp
+maq cns2snp for.cns > for.snp
+#+END_SRC
 
+As usual, we submit the job with =qsub -q long.q
+map-assemble-cns2snp-job=. Have a look at the output file =for.snp=. How many
+putative SNPs were detected? The format of the output file is explained on the
+[[http://maq.sourceforge.net/maq-manpage.shtml][man page]] (search for "cns2snp" with CTRL+F).
 
-*** TODO SNP filtering
+A very useful file for detailed SNP filtering is the pileup file. We can
+produce it with:
+#+BEGIN_SRC bash
+maq pileup consensus-for.bfa for.map > for.pileup
+#+END_SRC
 
+Have a look at the pileup file with =less -S for.pileup=. Can you understand
+its format? (see the [[http://maq.sourceforge.net/maq-manpage.shtml][man page]], search for "pileup") Can you identify the
+contigs with low coverage and high coverage? Can you identify putative
+polymorphic positions? Can you identify positions that look like genuine SNPs?
+
+*** SNP filtering
+
+The SNP filtering is a delicate operation, since it is important to make a
+distinction between genuine SNPs and false positives due to sequencing
+errors. In this case, we used the following criteria:
+- alleles with a frequency equal to or less than the error rate (i.e. <=0.01)
+  were removed
+- retained SNP should be biallelic
+- read depth (coverage) should be greater than 10 but less than 1000
+- at least 3 reads should be observed per SNP allele
+- maximum two SNPs per consensus sequence
+- not falling less than 5 bases away from identified microsatellites (if
+  microsatellites were kept)
+
+Those criteria are rather on the conservative side and might result in losing
+genuine SNPs. Explain why and propose better criteria.
+
+Some SNP calling methods use more elaborate approaches such as maximum
+likelihood and bayesian methods. See the *bibliography notes* section.
+
+Since the SNP filtering as done here is mainly an exercise in scripting (using
+R or Python for example), we will not perform it during the practicals and we
+will use a ready-made output file containing the SNP information.
 
 ** Allele frequency estimates
 

@@ -1,0 +1,10 @@
+#!/bin/bash
+#$ -S /bin/bash
+#$ -M matthieu.bruneaux@ens-lyon.org
+#$ -V
+#$ -m bea
+#$ -cwd
+# Maq assemble
+maq assemble for.cns consensus-for.bfa for.map 2> for-assemble.log
+# Maq cns2snp
+maq cns2snp for.cns > for.snp
