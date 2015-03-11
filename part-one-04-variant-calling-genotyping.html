@@ -47,7 +47,16 @@
 <li><a href="#sec-1-2-4">SNP filtering</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-3">Diagnostic plots for reality check</a></li>
+<li><a href="#sec-1-3">Summary plots for reality check</a>
+<ul>
+<li><a href="#sec-1-3-1"><span class="todo TODO">TODO</span> Have a look at the SNP files</a></li>
+<li><a href="#sec-1-3-2"><span class="todo TODO">TODO</span> Count the number of SNP filtered</a></li>
+<li><a href="#sec-1-3-3"><span class="todo TODO">TODO</span> Examine the coverage per population</a></li>
+<li><a href="#sec-1-3-4"><span class="todo TODO">TODO</span> Compare ABB and BYN more thoroughly</a></li>
+<li><a href="#sec-1-3-5"><span class="todo TODO">TODO</span> SNP coverage per habitat type and per water type</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">Next steps</a></li>
 </ul>
 </li>
 </ul>
@@ -364,11 +373,285 @@ will use ready-made output files containing the SNP information.
 </div>
 </div>
 <div class="outline-3" id="outline-container-sec-1-3">
-<h3 id="sec-1-3">Diagnostic plots for reality check</h3>
+<h3 id="sec-1-3">Summary plots for reality check</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
-How many SNPs do we have? What is the coverage per populations? Do we have to
-pool some populations?
+We give you a list of SNP summary files, with information about coverage and
+allele frequency in the full dataset (<code>Total</code>) and per populations, per habitat
+or per water type (freshwater vs marine).
+</p>
+<pre class="example">
+ls -1
+</pre>
+<pre class="example">
+0_Ninesp_020212_Final_SNPs_Totals.txt
+1_Ninesp_020212_Final_SNPs_Populations_Stacked.txt
+1_Ninesp_020212_Final_SNPs_Totals_and_Populations_Horizontal.txt
+2_Ninesp_020212_Final_SNPs_Totals_and_Habitats_Horizontal.txt
+2_Ninesp_020212_Final_SNPs_Totals_and_Habitats_Stacked.txt
+3_Ninesp_020212_Final_SNPs_Totals_and_Waters_Horizontal.txt
+3_Ninesp_020212_Final_SNPs_Totals_and_Waters_Stacked.txt
+</pre>
+<p>
+<code>Stacked</code> and <code>Horizontal</code> correspond to different ways of organizing the data
+in the table, but the information is the same.
+</p>
+</div>
+<div class="outline-4" id="outline-container-sec-1-3-1">
+<h4 id="sec-1-3-1"><span class="todo TODO">TODO</span> Have a look at the SNP files</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+Look at the SNP files with, for example:
+</p>
+<pre class="example">
+column -t 0_Ninesp_020212_Final_SNPs_Totals.txt | less -S
+</pre>
+<p>
+Here, we use the <code>colum</code> command to produce a nice, human-readable display of
+the tabular file, and we send it through a pipe to <code>less</code> for easy navigation
+through the file.
+</p>
+<p>
+Have a look to a few different files. Can you understand what the different
+columns stand for? Can you see the difference between a <code>Stacked</code> file and a
+<code>Horizontal</code> file?
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-3-2">
+<h4 id="sec-1-3-2"><span class="todo TODO">TODO</span> Count the number of SNP filtered</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+Count the number of SNP which were filtered and kept:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">wc -l 0_Ninesp_020212_Final_SNPs_Totals.txt
+</pre>
+</div>
+<p>
+Note that the header line is also counted here.
+</p>
+<p>
+How many SNP do we have? How many consensus sequences did we have initially?
+What is the approximate proportion of consensus sequences with a SNP?
+</p>
+<p>
+Actually there are several SNP types: some are single SNPs on the consensus
+sequence, some are associated into haplotypes of several SNPs on the same
+sequence. Let's count how many SNPs of each type we have:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">cut -f 13 0_Ninesp_020212_Final_SNPs_Totals.txt | sort | uniq -c
+</pre>
+</div>
+<p>
+We use <code>cut</code> to extract the column 13 of the file (which contains the SNP type
+information) and pipe it to <code>sort</code> and <code>uniq -c</code> to count the number of
+occurrences of the different entries.
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-3-3">
+<h4 id="sec-1-3-3"><span class="todo TODO">TODO</span> Examine the coverage per population</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<p>
+When we looked at the number of reads per population, we noticed that there
+were large discrepancies between populations. Let's have a look at how the
+coverage per SNP per population compares.
+</p>
+<pre class="example">
+# R script
+
+# Compare the distribution of SNP coverage between populations
+#-------------------------------------------------------------
+
+# Load the data
+d = read.table("1_Ninesp_020212_Final_SNPs_Populations_Stacked.txt", header = T,
+      stringsAsFactors = F)
+# Get the columns names
+names(d)
+# Store the habitat types per population
+pop = c("ABB", "BYN", "HKI", "LEV", "POR", "PYO", "RYT", "SKA")
+habitat = c("Pond", "Pond", "Marine", "Marine", "Lake", "Pond", "Pond", "Lake")
+habColors = c("green", "green", "red", "red", "grey", "green", "green", "grey")
+
+# Boxplot of SNP coverage
+boxplot(d2$AlignDepth ~ d2$Population, col = habColors)
+# note: the colors match because boxplot sorts the population alphabetically
+
+# Remove outliers display
+boxplot(d2$AlignDepth ~ d2$Population, col = habColors, outline = F)
+
+# As a comparison, plot again the read distribution per population
+
+popReads = c("BYN", "RYT", "HKI", "PYO", "ABB", "SKA", "LEV", "POR")
+habitatReads = c("Pond", "Pond", "Marine", "Pond", "Pond", "Lake", "Marine", "Lake")
+habColReads = c("green", "green", "red", "green", "green", "grey", "red", "grey")
+n_pairs = c(175685, 577420, 446765, 652455, 396861, 78983, 361187, 321539)
+# Sort the data alphabetically
+n_pairs = n_pairs[order(popReads)]
+habColReads = habColReads[order(popReads)]
+popReads = popReasd[order(popReads)]
+barplot(n_pairs, names.arg = popReads, col = habColReads, ylab = "N pairs", las = 1)
+
+# Two plots together
+par(mfrow = c(2, 1), mar = c(2.5, 4, 1, 1))
+boxplot(d2$AlignDepth ~ d2$Population, col = habColors, outline = F, las = 1, 
+  ylab = "Coverage")
+barplot(n_pairs, names.arg = popReads, col = habColReads, ylab = "N pairs", las = 1)
+</pre>
+<p>
+Is the coverage homogeneous between populations? What is your feeling about
+estimating allele frequencies per population based on those coverage?
+</p>
+<p>
+How do the numbers of pairs per population and the SNP coverage compare? Can
+you explain the differences?
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-3-4">
+<h4 id="sec-1-3-4"><span class="todo TODO">TODO</span> Compare ABB and BYN more thoroughly</h4>
+<div class="outline-text-4" id="text-1-3-4">
+<p>
+Let's have a closer look at ABB and BYN:
+</p>
+<pre class="example">
+# R script
+
+# Load the data
+d = read.table("1_Ninesp_020212_Final_SNPs_Populations_Stacked.txt", header = T,
+      stringsAsFactors = F)
+
+# Get the data for ABB and BYN
+d_ABB = subset(d, d$Population == "ABB")
+d_BYN = subset(d, d$Population == "BYN")
+
+# Look at the count of SNP per AlignDepth
+table(d_ABB$AlignDepth)
+table(d_BYN$AlignDepth)
+
+# Plots
+par(mfrow = c(2, 1), mar = c(2.5, 4, 1, 1))
+plot(table(d_ABB$AlignDepth))
+plot(table(d_BYN$AlignDepth))
+
+# Same xlim
+plot(table(d_ABB$AlignDepth), xlim = c(0, 650))
+plot(table(d_BYN$AlignDepth), xlim = c(0, 650))
+</pre>
+<p>
+Can you now explain why ABB and BYN differ in their comparison if we consider
+read pairs or SNP coverage?
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-3-5">
+<h4 id="sec-1-3-5"><span class="todo TODO">TODO</span> SNP coverage per habitat type and per water type</h4>
+<div class="outline-text-4" id="text-1-3-5">
+<p>
+We will have to pool our populations together by habitat type or by water type
+(freshwater vs marine) if we want to improve a bit allele frequency
+estimates. Note that this approach is far from perfect! Populations are
+different, and different demographic histories and evolutionary trajectories
+means that we might be pooling things which are different in essence and that
+our allele frequency estimates might have little meaning. However, since we are
+basically looking for signals of parallel evolution in one water type vs
+another, we can hope that, if such parallel evolution occurred for some
+markers, we might be able to recover some meaningful information when averaging
+the values during the genome scan step.
+</p>
+<p>
+Let's have a look at coverage when we pool the data per habitat type:
+</p>
+<pre class="example">
+# R script
+
+# Load the data
+d = read.table("2_Ninesp_020212_Final_SNPs_Totals_and_Habitats_Stacked.txt", header = T)
+head(d)
+
+# Boxplot
+dev.off() # To have only one plot displayed again
+boxplot(d$AlignDepth ~ d$HabitatType, col = c("grey", "red", "green"),
+  ylab = "Coverage", las = 1)
+
+# Remove outliers
+boxplot(d$AlignDepth ~ d$HabitatType, col = c("grey", "red", "green"),
+  ylab = "Coverage", las = 1, outline = F)
+</pre>
+<p>
+How do the coverages per habitat type compare?
+</p>
+<p>
+In the end we will pool the data by water type. Let's look at the coverages in
+more details:
+</p>
+<pre class="example">
+# R script
+
+# Load the data pooled by water type
+d = read.table("3_Ninesp_020212_Final_SNPs_Totals_and_Waters_Stacked.txt", header = T)
+
+# Boxplot
+boxplot(d$AlginDepth ~ d$WaterType, ylab = "Coverage", las = 1)
+boxplot(d$AlginDepth ~ d$WaterType, ylab = "Coverage", las = 1, outline = F)
+
+# Load the data in the horizontal format
+d2 = read.table("3_Ninesp_020212_Final_SNPs_Totals_and_Waters_Horizontal.txt", header = T)
+
+# Plot the relation between coverage in marine populations and in freshwater populations
+plot(d2$Marine_AlignDepth, d2$Freshwater_AlignDepth, xlab = "Marine coverage",
+  ylab = "Freshwater coverage", pch = 16, col = rgb(0, 0, 1, 0.2))
+# Use log scale (note that we had 1 to all values to see also the zeros)
+plot(d2$Marine_AlignDepth + 1, d2$Freshwater_AlignDepth + 1, xlab = "Marine coverage + 1",
+  ylab = "Freshwater coverage + 1", pch = 16, col = rgb(0, 0, 1, 0.2), log = "xy")
+# Add a bit of jittering to reduce points overlap
+plot(jitter(d2$Marine_AlignDepth + 1), d2$Freshwater_AlignDepth + 1, xlab = "Marine coverage + 1",
+  ylab = "Freshwater coverage + 1", pch = 16, col = rgb(0, 0, 1, 0.2), log = "xy")
+</pre>
+<p>
+We can also compare the number of fixed alleles in each water type. Questions
+are embedded in the following code:
+</p>
+<pre class="example">
+# R script
+
+# Load the data in the horizontal format
+d2 = read.table("3_Ninesp_020212_Final_SNPs_Totals_and_Waters_Horizontal.txt", header = T)
+
+# Compare the allele frequencies
+plot(d2$Marine_snpfreq1, d2$Freshwater_snpfreq1, xlab = "Marine freq", 
+  ylab = "Freshwater freq", pch = 16, color = rgb(0, 0, 1, 0.2))
+
+# Q: Can you see the fixed alleles in the freshwater habitats? In the marine
+# habitats?
+
+# Another view of the same data
+smoothScatter(d2$Marine_snpfreq1, d2$Freshwater_snpfreq1, xlab = "Marine freq", 
+  ylab = "Freshwater freq")
+
+# Q: In the density scatter plot, compare the frequencies of alleles fixed in
+# the marine populations with the frequencies in the freshwater populations.
+
+# Let's count the number of fixed alleles in each water type
+sum(d2$Marine_snpfreq1 == 0 | d2$Marine_snpfreq1 == 1, na.rm = T)
+sum(d2$Freshwater_snpfreq1 == 0 | d2$Freshwater_snpfreq1 == 1, na.rm = T)
+
+# Q: Is this what you expected? If not, how can you explain it?
+</pre>
+</div>
+</div>
+</div>
+<div class="outline-3" id="outline-container-sec-1-4">
+<h3 id="sec-1-4">Next steps</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+We now have the consensus sequences, a list of variants on those sequences and
+some estimates of their allele frequencies in the different water types. The
+more technical part concerning the processing of raw RAD-seq data into genetic
+data of interest is now complete, and we can proceed to the downstream
+analyses.
 </p>
 <p>
 <div class="navLink"><a href="part-one-05-downstream-analysis.html">Next: Downstream analysis</a></div>
