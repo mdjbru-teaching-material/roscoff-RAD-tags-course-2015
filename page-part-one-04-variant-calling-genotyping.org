@@ -316,8 +316,10 @@ coverage per SNP per population compares.
 # Load the data
 d = read.table("1_Ninesp_020212_Final_SNPs_Populations_Stacked.txt", header = T,
       stringsAsFactors = F)
+
 # Get the columns names
 names(d)
+
 # Store the habitat types per population
 pop = c("ABB", "BYN", "HKI", "LEV", "POR", "PYO", "RYT", "SKA")
 habitat = c("Pond", "Pond", "Marine", "Marine", "Lake", "Pond", "Pond", "Lake")
@@ -330,19 +332,22 @@ boxplot(d2$AlignDepth ~ d2$Population, col = habColors)
 # Remove outliers display
 boxplot(d2$AlignDepth ~ d2$Population, col = habColors, outline = F)
 
-# As a comparison, plot again the read distribution per population
+# As a comparison, we will plot again the read distribution per population
 
 popReads = c("BYN", "RYT", "HKI", "PYO", "ABB", "SKA", "LEV", "POR")
 habitatReads = c("Pond", "Pond", "Marine", "Pond", "Pond", "Lake", "Marine", "Lake")
 habColReads = c("green", "green", "red", "green", "green", "grey", "red", "grey")
 n_pairs = c(175685, 577420, 446765, 652455, 396861, 78983, 361187, 321539)
+
 # Sort the data alphabetically
 n_pairs = n_pairs[order(popReads)]
 habColReads = habColReads[order(popReads)]
 popReads = popReasd[order(popReads)]
+
+# Barplot
 barplot(n_pairs, names.arg = popReads, col = habColReads, ylab = "N pairs", las = 1)
 
-# Two plots together
+# The two plots together for easier comparison
 par(mfrow = c(2, 1), mar = c(2.5, 4, 1, 1))
 boxplot(d2$AlignDepth ~ d2$Population, col = habColors, outline = F, las = 1, 
   ylab = "Coverage")
@@ -437,9 +442,11 @@ d2 = read.table("3_Ninesp_020212_Final_SNPs_Totals_and_Waters_Horizontal.txt", h
 # Plot the relation between coverage in marine populations and in freshwater populations
 plot(d2$Marine_AlignDepth, d2$Freshwater_AlignDepth, xlab = "Marine coverage",
   ylab = "Freshwater coverage", pch = 16, col = rgb(0, 0, 1, 0.2))
+
 # Use log scale (note that we had 1 to all values to see also the zeros)
 plot(d2$Marine_AlignDepth + 1, d2$Freshwater_AlignDepth + 1, xlab = "Marine coverage + 1",
   ylab = "Freshwater coverage + 1", pch = 16, col = rgb(0, 0, 1, 0.2), log = "xy")
+
 # Add a bit of jittering to reduce points overlap
 plot(jitter(d2$Marine_AlignDepth + 1), d2$Freshwater_AlignDepth + 1, xlab = "Marine coverage + 1",
   ylab = "Freshwater coverage + 1", pch = 16, col = rgb(0, 0, 1, 0.2), log = "xy")
@@ -457,21 +464,21 @@ d2 = read.table("3_Ninesp_020212_Final_SNPs_Totals_and_Waters_Horizontal.txt", h
 plot(d2$Marine_snpfreq1, d2$Freshwater_snpfreq1, xlab = "Marine freq", 
   ylab = "Freshwater freq", pch = 16, color = rgb(0, 0, 1, 0.2))
 
-# Q: Can you see the fixed alleles in the freshwater habitats? In the marine
+# *Q*: Can you see the fixed alleles in the freshwater habitats? In the marine
 # habitats?
 
 # Another view of the same data
 smoothScatter(d2$Marine_snpfreq1, d2$Freshwater_snpfreq1, xlab = "Marine freq", 
   ylab = "Freshwater freq")
 
-# Q: In the density scatter plot, compare the frequencies of alleles fixed in
+# *Q*: In the density scatter plot, compare the frequencies of alleles fixed in
 # the marine populations with the frequencies in the freshwater populations.
 
 # Let's count the number of fixed alleles in each water type
 sum(d2$Marine_snpfreq1 == 0 | d2$Marine_snpfreq1 == 1, na.rm = T)
 sum(d2$Freshwater_snpfreq1 == 0 | d2$Freshwater_snpfreq1 == 1, na.rm = T)
 
-# Q: Is this what you expected? If not, how can you explain it?
+# *Q*: Is this what you expected? If not, how can you explain it?
 #+END_SRC
 
 ** Next steps
