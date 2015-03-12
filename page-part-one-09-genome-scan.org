@@ -17,6 +17,14 @@ estimations, using likelihood or Bayesian methods.
 
 ** Genome scans
 
+*** Density smoothing
+
+*** Kernel smoothing
+
+*** Permutation testing
+
+*** Differences and complementarity with outlier tests
+
 Kernel smoothing, permutation testing.
 
 This is possible only when location is known. Can be real or in cM, but we have

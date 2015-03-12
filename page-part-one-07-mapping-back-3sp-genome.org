@@ -9,11 +9,166 @@
 
 @@html:<div class="navLink">@@[[file:part-one-06-phylogeographic-tree.html][Previous: Phylogeographic tree]]@@html:</div>@@
 
-Plot, proportion coding, non-coding, number per chromosome
+** Approach
 
-** Mapping back to the threespine genome
+*** Blast
 
-Efficiency of mapping back? Distribution by chromosome? Something about sexual
-chromosomes? Comparison of mapping back to coding and non-coding regions?
+The annotated genome of the related species /Gasterosteus aculeatus/ is
+available on [[http://www.ensembl.org/Gasterosteus_aculeatus/Info/Index][Ensembl]]. We will perform two blast searches using the consensus
+sequences we built for our species:
+- nucleotide to nucleotide (=blastn=)
+- translated nucleotide to protein (=blastx=)
+
+*** Assumptions
+
+The two species have diverged approximatively 16 My ago. In addition, the
+teleost group has had a whole genome duplication at some point in its
+history. When performing the blast we assume that:
+- the divergence between the two species is less than the divergence between
+  paralogous genes
+- the physical maps are related between the two species, i.e. there is a strong
+  synteny between the species. This is supported by some previous works using
+  linkage maps.
+
+** Blast
+
+*** Preparation of the databases
+
+We use for references:
+- the nucleotide top-level database (DNA sequences, FASTA format)
+- the protein all-peptides database (protein sequences, FASTA format)
+
+Have a look at the fasta files for each type (DNA or protein) with =less=. Can
+you count how many entries are present per file?
+
+Those sequences can be downloaded from the ftp server of Ensembl.
+
+The blast databases must be prepared in the same way as we did for the
+consensus on consensus blast.
+
+The blast (blastn and blastx) would be performed as a submitted job on the
+cluster.
+
+We provide you with the result file from the blastn (nucleotide to nucleotide)
+and blastx (translated nucleotide to peptide).
+
+*** TODO Have a look at the result files
+
+The result files are =blastn-vs-3spine-dna= and =blastx-vs-3spine-pept= for the
+blastn and the blastx runs, respectively.
+
+The headers for the output are:
+#+BEGIN_SRC 
+qseqid sseqid qstart qend sstart send qseq sseq evalue bitscore score 
+length pident nident mismatch positive gapopen gaps qframe sframe
+#+END_SRC
+
+Have a look at the beginning of each result file with for example:
+#+BEGIN_SRC 
+head -n 100 blastn-vs-3spine-dna | column -t | less -S
+#+END_SRC
+
+Can you recognize the different columns? Do we have several hits per contig?
+How would you decide when multiple hits occur?
+
+*** TODO Comparison of best e-values per contig for blastn
+
+We are going to get the two best hits for each consensus, and compare their
+p-values. We use a python script to extract the information:
+#+BEGIN_SRC 
+python getTwoBestBlastnEvalues.py blastn-vs-3spine-dna blastn-vs-3spine-dna.bestHits
+#+END_SRC
+
+Have a look at the output file with:
+#+BEGIN_SRC 
+column -t blastn-vs-3spine-dna.bestHits | less -S
+#+END_SRC
+
+This table is going to be useful for us to choose a threshold between the two
+best e-values.
+
+Let's have a look at the two best e-values for each consensus sequence in R:
+#+BEGIN_SRC 
+# R script
+
+# Load the table
+d = read.table("blastn-vs-3spine-dna.bestHits", sep = "\t", 
+  header = T, na.strings = "NA")
+
+# Plot the e-values pairs (log scale)
+names(d)
+plot(d$blastnlog10BestEvalue, d$blastnlog10SecondEvalue, pch = ".")
+
+# Not very informative, let's try with a density scatter plot
+smoothScatter(d$blastnlog10BestEvalue, d$blastnlog10SecondEvalue)
+#+END_SRC
+
+How does the distribution of best e-values look like? Can you see distinct
+groups? How can you interpret those groups?
+
+We can select unambiguous hits by imposing a minimum difference between the two
+best e-values. For example, if we want to have the best e-value at least 1000x
+smaller than the second one, there should be a difference of at least 3 units
+between their log-transformed values. Visualize it on the graph:
+#+BEGIN_SRC 
+# (continued R script)
+
+# Line of equal e-values
+abline(0, 1, col = "black")
+
+# Line of differences between log = 3
+abline(3, 1, col = "red")
+#+END_SRC
+
+Based on this plot, can you suggest a good threshold value for the difference
+between the best e-values? Can you calculate how many contigs are mapped when
+applying this threshold?
+
+*** Strategy to validate blastn and blastx hits
+
+We used the annotation data for the threespine to build a small sqlite database
+giving the genomic positions of the coding sequences of the peptides.
+
+From the paper's Methods: 
+
+Mapping locations of the consensus sequences were accepted if they met at least
+one of the following three criteria, tested in this order:
+1) the ratio of the lowest blastn e-value to the second lowest e-value was >=
+   10^5 (blastx results consistent with those blastn location were
+   simultaneously validated)
+2) blastx results and blastn results not fulfilling criterion 1) had consistent
+   genomic locations and an e-value product <= 10^-5
+3) the ratio of the two lowest blastn e-values was >=10^3, with the lowest
+   e-value being <=10^-4, for blastn results not fulfilling criteria 1) or 2)
+No further blastx results were validated after this point.
+
+Discuss this strategy, and propose alternative ones.
+
+** Summary of the results and reality check
+
+*** TODO Summary statistics
+
+Get the number of validated hits per chromosome with R (see the Etherpad for
+the code which will be written on the fly - hint: use =subset= and =table= in
+R). Here, we use only the first rule described above, i.e. only the difference
+between the best blastn e-values.
+
+Plot the number of hits vs chromosome length. The chomosome lengths are
+available from a file:
+#+BEGIN_SRC 
+# R script
+lengths = read.table("chromosomeLengths")
+lengths
+#+END_SRC
+
+We will write together the code to do the plot.
+
+*** TODO Comparison with /in silico/ digestion
+
+The threespine genome was also digested /in silico/ with EcoRI and HaeIII. The
+file =RAD-fragments-in-silico=. We will perform a comparison between the number
+of consensus mapped back to each chromosome and the expected numbers.
+
+The R code for this analysis will be produced live.
 
 @@html:<div class="navLink">@@[[file:part-one-08-prediction-SNP-effect.html][Next: Prediction of SNP effects]]@@html:</div>@@

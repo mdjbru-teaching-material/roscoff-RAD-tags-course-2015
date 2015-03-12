@@ -15,20 +15,247 @@
 <p>
 <div class="navLink"><a href="part-one-06-phylogeographic-tree.html">Previous: Phylogeographic tree</a></div>
 </p>
-<p>
-Plot, proportion coding, non-coding, number per chromosome
-</p>
 </div>
 <div class="outline-3" id="outline-container-sec-1-1">
-<h3 id="sec-1-1">Mapping back to the threespine genome</h3>
+<h3 id="sec-1-1">Approach</h3>
 <div class="outline-text-3" id="text-1-1">
+</div><div class="outline-4" id="outline-container-sec-1-1-1">
+<h4 id="sec-1-1-1">Blast</h4>
+<div class="outline-text-4" id="text-1-1-1">
 <p>
-Efficiency of mapping back? Distribution by chromosome? Something about sexual
-chromosomes? Comparison of mapping back to coding and non-coding regions?
+The annotated genome of the related species <i>Gasterosteus aculeatus</i> is
+available on <a href="http://www.ensembl.org/Gasterosteus_aculeatus/Info/Index">Ensembl</a>. We will perform two blast searches using the consensus
+sequences we built for our species:
+</p>
+<ul class="org-ul">
+<li>nucleotide to nucleotide (<code>blastn</code>)
+</li>
+<li>translated nucleotide to protein (<code>blastx</code>)
+</li>
+</ul>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-1-2">
+<h4 id="sec-1-1-2">Assumptions</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+The two species have diverged approximatively 16 My ago. In addition, the
+teleost group has had a whole genome duplication at some point in its
+history. When performing the blast we assume that:
+</p>
+<ul class="org-ul">
+<li>the divergence between the two species is less than the divergence between
+paralogous genes
+</li>
+<li>the physical maps are related between the two species, i.e. there is a strong
+synteny between the species. This is supported by some previous works using
+linkage maps.
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="outline-3" id="outline-container-sec-1-2">
+<h3 id="sec-1-2">Blast</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div class="outline-4" id="outline-container-sec-1-2-1">
+<h4 id="sec-1-2-1">Preparation of the databases</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+We use for references:
+</p>
+<ul class="org-ul">
+<li>the nucleotide top-level database (DNA sequences, FASTA format)
+</li>
+<li>the protein all-peptides database (protein sequences, FASTA format)
+</li>
+</ul>
+<p>
+Have a look at the fasta files for each type (DNA or protein) with <code>less</code>. Can
+you count how many entries are present per file?
+</p>
+<p>
+Those sequences can be downloaded from the ftp server of Ensembl.
+</p>
+<p>
+The blast databases must be prepared in the same way as we did for the
+consensus on consensus blast.
+</p>
+<p>
+The blast (blastn and blastx) would be performed as a submitted job on the
+cluster.
+</p>
+<p>
+We provide you with the result file from the blastn (nucleotide to nucleotide)
+and blastx (translated nucleotide to peptide).
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-2-2">
+<h4 id="sec-1-2-2"><span class="todo TODO">TODO</span> Have a look at the result files</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+The result files are <code>blastn-vs-3spine-dna</code> and <code>blastx-vs-3spine-pept</code> for the
+blastn and the blastx runs, respectively.
+</p>
+<p>
+The headers for the output are:
+</p>
+<pre class="example">
+qseqid sseqid qstart qend sstart send qseq sseq evalue bitscore score 
+length pident nident mismatch positive gapopen gaps qframe sframe
+</pre>
+<p>
+Have a look at the beginning of each result file with for example:
+</p>
+<pre class="example">
+head -n 100 blastn-vs-3spine-dna | column -t | less -S
+</pre>
+<p>
+Can you recognize the different columns? Do we have several hits per contig?
+How would you decide when multiple hits occur?
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-2-3">
+<h4 id="sec-1-2-3"><span class="todo TODO">TODO</span> Comparison of best e-values per contig for blastn</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<p>
+We are going to get the two best hits for each consensus, and compare their
+p-values. We use a python script to extract the information:
+</p>
+<pre class="example">
+python getTwoBestBlastnEvalues.py blastn-vs-3spine-dna blastn-vs-3spine-dna.bestHits
+</pre>
+<p>
+Have a look at the output file with:
+</p>
+<pre class="example">
+column -t blastn-vs-3spine-dna.bestHits | less -S
+</pre>
+<p>
+This table is going to be useful for us to choose a threshold between the two
+best e-values.
+</p>
+<p>
+Let's have a look at the two best e-values for each consensus sequence in R:
+</p>
+<pre class="example">
+# R script
+
+# Load the table
+d = read.table("blastn-vs-3spine-dna.bestHits", sep = "\t", 
+  header = T, na.strings = "NA")
+
+# Plot the e-values pairs (log scale)
+names(d)
+plot(d$blastnlog10BestEvalue, d$blastnlog10SecondEvalue, pch = ".")
+
+# Not very informative, let's try with a density scatter plot
+smoothScatter(d$blastnlog10BestEvalue, d$blastnlog10SecondEvalue)
+</pre>
+<p>
+How does the distribution of best e-values look like? Can you see distinct
+groups? How can you interpret those groups?
+</p>
+<p>
+We can select unambiguous hits by imposing a minimum difference between the two
+best e-values. For example, if we want to have the best e-value at least 1000x
+smaller than the second one, there should be a difference of at least 3 units
+between their log-transformed values. Visualize it on the graph:
+</p>
+<pre class="example">
+# (continued R script)
+
+# Line of equal e-values
+abline(0, 1, col = "black")
+
+# Line of differences between log = 3
+abline(3, 1, col = "red")
+</pre>
+<p>
+Based on this plot, can you suggest a good threshold value for the difference
+between the best e-values? Can you calculate how many contigs are mapped when
+applying this threshold?
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-2-4">
+<h4 id="sec-1-2-4">Strategy to validate blastn and blastx hits</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<p>
+We used the annotation data for the threespine to build a small sqlite database
+giving the genomic positions of the coding sequences of the peptides.
+</p>
+<p>
+From the paper's Methods: 
+</p>
+<p>
+Mapping locations of the consensus sequences were accepted if they met at least
+one of the following three criteria, tested in this order:
+</p>
+<ol class="org-ol">
+<li>the ratio of the lowest blastn e-value to the second lowest e-value was &gt;=
+10<sup>5</sup> (blastx results consistent with those blastn location were
+simultaneously validated)
+</li>
+<li>blastx results and blastn results not fulfilling criterion 1) had consistent
+genomic locations and an e-value product &lt;= 10<sup>-5</sup>
+</li>
+<li>the ratio of the two lowest blastn e-values was &gt;=10<sup>3</sup>, with the lowest
+e-value being &lt;=10<sup>-4</sup>, for blastn results not fulfilling criteria 1) or 2)
+</li>
+</ol>
+<p>
+No further blastx results were validated after this point.
+</p>
+<p>
+Discuss this strategy, and propose alternative ones.
+</p>
+</div>
+</div>
+</div>
+<div class="outline-3" id="outline-container-sec-1-3">
+<h3 id="sec-1-3">Summary of the results and reality check</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div class="outline-4" id="outline-container-sec-1-3-1">
+<h4 id="sec-1-3-1"><span class="todo TODO">TODO</span> Summary statistics</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+Get the number of validated hits per chromosome with R (see the Etherpad for
+the code which will be written on the fly - hint: use <code>subset</code> and <code>table</code> in
+R). Here, we use only the first rule described above, i.e. only the difference
+between the best blastn e-values.
+</p>
+<p>
+Plot the number of hits vs chromosome length. The chomosome lengths are
+available from a file:
+</p>
+<pre class="example">
+# R script
+lengths = read.table("chromosomeLengths")
+lengths
+</pre>
+<p>
+We will write together the code to do the plot.
+</p>
+</div>
+</div>
+<div class="outline-4" id="outline-container-sec-1-3-2">
+<h4 id="sec-1-3-2"><span class="todo TODO">TODO</span> Comparison with <i>in silico</i> digestion</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+The threespine genome was also digested <i>in silico</i> with EcoRI and HaeIII. The
+file <code>RAD-fragments-in-silico</code>. We will perform a comparison between the number
+of consensus mapped back to each chromosome and the expected numbers.
+</p>
+<p>
+The R code for this analysis will be produced live.
 </p>
 <p>
 <div class="navLink"><a href="part-one-08-prediction-SNP-effect.html">Next: Prediction of SNP effects</a></div>
 </p>
+</div>
 </div>
 </div>
 </div>
