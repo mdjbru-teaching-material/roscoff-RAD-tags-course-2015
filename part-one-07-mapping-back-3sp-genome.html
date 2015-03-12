@@ -171,6 +171,9 @@ plot(d$blastnlog10BestEvalue, d$blastnlog10SecondEvalue, pch = ".")
 
 # Not very informative, let's try with a density scatter plot
 smoothScatter(d$blastnlog10BestEvalue, d$blastnlog10SecondEvalue)
+
+# Another way to look at it is the distribution of differences
+plot(density(d$blastndeltaLogBestEvalues, na.rm = T))
 </pre>
 <p>
 How does the distribution of best e-values look like? Can you see distinct
