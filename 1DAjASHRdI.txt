@@ -1,0 +1,291 @@
+NOTES GENERALES
+---------------
+
+# qlogin sur un noeud
+qlogin
+
+# qlogin sur un noeud specifique pour retrouver le même repertoire tmp
+# (si vous n'avez pas de repertoire projet)
+qlogin -q qlogin.q@nXX # avec XX votre numero de noeud precedent
+
+# aller dans votre répertoire de travail
+cdprojet # OU BIEN si vous n'avez pas de répertoire projet:
+cd /tmp
+
+# Les données préparées avant le TP sont dispos ici:
+ls /scratch/sbr/tags/RAD-tags-for-student
+
+# R studio accessible dans le navigateur internet par:
+r.sb-roscoff.fr
+
+A FAIRE PAR LES ENSEIGNANTS
+---------------------------
+
+# Mercredi pour copier les données SNP (utiles dans l'après-midi seulement)
+# par Gildas (il faut les droits!):
+cdprojet
+cd RAD-tags-for-students/03-variant-calling
+cp -rv 10_SNP-results/ /scratch/sbr/stage/RAD-tags-for-students/03-variant-calling/
+
+NOTES MARDI APRES-MIDI
+----------------------
+
+# Creer un repertoire de travail pour la premiere etape
+mkdir 01-raw-reads
+cd 01-raw-reads
+
+# Copier les fichiers bruts
+cp -rv /scratch/sbr/stage/RAD-tags-for-students/01-raw-reads-processing/01_raw_reads/* .
+
+# INFO : alternative :  Infos sur fichiers FASTQ
+clc_sequence_info mySeqFile
+
+# grep et compter en même temps
+grep -c "^TCTTCC" s_2_2_sequence.fastq
+
+NOTES MERCREDI
+--------------
+
+grep -c "^@" SKA-rev.fastq # Compte directement le nombre de lignes qui correspondent
+
+# INFO : Pour retrouver les paires de sequences
+get_pairs.py s_1_1.sequence.fq BYN.rev.fq && mv s_1_1.sequence.paired.fq BYN.for.paired.fq
+# script maison :)
+
+# Pour dupliquer un flux
+
+
+
+
+# assemblage de novo
+
+pwd
+cd ..
+mkdir 02-de-novo-assembly
+cd 02-de-novo-assembly/
+cd ..
+mkdir scripts
+cd scripts
+ls
+cd ..
+
+
+cd 02-de-novo-assembly
+cd 03_raw-reads-clean
+ls
+mv for.fastq ..
+mv rev.fastq ..
+pwd
+# 02-de-novo.....
+
+python ../scripts/split_fasta_qual.py for.fastq
+python ../scripts/split_fasta_qual.py rev.fastq
+
+head rev.fastq.fasta
+head rev.fastq.fasta.qual
+
+qsub -q long.q ../scripts/cap3-for-job
+
+# INFO : récupérer son numéro de job et tuer celui-ci
+\qstat
+qdel 13841
+
+# Recuperer l'assemblage de CAP3
+cp -rv /scratch/sbr/stage/RAD-tags-for-students/02-de-novo_assembly/05_CAP3_output/* .
+
+# Longueurs des consensus
+python ../scripts/get_fasta_length.py cap3-rev.fasta
+
+INFO : alternative : longueur des sequences
+infoseq -only -name - length -noheading -sequence cap3-rev.fasta
+
+
+# distribution des longueurs de contigs sous R
+# Sous linux
+pwd
+
+# Sous R
+setwd('/projet...')
+dir() # pour vérifier la présence des fichiers
+
+# INFO :  filter sur les longeurs de séquence
+prinseq-lite.pl -fasta cap3-rev.fasta  -min_len 68 -max_len 68 -out_good cap3-rev-68.fasta
+
+# Copier le resultat du blastn consensus contre consensus (sequences reverse)
+cp -rv /scratch/sbr/stage/RAD-tags-for-students/02-de-novo_assembly/06_CAP3_blast/* .
+
+head -n 100 cap3-blastn-results | column -t | less -S
+
+
+# Compter le nombre de sequences consensus
+grep -c "^>" cap3-rev.fasta
+
+# Compter le nombre de resultats blastn
+wc -l cap3-blastn-results
+
+
+# INFO : récupérer le nombre de match pleine longueur hors réciproque
+awk '$1 != $2 && $4 == 68' cap3-blastn-results | wc -l
+
+# INFO : piste pour filtrer des fasta grace à leurs indentifiants. A vous de compléter, j'ai la flemme
+cut # sur les résultats de sputnik
+fasta2tab # transformer votre fasta de contig en fichier tabulé
+join # filtre les lignes du "fasta" en fonction des identifiants trouvé par sputnik
+tab2fasta # retour au fasta
+
+
+# Detection de variants
+
+cd ..
+mkdir 03-variant-calling
+cd 03-variant-calling
+
+cp /scratch/sbr/stage/RAD-tags-for-students/01-raw-reads-processing/01_raw_reads/s_6_1_sequence.fastq .
+cp ../scripts/extract_phred_profiles.py .
+
+head -n 100 s_6_1_sequence.fastq.phred-profiles | column -t | less -S
+
+	
+	# INFO : alternative : rapport qualité sous forme de fichier HTML à ouvrir sous Firefox
+fastqc *.fastq
+
+
+cp /scratch/sbr/stage/RAD-tags-for-students/01-raw-reads-processing/03_raw-reads-clean/* .
+python ../scripts/trim_reads.py *.fastq.clean 20 40
+
+
+scp -r n68:/tmp/10_SNP-results .
+
+# R
+setwd("10_SNP-results")
+
+
+
+
+
+# NOTES JEUDI
+#------------
+
+# Se connecter en qlogin comme d'habitude
+qlogin
+cdprojet # OU BIEN
+cd /tmp/
+
+# Retourner dans 03-variant-calling
+
+less for.pileup
+
+
+
+
+# Creer un repertoire pour la localisation des marqueurs
+cd ..
+ls
+
+
+# Télécharger les données
+scp -r n68:/tmp/04-mapping-3spine .
+ls
+cd 04-mapping-3spine
+ 
+cd 01-blast/Ga_Ensembl_fasta
+q
+wc -l names.dna
+less names.dna
+head names.dna
+tail names.dna
+grep "group" names.dna
+
+cd ..
+
+wc -l blastn-vs-3spine-dna
+wc -l consensus-*
+grep -c ">" consensus-for.fasta
+grep -c ">" consensus-rev.fasta
+
+head -n 100 blastn-vs-3spine-dna | column -t | less -S
+
+cd results
+
+column -t blastn-vs-3spine-dna.bestHits | less -S
+
+pwd
+
+
+# dans R
+setwd(".......")
+dir()
+# "blastn-vs-3spine-dna.bestHits"
+
+
+# Script live
+
+plot(density(d$blastndeltaLogBestEvalues, na.rm = T))
+cns_vld = subset(d, d$blastndeltaLogBestEvalues >= 5)
+compteParChr = table(cns_vld$blastnsseqid)
+
+setwd("..")
+lengths = read.table("chromosomeLengths", sep = "\t", header = T)
+
+# Garder seulement les données pour les chromosomes
+compteParChr = as.data.frame(compteParChr)
+i = grepl("group", compteParChr[, 1])
+compteParChr = compteParChr[i, ]
+compteParChr
+
+lengths = lengths[, c(2,4)]
+i = grepl("group", lengths[, 1])
+lengths = lengths[i, ]
+
+# Fusionne les tableaux
+compteParChr[, 1] = as.character(compteParChr[, 1])
+lengths[, 1] = as.character(lengths[, 1])
+names(compteParChr) = c("name", "compte")
+tab = merge(lengths, compteParChr, by = "name")
+
+
+plot(tab$length, tab$compte, pch = 21, bg = "cornflowerblue")
+text(tab$length, tab$compte, labels = tab$name)
+
+
+
+# Kernel smoothing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -354,4 +354,4 @@ known. Can be real or in cM, but we have to understand what we do!
 
 Difference in philosophy with the outlier tests
 
-@@html:<div class="navLink">@@[[file:part-one-10-GO-enrichment-tests.html][Next: GO enrichment tests]]@@html:</div>@@>
+@@html:<div class="navLink">@@[[file:part-one-10-GO-enrichment-tests.html][Next: GO enrichment tests]]@@html:</div>@@
